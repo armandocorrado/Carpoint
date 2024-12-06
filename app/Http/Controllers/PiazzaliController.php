@@ -23,7 +23,6 @@ class PiazzaliController extends Controller
     
 
 
-
     public function piazzali()
     {
 
@@ -41,7 +40,7 @@ class PiazzaliController extends Controller
         ->pluck('piazzale');
 
 
-    return view("ricerca_piazzali", compact('piazzali'));
+    return view("piazzali.ricerca_piazzali", compact('piazzali'));
     }
 
     /**
@@ -64,179 +63,179 @@ class PiazzaliController extends Controller
 
 
 
-    public function store(Request $request)
-    {
+//     public function store(Request $request)
+//     {
         
-        $piazzali = $request->input('ubicazioni');
-        $statusN = $request->input('status_n'); 
-        $statusU = $request->input('status_u');
+//         $piazzali = $request->input('ubicazioni');
+//         $statusN = $request->input('status_n'); 
+//         $statusU = $request->input('status_u');
         
-        $nuovi = "";
-        $usati = "";
-        $manuali_n ="";
-        $manuali_u ="";
+//         $nuovi = "";
+//         $usati = "";
+//         $manuali_n ="";
+//         $manuali_u ="";
 
      
-        if($piazzali != ""  &&  $statusN != "" ){
-         $nuovi = VeicoliNuovi::whereIn('descrizione_ubicazioni',  $piazzali)->whereIn('status', $statusN )->get();  
+//         if($piazzali != ""  &&  $statusN != "" ){
+//          $nuovi = VeicoliNuovi::whereIn('descrizione_ubicazioni',  $piazzali)->whereIn('status', $statusN )->get();  
      
 
 
-        }  
+//         }  
       
-        //conteggio il numero dei nuovi della query sopra
-        $nNuovi = $nuovi->count(); 
+//         //conteggio il numero dei nuovi della query sopra
+//         $nNuovi = $nuovi->count(); 
 
 
 
-        if($piazzali != ""  &&  $statusU != "" ){
-         $usati = VeicoliUsati::whereIn('desc_ubicazione',  $piazzali)->whereIn('status_veicolo', $statusU )->get(); 
-        }
+//         if($piazzali != ""  &&  $statusU != "" ){
+//          $usati = VeicoliUsati::whereIn('desc_ubicazione',  $piazzali)->whereIn('status_veicolo', $statusU )->get(); 
+//         }
         
-        //conteggio il numero degli usati della query sopra
-        $nUsati = $usati->count();
+//         //conteggio il numero degli usati della query sopra
+//         $nUsati = $usati->count();
 
 
 
-         $manuali_n = VeicoliManuali::whereStatus('M')->whereNuovo_usato('n')->whereIn('ubicazione', $piazzali)->get();
-          //conteggio il numero dei veicoli manuali nuovi della query sopra
-          $nNuoviManuali = $manuali_n->count();
+//          $manuali_n = VeicoliManuali::whereStatus('M')->whereNuovo_usato('n')->whereIn('ubicazione', $piazzali)->get();
+//           //conteggio il numero dei veicoli manuali nuovi della query sopra
+//           $nNuoviManuali = $manuali_n->count();
 
 
-         $manuali_u = VeicoliManuali::whereStatus('M')->whereNuovo_usato('u')->whereIn('ubicazione', $piazzali)->get();
-         //conteggio il numero dei veicoli manuali usati della query sopra
-         $nUsatiManuali = $manuali_u->count();
+//          $manuali_u = VeicoliManuali::whereStatus('M')->whereNuovo_usato('u')->whereIn('ubicazione', $piazzali)->get();
+//          //conteggio il numero dei veicoli manuali usati della query sopra
+//          $nUsatiManuali = $manuali_u->count();
 
    
 
-///////////////////////////////////////////////////// ciclo tutti gli id veicolo degli autoveicoli nuovi
+// ///////////////////////////////////////////////////// ciclo tutti gli id veicolo degli autoveicoli nuovi
 
-  $idveicoloN = array();
+//   $idveicoloN = array();
  
 
-  foreach($nuovi as $nuovi){
+//   foreach($nuovi as $nuovi){
 
 
-    $idveicoloN[]= $nuovi->id_veicolo;
+//     $idveicoloN[]= $nuovi->id_veicolo;
  
 
-  }  
+//   }  
 
-//////////////////////////////////////////////////////
-
-
-///////////////////////////////////////////////////// ciclo tutti gli id veicolo dei veicoli usati
-
-$idveicoloU = array();
-
-foreach($usati as $usati){
+// //////////////////////////////////////////////////////
 
 
-  $idveicoloU[]= $usati->id_veicolo;
+// ///////////////////////////////////////////////////// ciclo tutti gli id veicolo dei veicoli usati
 
-}
-//////////////////////////////////////////////////////
+// $idveicoloU = array();
 
-
-///////////////////////////////////////////////////// ciclo tutti gli id veicolo dei veicoli manuali nuovi
-$idveicoloMN = array();
-
-foreach($manuali_n as $manuali){
+// foreach($usati as $usati){
 
 
-  $idveicoloMN[]= $manuali->id;
+//   $idveicoloU[]= $usati->id_veicolo;
 
-}
-//////////////////////////////////////////////////////
-
-
-///////////////////////////////////////////////////// ciclo tutti gli id veicolo dei veicoli manuali usati
-$idveicoloMU = array();
-
-foreach($manuali_u as $manuali){
+// }
+// //////////////////////////////////////////////////////
 
 
-  $idveicoloMU[]= $manuali->id;
+// ///////////////////////////////////////////////////// ciclo tutti gli id veicolo dei veicoli manuali nuovi
+// $idveicoloMN = array();
 
-}
-/////////////////////////////////////////////////////////
-
-
-
-// inizializzo le variabili
- /////////////////////////////////////// 
-
-//  $nNuovi = 0;
- $nNuoviTrovati = 0;
-
-//  $nUsati = 0;
- $nUsatiTrovati = 0;
-
-//  $nNuoviManuali = 0;
- $nNuoviManualiTrovati = 0;
-
-//  $nUsatiManuali = 0;
- $nUsatiManualiTrovati = 0;
-
- $veicoliNuoviDaInv = array();
- $veicoliUsatiDaInv = array();
+// foreach($manuali_n as $manuali){
 
 
- //---------------------------------------------------------------------------------------------------------------------
+//   $idveicoloMN[]= $manuali->id;
+
+// }
+// //////////////////////////////////////////////////////
 
 
-   // Trovo i veicoli nuovi inventariati...
-    $queryNTrovata =  Trovata::whereNuovo_usato('n')->whereIn('idveicolo', $idveicoloN)->whereTrovata('1')->get(); 
-    $queryUTrovata =  Trovata::whereNuovo_usato('u')->whereIn('idveicolo', $idveicoloU)->whereTrovata('1')->get();
-    $queryMNTrovata =  Trovata::whereNuovo_usato('mn')->whereIn('idveicolo', $idveicoloMN)->whereTrovata('1')->get();
-    $queryMUTrovata =  Trovata::whereNuovo_usato('mu')->whereIn('idveicolo', $idveicoloMU)->whereTrovata('1')->get();
+// ///////////////////////////////////////////////////// ciclo tutti gli id veicolo dei veicoli manuali usati
+// $idveicoloMU = array();
 
-//-------------------------------------------------------------------------------------------------------------------------------
+// foreach($manuali_u as $manuali){
 
-   //catturo gli id dalla tabella trovata per sottrarli ai veicoli nuovi e cosi ottenere le auto nuove non inventariate
 
-   $Id_nuovi_trovati = array();
+//   $idveicoloMU[]= $manuali->id;
 
-   if($queryNTrovata){
+// }
+// /////////////////////////////////////////////////////////
 
-       foreach($queryNTrovata as $idTrovata){
 
-        $Id_nuovi_trovati[] = $idTrovata->idveicolo;
 
-   } 
+// // inizializzo le variabili
+//  /////////////////////////////////////// 
+
+// //  $nNuovi = 0;
+//  $nNuoviTrovati = 0;
+
+// //  $nUsati = 0;
+//  $nUsatiTrovati = 0;
+
+// //  $nNuoviManuali = 0;
+//  $nNuoviManualiTrovati = 0;
+
+// //  $nUsatiManuali = 0;
+//  $nUsatiManualiTrovati = 0;
+
+//  $veicoliNuoviDaInv = array();
+//  $veicoliUsatiDaInv = array();
+
+
+//  //---------------------------------------------------------------------------------------------------------------------
+
+
+//    // Trovo i veicoli nuovi inventariati...
+//     $queryNTrovata =  Trovata::whereNuovo_usato('n')->whereIn('idveicolo', $idveicoloN)->whereTrovata('1')->get(); 
+//     $queryUTrovata =  Trovata::whereNuovo_usato('u')->whereIn('idveicolo', $idveicoloU)->whereTrovata('1')->get();
+//     $queryMNTrovata =  Trovata::whereNuovo_usato('mn')->whereIn('idveicolo', $idveicoloMN)->whereTrovata('1')->get();
+//     $queryMUTrovata =  Trovata::whereNuovo_usato('mu')->whereIn('idveicolo', $idveicoloMU)->whereTrovata('1')->get();
+
+// //-------------------------------------------------------------------------------------------------------------------------------
+
+//    //catturo gli id dalla tabella trovata per sottrarli ai veicoli nuovi e cosi ottenere le auto nuove non inventariate
+
+//    $Id_nuovi_trovati = array();
+
+//    if($queryNTrovata){
+
+//        foreach($queryNTrovata as $idTrovata){
+
+//         $Id_nuovi_trovati[] = $idTrovata->idveicolo;
+
+//    } 
    
 
 
 
-   $veicoliNuoviDaInv =  VeicoliNuovi::whereNotIn('id_veicolo' , $Id_nuovi_trovati )->whereIn('descrizione_ubicazioni',  $piazzali)->whereIn('status', $statusN )->get();  
+//    $veicoliNuoviDaInv =  VeicoliNuovi::whereNotIn('id_veicolo' , $Id_nuovi_trovati )->whereIn('descrizione_ubicazioni',  $piazzali)->whereIn('status', $statusN )->get();  
 
 
-   }  
+//    }  
 
-   //-------------------------------------------------------------------------------------------------------------------------------
+//    //-------------------------------------------------------------------------------------------------------------------------------
 
 
-   //catturo gli id dalla tabella trovata per sottrarli ai veicoli usati e cosi ottenere le auto usate non inventariate
+//    //catturo gli id dalla tabella trovata per sottrarli ai veicoli usati e cosi ottenere le auto usate non inventariate
 
-   $Id_usati_trovati = array();
+//    $Id_usati_trovati = array();
 
-   if($queryUTrovata){
+//    if($queryUTrovata){
 
-       foreach($queryUTrovata as $idTrovata){
+//        foreach($queryUTrovata as $idTrovata){
 
-        $Id_usati_trovati[] = $idTrovata->idveicolo;
+//         $Id_usati_trovati[] = $idTrovata->idveicolo;
 
-   } 
+//    } 
    
 
 
 
-   $veicoliUsatiDaInv =  VeicoliUsati::whereNotIn('id_veicolo' , $Id_usati_trovati )->whereIn('desc_ubicazione',  $piazzali)->whereIn('status_veicolo', $statusU )->get();  
+//    $veicoliUsatiDaInv =  VeicoliUsati::whereNotIn('id_veicolo' , $Id_usati_trovati )->whereIn('desc_ubicazione',  $piazzali)->whereIn('status_veicolo', $statusU )->get();  
 
 
-   }  
+//    }  
 
-   //-------------------------------------------------------------------------------------------------------------------------------
+//    //-------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -244,59 +243,147 @@ foreach($manuali_u as $manuali){
 
 
 
-//--------------------------------------------------------------------------------------------------------------------------------
+// //--------------------------------------------------------------------------------------------------------------------------------
 
-// CONTEGGIO VEICOLI NUOVI E NUOVI INVENTARIATI - VEICOLI USATI E VEICOLI USATI INVENTARIATI E POI MANUALI USATI E NUOVI ED INVENTARIATI
+// // CONTEGGIO VEICOLI NUOVI E NUOVI INVENTARIATI - VEICOLI USATI E VEICOLI USATI INVENTARIATI E POI MANUALI USATI E NUOVI ED INVENTARIATI
 
-    // $nNuovi = $nuovi->count(); 
-    $nNuoviTrovati = $queryNTrovata->count() ?? ''; 
+//     // $nNuovi = $nuovi->count(); 
+//     $nNuoviTrovati = $queryNTrovata->count() ?? ''; 
 
-    // $nUsati = $usati->count();
-    $nUsatiTrovati = $queryUTrovata->count() ?? '';
+//     // $nUsati = $usati->count();
+//     $nUsatiTrovati = $queryUTrovata->count() ?? '';
 
-    // $nNuoviManuali = $manuali_n->count() ?? '';
-    $nNuoviManualiTrovati = $queryMNTrovata->count() ?? '';
+//     // $nNuoviManuali = $manuali_n->count() ?? '';
+//     $nNuoviManualiTrovati = $queryMNTrovata->count() ?? '';
 
-    // $nUsatiManuali = $manuali_u->count() ?? '';
-    $nUsatiManualiTrovati = $queryMUTrovata->count() ?? '';
+//     // $nUsatiManuali = $manuali_u->count() ?? '';
+//     $nUsatiManualiTrovati = $queryMUTrovata->count() ?? '';
 
 
 
-    //----------------------------------------------------------------------------------------------------------------
+//     //----------------------------------------------------------------------------------------------------------------
 
-    //  SOMME E SOTTRAZIONI PER EVIDENZIARE LA DIFFERENZA TRA I VEICOLI INVENTARIATI E QUELLI 
+//     //  SOMME E SOTTRAZIONI PER EVIDENZIARE LA DIFFERENZA TRA I VEICOLI INVENTARIATI E QUELLI 
         
-  $nNuoviTot = $nNuovi + $nNuoviManuali; 
-	$nUsatiTot = $nUsati + $nUsatiManuali;
+//   $nNuoviTot = $nNuovi + $nNuoviManuali; 
+// 	$nUsatiTot = $nUsati + $nUsatiManuali;
 
-	$nNuoviTrovatiTot = $nNuoviTrovati + $nNuoviManualiTrovati;
-	$nUsatiTrovatiTot = $nUsatiTrovati + $nUsatiManualiTrovati;
+// 	$nNuoviTrovatiTot = $nNuoviTrovati + $nNuoviManualiTrovati;
+// 	$nUsatiTrovatiTot = $nUsatiTrovati + $nUsatiManualiTrovati;
 
-	$nNuoviDaInTot = $nNuoviTot - $nNuoviTrovatiTot;
-	$nUsatiDaInTot = $nUsatiTot - $nUsatiTrovatiTot;
+// 	$nNuoviDaInTot = $nNuoviTot - $nNuoviTrovatiTot;
+// 	$nUsatiDaInTot = $nUsatiTot - $nUsatiTrovatiTot;
 
          
-    $test = ['invent'=> 'carrapipi']; 
+//     $test = ['invent'=> 'carrapipi']; 
 
 
 
-    return response()->json([
+//     return response()->json([
                             
-                           'nuovi' => $nuovi,
-                           'nNuoviTot' => $nNuoviTot,
-                           'nNuoviTrovatiTot'=> $nNuoviTrovatiTot,
-                           'nNuoviDaInTot' => $nNuoviDaInTot, 
-                           'nUsatiTot' => $nUsatiTot, 
-                           'nUsatiTrovatiTot'=> $nUsatiTrovatiTot, 
-                           'nUsatiDaInTot' => $nUsatiDaInTot,
-                           'test'=>$test,
-                           'veicoliNuoviDaInv' => $veicoliNuoviDaInv,
-                           'veicoliUsatiDaInv' => $veicoliUsatiDaInv,
-                           'statusN'=>$statusN
+//                            'nuovi' => $nuovi,
+//                            'nNuoviTot' => $nNuoviTot,
+//                            'nNuoviTrovatiTot'=> $nNuoviTrovatiTot,
+//                            'nNuoviDaInTot' => $nNuoviDaInTot, 
+//                            'nUsatiTot' => $nUsatiTot, 
+//                            'nUsatiTrovatiTot'=> $nUsatiTrovatiTot, 
+//                            'nUsatiDaInTot' => $nUsatiDaInTot,
+//                            'test'=>$test,
+//                            'veicoliNuoviDaInv' => $veicoliNuoviDaInv,
+//                            'veicoliUsatiDaInv' => $veicoliUsatiDaInv,
+//                            'statusN'=>$statusN
                         
-                          ]);
+//                           ]);
 
-    }
+//     }
+
+
+
+public function store(Request $request)
+{
+    // Recupero dati dal request
+    $piazzali = $request->input('ubicazioni', []);
+    $statusN = $request->input('status_n', []);
+    $statusU = $request->input('status_u', []);
+
+    // Inizializzo le variabili per il conteggio
+    $idveicoloN = $idveicoloU = $idveicoloMN = $idveicoloMU = [];
+    $nNuoviTot = $nUsatiTot = $nNuoviTrovatiTot = $nUsatiTrovatiTot = 0;
+
+    // Recupero veicoli nuovi e loro ID
+    $nuovi = VeicoliNuovi::whereIn('descrizione_ubicazioni', $piazzali)
+        ->whereIn('status', $statusN)
+        ->get();
+    $idveicoloN = $nuovi->pluck('id_veicolo')->toArray();
+
+    // Recupero veicoli usati e loro ID
+    $usati = VeicoliUsati::whereIn('desc_ubicazione', $piazzali)
+        ->whereIn('status_veicolo', $statusU)
+        ->get();
+    $idveicoloU = $usati->pluck('id_veicolo')->toArray();
+
+    // Recupero veicoli manuali nuovi e usati e loro ID
+    $manuali_n = VeicoliManuali::where('status', 'M')
+        ->where('nuovo_usato', 'n')
+        ->whereIn('ubicazione', $piazzali)
+        ->get();
+    $manuali_u = VeicoliManuali::where('status', 'M')
+        ->where('nuovo_usato', 'u')
+        ->whereIn('ubicazione', $piazzali)
+        ->get();
+
+    $idveicoloMN = $manuali_n->pluck('id')->toArray();
+    $idveicoloMU = $manuali_u->pluck('id')->toArray();
+
+    // Calcolo i conteggi
+    $nNuovi = $nuovi->count();
+    $nUsati = $usati->count();
+    $nNuoviManuali = $manuali_n->count();
+    $nUsatiManuali = $manuali_u->count();
+
+    // Calcolo totale veicoli
+    $nNuoviTot = $nNuovi + $nNuoviManuali;
+    $nUsatiTot = $nUsati + $nUsatiManuali;
+
+    // Trovo i veicoli inventariati per ogni categoria
+    $queryNTrovata = Trovata::where('nuovo_usato', 'n')->whereIn('idveicolo', $idveicoloN)->where('trovata', '1')->get();
+    $queryUTrovata = Trovata::where('nuovo_usato', 'u')->whereIn('idveicolo', $idveicoloU)->where('trovata', '1')->get();
+    $queryMNTrovata = Trovata::where('nuovo_usato', 'mn')->whereIn('idveicolo', $idveicoloMN)->where('trovata', '1')->get();
+    $queryMUTrovata = Trovata::where('nuovo_usato', 'mu')->whereIn('idveicolo', $idveicoloMU)->where('trovata', '1')->get();
+
+    // Conteggio veicoli inventariati
+    $nNuoviTrovati = $queryNTrovata->count();
+    $nUsatiTrovati = $queryUTrovata->count();
+    $nNuoviManualiTrovati = $queryMNTrovata->count();
+    $nUsatiManualiTrovati = $queryMUTrovata->count();
+
+    $nNuoviTrovatiTot = $nNuoviTrovati + $nNuoviManualiTrovati;
+    $nUsatiTrovatiTot = $nUsatiTrovati + $nUsatiManualiTrovati;
+
+    // Calcolo veicoli non inventariati
+    $veicoliNuoviDaInv = VeicoliNuovi::whereNotIn('id_veicolo', $queryNTrovata->pluck('idveicolo'))
+        ->whereIn('descrizione_ubicazioni', $piazzali)
+        ->whereIn('status', $statusN)
+        ->get();
+
+    $veicoliUsatiDaInv = VeicoliUsati::whereNotIn('id_veicolo', $queryUTrovata->pluck('idveicolo'))
+        ->whereIn('desc_ubicazione', $piazzali)
+        ->whereIn('status_veicolo', $statusU)
+        ->get();
+
+    // Ritorno il risultato
+    return response()->json([
+        'nNuoviTot' => $nNuoviTot,
+        'nNuoviTrovatiTot' => $nNuoviTrovatiTot,
+        'nNuoviDaInTot' => $nNuoviTot - $nNuoviTrovatiTot,
+        'nUsatiTot' => $nUsatiTot,
+        'nUsatiTrovatiTot' => $nUsatiTrovatiTot,
+        'nUsatiDaInTot' => $nUsatiTot - $nUsatiTrovatiTot,
+        'veicoliNuoviDaInv' => $veicoliNuoviDaInv,
+        'veicoliUsatiDaInv' => $veicoliUsatiDaInv,
+    ]);
+}
+
 
     /**
      * Display the specified resource.

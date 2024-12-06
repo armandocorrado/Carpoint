@@ -13,6 +13,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\RicercaVeicoliController;
 
 
 
@@ -43,9 +44,8 @@ Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 //HomeController
 Route::get('/', [HomeController::class, 'home'])->name('home');
-Route::get('/get-data', [HomeController::class, 'getData'])->name('get-ajax');
-Route::get('/ricerca-veicoli', [HomeController::class, 'search'])->name('search');
-Route::get('/report-documenti', [HomeController::class, 'report'])->name('report');
+
+
 
 //PiazzaliController
 Route::get('/ricerca-piazzali', [PiazzaliController::class, 'piazzali'])->name('piazzali');
@@ -62,12 +62,17 @@ Route::post('/aggiungi-veicolo', [VeicoliController::class, 'store'])->name('add
 Route::post('/trovata', [TrovataController::class, 'store'])->name('store-trovata'); 
 Route::post('/trovata/elimina', [TrovataController::class, 'destroy'])->name('destroy-trovata'); 
 
+//Ricerca Veicoli
+Route::get('/ricerca-veicoli', [RicercaVeicoliController ::class, 'search'])->name('search.veicoli');  
+Route::get('/get-data', [RicercaVeicoliController::class, 'getData'])->name('get-ajax');
+
 
 // NoteController
 Route::post('/note', [NotaController::class, 'store'])->name('note-store');
 
 
 //ReportController
+Route::get('/report-documenti', [ReportController::class, 'index'])->name('report.index');
 Route::get('/report-usato', [ReportController::class, 'report_usati'])->name('report.usato');
 Route::get('/report-nuovo', [ReportController::class, 'report_nuovi'])->name('report.nuovo');
 Route::get('/report-manuali-nuovo', [ReportController::class, 'report_manuali_nuovo'])->name('report.m.nuovo');
