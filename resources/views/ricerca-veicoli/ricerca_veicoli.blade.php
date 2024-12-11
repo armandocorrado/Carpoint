@@ -41,25 +41,45 @@
 
 
                        
- {{-- API OCR
-                      <!--  Video per visualizzare il flusso della webcam -->
-                        <video id="video" autoplay width="640" height="480"></video>
+ {{-- Geolocalizzazione--}}
+
+ <h1>Test Geolocalizzazione</h1>
+ <button onclick="getLocation()">Ottieni Posizione</button>
+ <p id="location">Posizione: non disponibile</p>
+
+
+ <script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    document.getElementById("location").innerText = 
+                        `Latitudine: ${latitude}, Longitudine: ${longitude}`;
                     
-                        <!-- Bottone per catturare l'immagine -->
-                        <button id="capture">Cattura Immagine</button>
-                    
-                        <!-- Canvas invisibile per fare il rendering dell'immagine catturata -->
-                        <canvas id="canvas" style="display:none;"></canvas>
-                    
-                        <!-- Immagine catturata visualizzata nell'HTML -->
-                        <img id="capturedImage" alt="Captured Image" />
-                    
-                        <!-- Spazio per visualizzare la stringa base64 -->
-                        <textarea id="base64Output" hidden rows="5" cols="50" placeholder="Base64 dell'immagine catturata"></textarea><br><br>
-                    
-                        <!-- Bottone per inviare l'immagine al server -->
+                    // Puoi inviare questi dati al tuo backend
+                    fetch('https://example.com/api/save-location', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ latitude, longitude }),
+                    });
+                },
+                (error) => {
+                    console.error("Errore nella geolocalizzazione:", error);
+                    alert("Impossibile ottenere la posizione. Controlla le impostazioni del GPS.");
+                }
+            );
+        } else {
+            alert("La geolocalizzazione non è supportata su questo dispositivo.");
+        }
+    }
+</script>
+
+ <!-- fine -->
                       
---}}
 
 
     <!--  PlateRecognizer -->
@@ -149,7 +169,7 @@
                                 </div>
                                 <button class="btn btn-hover color-1 btnSearch d-block mt-3 mb-2"
                                     id="cerca">CERCA</button>
-                                <a href="{{ route('home') }}" type="button"
+                                <a href="{{ route('home_') }}" type="button"
                                     style="text-decoration:none; color:white; line-height: 39px;"
                                     class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2" id="home">TORNA ALLA
                                     HOME</a>

@@ -44,7 +44,7 @@ Route::post('/recognize-plate', [PlateRecognizerController::class, 'recognize'])
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 //HomeController
- Route::get('/', [HomeController::class, 'home'])->name('home');
+ Route::get('/', [HomeController::class, 'home'])->name('home_');
 
 
 
@@ -103,7 +103,7 @@ Route::post('/ruoli', [RoleController::class, 'store'])->name('ruoli.store');
 
 
 
-// Route::get('/home', [HomeController::class, 'home']);
+
 // Route::get('/ricercaTutti', [HomeController::class, 'ricercaTutti']);
 
 
