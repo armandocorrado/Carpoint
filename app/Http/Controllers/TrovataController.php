@@ -109,4 +109,16 @@ class TrovataController extends Controller
 
         return back()->with('status', 'veicolo rimosso dallo stato inventariato');
     }
+
+
+    public function destroyAll(Request $request, Trovata $trovata)
+    {
+
+
+        Trovata::truncate();
+        
+
+
+        return back()->with('status', 'veicoli rimossi dallo stato inventariato');
+    }
 }

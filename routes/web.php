@@ -14,6 +14,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\RicercaVeicoliController;
+use App\Http\Controllers\OCRController;
+use App\Http\Controllers\PlateRecognizerController;
 
 
 
@@ -26,16 +28,15 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
 
-//SyncSybaseController
-// Route::get('/sybase-nuovi', [SyncSybaseController::class, 'sync_nuovi']);
+Route::post('/ocr', [OCRController::class, 'extractText'])->name('ocr');
+Route::post('/recognize-plate', [PlateRecognizerController::class, 'recognize']);
+
+
 // Route::get('/sybase-usati', [SyncSybaseController::class, 'sync_usati']);
+// Route::post('/sybase-usati', [SyncSybaseController::class, 'sync_usati']);
 
-
-Route::get('/sybase-usati', [SyncSybaseController::class, 'sync_usati']);
-Route::post('/sybase-usati', [SyncSybaseController::class, 'sync_usati']);
-
-Route::get('/sybase-nuovi', [SyncSybaseController::class, 'sync_nuovi']);
-Route::post('/sybase-nuovi', [SyncSybaseController::class, 'sync_nuovi']);
+// Route::get('/sybase-nuovi', [SyncSybaseController::class, 'sync_nuovi']);
+// Route::post('/sybase-nuovi', [SyncSybaseController::class, 'sync_nuovi']);
 
 
 
@@ -43,7 +44,7 @@ Route::post('/sybase-nuovi', [SyncSybaseController::class, 'sync_nuovi']);
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 //HomeController
-Route::get('/', [HomeController::class, 'home'])->name('home');
+ Route::get('/', [HomeController::class, 'home'])->name('home');
 
 
 
@@ -61,6 +62,7 @@ Route::post('/aggiungi-veicolo', [VeicoliController::class, 'store'])->name('add
 // TrovataController
 Route::post('/trovata', [TrovataController::class, 'store'])->name('store-trovata'); 
 Route::post('/trovata/elimina', [TrovataController::class, 'destroy'])->name('destroy-trovata'); 
+Route::post('/trovata/elimina/all', [TrovataController::class, 'destroyAll'])->name('destroy-trovata.all'); 
 
 //Ricerca Veicoli
 Route::get('/ricerca-veicoli', [RicercaVeicoliController ::class, 'search'])->name('search.veicoli');  
