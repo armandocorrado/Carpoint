@@ -35,8 +35,8 @@ Route::post('/recognize-plate', [PlateRecognizerController::class, 'recognize'])
 // Route::get('/sybase-usati', [SyncSybaseController::class, 'sync_usati']);
 // Route::post('/sybase-usati', [SyncSybaseController::class, 'sync_usati']);
 
-// Route::get('/sybase-nuovi', [SyncSybaseController::class, 'sync_nuovi']);
-// Route::post('/sybase-nuovi', [SyncSybaseController::class, 'sync_nuovi']);
+Route::get('/sybase-nuovi', [SyncSybaseController::class, 'sync_nuovi']);
+Route::post('/sybase-nuovi', [SyncSybaseController::class, 'sync_nuovi']);
 
 
 
