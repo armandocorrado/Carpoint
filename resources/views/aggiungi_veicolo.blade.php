@@ -49,12 +49,12 @@
                                         <option value="n">Nuovo</option>
                                         <option value="u">Usato</option>
                                     </select>
-                                    <label>Stato</label>
+                                    <label style="margin: -62px 3px -9px;color:#999;font-size:16px;">Stato</label>
                                     </div>
                                 </div>
                                 <div class="col-7">
                                     <div class="field" style="margin: 16px auto;">
-                                        <select name="marca" class="form-select" id="marca">
+                                        <select name="marca" class="form-select" id="marca" required>
                                             <option></option>
                                             <option value="Abarth">Abarth</option>
                                             <option value="Alfa Romeo">Alfa Romeo</option>
@@ -96,13 +96,13 @@
                                             <option value="Volvo">Volvo</option>
                                         </select>
 
-                                        <label>Marca</label>
+                                        <label style="margin: -62px 3px -9px;color:#999;font-size:16px;">Marca</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-4">
                                     <div class="field" style="margin: 16px auto;">
-                                        <input type="" name="modello" id="modello"><br>
-                                        <label>Modello</label>
+                                        <input type="" name="modello" id="modello" required><br>
+                                        <label style="margin: -59px 3px -9px;color:#999;font-size:16px;">Modello</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-4">
@@ -131,10 +131,19 @@
                                 </div>
                                 <div class="col-xs-4">
                                     <div class="field" style="margin: 16px auto;">
-                                        <input type="" name="nota" id="nota"><br>
-                                        <label>Nota</label>
+                                        <textarea type="" name="nota" id="nota" style="width: 100%;
+                                        border-color: #999;
+                                        border-radius: 5px;" required ></textarea><br>
+                                        <label style="margin: -83px 3px -9px;color:#999;font-size:16px;">Nota</label>
                                     </div>
                                 </div>
+                                <div class="col-xs-4">
+                                    <div class="field" style="margin: 16px auto;">
+                                      <input type="file" name="immagine" id="immagine" accept="image/*"><br>
+                                      <label style="margin: -65px 3px -9px;">Carica immagine</label>
+                                    </div>
+                                  </div>
+                                  
                             </div>
                                 <button class="btn btn-hover color-1 btnSearch d-block mt-3 mb-2"
                                     id="">AGGIUNGI</button>

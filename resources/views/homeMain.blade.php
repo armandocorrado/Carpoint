@@ -17,7 +17,7 @@
                                 <a href="{{ route('search') }}" type="button" style="text-decoration:none; color:white; line-height: 39px;" class="btn btn-hover color-1 btnSearch d-block mt-4 mb-2" id="cerca">RICERCA VEICOLI</a>
                                 <a href="{{ route('piazzali') }}" type="button" style="text-decoration:none; color:white; line-height: 39px;" class="btn btn-hover color-3 d-block mt-4 mb-2" id="cercaPiazzali">PIAZZALI</a>   
                                 <a href="{{ route('new-veicolo') }}" type="button" style="text-decoration:none; color:white; line-height: 39px;" class="btn btn-hover color-2 d-block mt-4 mb-2" >AGGIUNGI VEICOLO</a>
-								<a href="" type="button" style="text-decoration:none; color:white; line-height: 39px;" class="btn btn-hover color-2 d-block mt-4 mb-2" >Svuota Inventario</a>
+								<a href="" type="button" style="text-decoration:none; color:white; line-height: 42px;" class="btn btn-hover color-5 d-block mt-4 mb-2" >SVUOTA INVENTARIO</a>
                                 
                                 <p class="text-center textFooterCard">Sofware sviluppato da Softmind S.r.l.</p>
                             </form>
