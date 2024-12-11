@@ -49,7 +49,7 @@
                                         <option value="n">Nuovo</option>
                                         <option value="u">Usato</option>
                                     </select>
-                                    <label style="margin: -62px 3px -9px;color:#999;font-size:16px;">Stato</label>
+                                    <label style="margin: -sub62px 3px -9px;color:#999;font-size:16px;">Stato</label>
                                     </div>
                                 </div>
                                 <div class="col-7">
