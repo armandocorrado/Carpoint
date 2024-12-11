@@ -129,9 +129,14 @@ class VeicoliController extends Controller
         
         //inserisco nell'inventario 
         $nuovo_usato_trovata = "";
-        if($veicolo_manuale->nuovo_usato == 'n'){ $nuovo_usato_trovata = "mn";  }else{ $nuovo_usato_trovata = "mu"; }
+        if($veicolo_manuale->nuovo_usato == 'n'){ 
+            $nuovo_usato_trovata = "mn";  
+        }else{ 
+            $nuovo_usato_trovata = "mu"; 
+        }
 
         Trovata::create([
+
             'nuovo_usato' => $nuovo_usato_trovata,
             'idveicolo' => $veicolo_manuale->id,
             'trovata' => 1,
@@ -139,6 +144,7 @@ class VeicoliController extends Controller
             'user_operatore' => Auth::user()->name,
             'dataOra' => now(),
             'luogo' => $veicolo_manuale->ubicazione,
+            
         ]);
 
 

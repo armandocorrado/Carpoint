@@ -19,11 +19,11 @@
         </div>
         <div class="dropdown-menu" style="margin-top: 8px;font-size:20px;" aria-labelledby="dropdownMenuButton" class="mt-3 float-end">
           <a class="dropdown-item" style="color:rgb(124, 124, 124);" href="{{ route('home') }}"><strong>Home</strong></a>
-          <a class="dropdown-item" style="color:black;" href="{{route('report')}}"><strong>Report</strong></a>
-          <a class="dropdown-item" style="color:green;" href="{{ route('search') }}"><strong>Ricerca veicoli</strong></a>
+          <a class="dropdown-item" style="color:black;" href="{{route('report.index')}}"><strong>Report</strong></a>
+          <a class="dropdown-item" style="color:green;" href="{{ route('search.veicoli') }}"><strong>Ricerca veicoli</strong></a>
           <a class="dropdown-item" style="color:rgb(177, 177, 56);" href="{{ route('piazzali') }}"><strong>Piazzali</strong></a>
           <a class="dropdown-item" href="{{ route('new-veicolo') }}"><strong>Nuovo veicolo</strong></a>
-  @role('Admin')<a class="dropdown-item"  style="color:rgb(75, 75, 26);" href="{{ route('user') }}"><strong>Utenti</strong></a>@endrole
+         @role('Admin')<a class="dropdown-item"  style="color:rgb(75, 75, 26);" href="{{ route('user') }}"><strong>Utenti</strong></a>@endrole
           <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Esci</a>
         </div>
       </div>
