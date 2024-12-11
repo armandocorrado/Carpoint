@@ -38,6 +38,98 @@
 
                         </div>
 
+
+
+                       
+ {{-- API OCR
+                      <!--  Video per visualizzare il flusso della webcam -->
+                        <video id="video" autoplay width="640" height="480"></video>
+                    
+                        <!-- Bottone per catturare l'immagine -->
+                        <button id="capture">Cattura Immagine</button>
+                    
+                        <!-- Canvas invisibile per fare il rendering dell'immagine catturata -->
+                        <canvas id="canvas" style="display:none;"></canvas>
+                    
+                        <!-- Immagine catturata visualizzata nell'HTML -->
+                        <img id="capturedImage" alt="Captured Image" />
+                    
+                        <!-- Spazio per visualizzare la stringa base64 -->
+                        <textarea id="base64Output" hidden rows="5" cols="50" placeholder="Base64 dell'immagine catturata"></textarea><br><br>
+                    
+                        <!-- Bottone per inviare l'immagine al server -->
+                      
+--}}
+
+
+    <!--  PlateRecognizer -->
+    <h5>Cattura Immagine Targa</h5>
+
+    <video id="video" autoplay></video>
+    <button id="capture" class="btn btn-primary">Cattura Immagine</button>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <img id="capturedImage" hidden alt="Immagine catturata" />
+
+    <script>
+
+        
+      $(document).ready(function () {
+
+    const video = $('#video')[0]; // Seleziona il video usando jQuery
+    const canvas = $('#canvas')[0]; // Seleziona il canvas usando jQuery
+    const capturedImage = $('#capturedImage'); // Seleziona l'immagine catturata
+    const captureButton = $('#capture'); // Seleziona il pulsante di cattura
+
+    // Start webcam
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+            video.srcObject = stream;
+        })
+        .catch((err) => {
+            console.error("Errore nell'accesso alla webcam:", err);
+        });
+
+    // Cattura immagine
+    captureButton.on('click', function () {
+        const context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Ottieni immagine in base64
+        const imageData = canvas.toDataURL('image/jpeg');
+
+        // Mostra immagine catturata
+        capturedImage.attr('src', imageData);
+
+        // Invia immagine al server
+        $.ajax({
+            url: '/recognize-plate',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            data: JSON.stringify({ image: imageData }),
+            
+            success: function (response) {
+
+                const plate = (response.results[0].plate || "").toUpperCase();
+                $('#targa').val(plate).css('color', 'red');
+            },
+            error: function (xhr, status, error) {
+                console.error("Errore nella richiesta:", error);
+            }
+        });
+    });
+});
+
+
+    </script>
+
+
+                        
+
                         <div class="card-body text-primary mt-0 ">
                             <form class="container">
 
@@ -675,6 +767,76 @@
         <script>
             AOS.init();
         </script>
+
+
+
+ <script>
+
+    // const video = document.getElementById('video');
+    // const captureButton = document.getElementById('capture');
+    // const canvas = document.getElementById('canvas');
+    // const capturedImage = document.getElementById('capturedImage');
+    // const base64Output = document.getElementById('base64Output');
+    // // const sendButton = document.getElementById('sendImage');
+
+    // const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    // // Funzione per avviare il flusso video della webcam
+    // async function startCamera() {
+    //     try {
+    //         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    //         video.srcObject = stream;
+    //     } catch (err) {
+    //         console.error("Errore nell'accesso alla webcam: ", err);
+    //     }
+    // }
+
+    // // Funzione per catturare l'immagine
+    // captureButton.addEventListener('click', () => {
+    //     // Imposta il canvas per prendere la stessa larghezza e altezza del video
+    //     canvas.width = video.videoWidth;
+    //     canvas.height = video.videoHeight;
+
+    //     // Disegna l'immagine dal video nel canvas
+    //     const context = canvas.getContext('2d');
+    //     context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    //     // Ottieni la base64 dell'immagine dal canvas
+    //     const imageData = canvas.toDataURL('image/jpeg');
+
+    //     // Mostra l'immagine catturata nell'elemento <img>
+    //     capturedImage.src = imageData;
+
+    //     // Mostra la stringa base64 nell'area di testo
+    //     base64Output.value = imageData.split(',')[1];  // Rimuove la parte 'data:image/jpeg;base64,'
+
+
+    //     const base64Data = base64Output.value;
+        
+    //     // Invio dell'immagine tramite POST
+    //     fetch('/ocr', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'X-CSRF-TOKEN': csrfToken
+    //         },
+    //         body: JSON.stringify({ image: base64Data }),
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log("OCR response:", data);
+    //         // Puoi fare qualcosa con la risposta dell'OCR
+
+    //         $('#targa').val(data.text);
+    //     })
+    //     .catch(error => console.error('Error:', error));
+    // });
+
+    // // Avvia la webcam al caricamento della pagina
+    // window.onload = startCamera;
+
+ </script>
+
 
 
 
