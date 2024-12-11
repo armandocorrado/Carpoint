@@ -164,7 +164,7 @@
 
 
                         $('#tablePiazzali').append(
-                            "<table><thead><tr><th class='gray'> </th><th class='gray'>Stock</th><th class='gray'>Inventariato</th><th class='gray'>Da inventariare</th></tr></thead><tbody>" +
+                            "<table><thead><tr><th class='gray'>Condizione</th><th class='gray'>Stock</th><th class='gray'>Inventariato</th><th class='gray'>Da inventariare</th></tr></thead><tbody>" +
                             "<tr>" +
                             "<th class='white'>" + 'NUOVO' + "</th><td>" + response.nNuoviTot +
                             "</td><td>" + response.nNuoviTrovatiTot +
