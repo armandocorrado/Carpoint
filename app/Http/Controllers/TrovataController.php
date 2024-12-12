@@ -48,7 +48,9 @@ class TrovataController extends Controller
         'user_operatore'=>$request->input('user_operatore'),
         'dataOra'=>$dateNow,
         'luogo'=>$request->input('ubicazione'),
-
+        'latitudine'=>$request->input('latitudine'),
+        'longitudine'=>$request->input('longitudine'),
+        
       ]);
 
 

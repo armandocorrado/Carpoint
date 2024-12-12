@@ -41,25 +41,42 @@
 
 
                        
- {{-- API OCR
-                      <!--  Video per visualizzare il flusso della webcam -->
-                        <video id="video" autoplay width="640" height="480"></video>
+ {{-- Geolocalizzazione--}}
+
+
+
+ <input hidden id="latitude" value="">
+ <input hidden id="longitude" value="">
+
+
+ <script>
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    $("#latitude").val(latitude);
+                    $("#longitude").val(longitude);
+                       
                     
-                        <!-- Bottone per catturare l'immagine -->
-                        <button id="capture">Cattura Immagine</button>
-                    
-                        <!-- Canvas invisibile per fare il rendering dell'immagine catturata -->
-                        <canvas id="canvas" style="display:none;"></canvas>
-                    
-                        <!-- Immagine catturata visualizzata nell'HTML -->
-                        <img id="capturedImage" alt="Captured Image" />
-                    
-                        <!-- Spazio per visualizzare la stringa base64 -->
-                        <textarea id="base64Output" hidden rows="5" cols="50" placeholder="Base64 dell'immagine catturata"></textarea><br><br>
-                    
-                        <!-- Bottone per inviare l'immagine al server -->
+                },
+                (error) => {
+                    console.error("Errore nella geolocalizzazione:", error);
+                    alert("Impossibile ottenere la posizione. Controlla le impostazioni del GPS.");
+                }
+            );
+        } else {
+            alert("La geolocalizzazione non è supportata su questo dispositivo.");
+        }
+
+      
+
+</script>
+
+ <!-- fine -->
                       
---}}
 
 
     <!--  PlateRecognizer -->
@@ -153,7 +170,7 @@
                                 </div>
                                 <button class="btn btn-hover color-1 btnSearch d-block mt-3 mb-2"
                                     id="cerca">CERCA</button>
-                                <a href="{{ route('home') }}" type="button"
+                                <a href="{{ route('home_') }}" type="button"
                                     style="text-decoration:none; color:white; line-height: 39px;"
                                     class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2" id="home">TORNA ALLA
                                     HOME</a>
@@ -258,10 +275,7 @@
                  $('.cardRisultatiRicerca').addClass('heightBodyCardRisultati');
                 
                  
-             
-                
-                    
-
+            
                     var targa = $('#targa').val();
                     var telaio = $('#numTelaio').val();
 
@@ -290,8 +304,17 @@
                         return;
                     }
 
+                    // Dichiarazione della variabile fuori dal callback
+                    let latitude = '';
+                    let longitude = '';
 
+
+                    
+                    // Recupera i dati e aggiorna l'interfaccia
                     loader.show();
+
+                   
+                 
 
                     $.ajax({
                         url: '{{ route('get-ajax') }}',
@@ -307,9 +330,12 @@
                         success: function(response) {
                             loader.hide();
 
-
                             var status_n = response.car.status;
                             var status_nuovo;
+
+
+                          var latitudine = $('#latitude').val(); 
+                          var longitudine = $('#longitude').val();
 
                             if (status_n) {
 
@@ -421,7 +447,7 @@
                             }
 
 
-                            0
+                            
                             if (response.car.vin) {
 
                                 nuovo_usato = 'USATO';
@@ -519,7 +545,7 @@
                             }
 
 
-
+                        console.log(latitude);
 
                             $('#tableVeicoli').append(
                                 "<div class='cell'>Targa: <span><strong> " + response.car
@@ -562,13 +588,15 @@
                                 "<input name='nuovo_usato' hidden id='nuovo_usato' value='" + (
                                     response.car.telaio ? 'n' : 'u') + "'>" +
                                 "<input name='ubicazione' hidden id='ubicazione' value='{{ Auth::user()->ubicazione }}'>" +
+                                "<input name='latitudine' hidden  id='' value='"+latitudine+"'>" +
+                                "<input name='longitudine' hidden  id='' value='"+longitudine+"'>" +
                                 "<button type='submit'  id='confInv' >" +
                                 'CONFERMA INVENTARIO' + "</button>" + "</form>" +
                                 "<div class='textNessunaNota' id='nota_manuale'></div>" 
                                 // '<button id="addNota" style="width: 48%;display:inline;position: relative;top: -76px;left: 268px;">AGGIUNGI NOTA</button>'
 
                             );
-
+                            //"<input name='latitudine'  id='' value=''>" +
                             // $('#addNota').insertAfter('#confInv');
 
 
@@ -655,51 +683,7 @@
                                 
                                 
 
-                                // Controlli 
-
-
-                                 //Aggiungi nota
-
-                                // $('#aggiungiNota').on('click', function() {
-
-                                //     if ($('#nota-textarea').val() == '') {
-                                //         alert('Scrivi un testo');
-                                //     } else {
-                                //         $('#formAddNota').submit();
-                                //     }
-                                // });
-
-                                //Annulla nota    
-
-                                // $('#annullaNota').on('click', function() {
-                                //     $('#addNota').show();
-                                //     $('#nota_manuale').html('');
-                                // });
-
-
-                            // });
-
-                            // $('#nota_manuale').on('click', '#confermaNota', function() {
-                            //     var nota = $('#nota-textarea').val();
-                            //     // invia al server una chiamata AJAX
-                            //     $('#nota_manuale').html('<p>Nota aggiunta:</p><p>' + nota +
-                            //         '</p>');
-                            // });
-
-                            // $('#nota_manuale').on('click', '#annullaNota', function() {
-                            //     $('#nota_manuale').html('');
-                            // });
-
-
-                            // var spanTitolo = $('#modello');
-                            // spanTitolo.empty();
-
-                            // var noResult = $('#noresult');
-                            // noResult.empty();
-
-
-
-                            // // Controllo se è stato inventariato il veicolo (Si/No)
+                       // Controllo se è stato inventariato il veicolo (Si/No)
 
                             if (response.test.invent == "No") {
                                 $('#confInv').show();
@@ -776,68 +760,14 @@
 
  <script>
 
-    // const video = document.getElementById('video');
-    // const captureButton = document.getElementById('capture');
-    // const canvas = document.getElementById('canvas');
-    // const capturedImage = document.getElementById('capturedImage');
-    // const base64Output = document.getElementById('base64Output');
-    // // const sendButton = document.getElementById('sendImage');
-
-    // const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-    // // Funzione per avviare il flusso video della webcam
-    // async function startCamera() {
-    //     try {
-    //         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-    //         video.srcObject = stream;
-    //     } catch (err) {
-    //         console.error("Errore nell'accesso alla webcam: ", err);
-    //     }
-    // }
-
-    // // Funzione per catturare l'immagine
-    // captureButton.addEventListener('click', () => {
-    //     // Imposta il canvas per prendere la stessa larghezza e altezza del video
-    //     canvas.width = video.videoWidth;
-    //     canvas.height = video.videoHeight;
-
-    //     // Disegna l'immagine dal video nel canvas
-    //     const context = canvas.getContext('2d');
-    //     context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-    //     // Ottieni la base64 dell'immagine dal canvas
-    //     const imageData = canvas.toDataURL('image/jpeg');
-
-    //     // Mostra l'immagine catturata nell'elemento <img>
-    //     capturedImage.src = imageData;
-
-    //     // Mostra la stringa base64 nell'area di testo
-    //     base64Output.value = imageData.split(',')[1];  // Rimuove la parte 'data:image/jpeg;base64,'
+ $(document).ready(function(){
 
 
-    //     const base64Data = base64Output.value;
-        
-    //     // Invio dell'immagine tramite POST
-    //     fetch('/ocr', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'X-CSRF-TOKEN': csrfToken
-    //         },
-    //         body: JSON.stringify({ image: base64Data }),
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log("OCR response:", data);
-    //         // Puoi fare qualcosa con la risposta dell'OCR
 
-    //         $('#targa').val(data.text);
-    //     })
-    //     .catch(error => console.error('Error:', error));
-    // });
 
-    // // Avvia la webcam al caricamento della pagina
-    // window.onload = startCamera;
+
+ });
+
 
  </script>
 
