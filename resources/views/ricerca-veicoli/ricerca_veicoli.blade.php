@@ -43,8 +43,6 @@
                        
  {{-- Geolocalizzazione--}}
 
-
-
  <input hidden id="latitude" value="">
  <input hidden id="longitude" value="">
 
