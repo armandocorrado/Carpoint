@@ -17,7 +17,6 @@
                 width: 350px;
                 box-shadow: 0px 0px 19px #dedede;
                 border: none;
-                margin-left: -50px;
                 border-radius:.5rem;
             }
             
@@ -49,7 +48,7 @@
             /*ANCHOR - campi input matrial design*/
             
             .field {
-                margin: 30px auto;
+                margin: 5px auto;
             }
             
             input {
@@ -62,26 +61,24 @@
             }
             
             label {
-                color: #333;
-                position: absolute;
-                margin-top: -63px;
-                margin-left: 5px;
-                pointer-events: none;
-                transition: all 0.2s ease;
-                -webkit-transition: all 0.2s ease;
-                -moz-transition: all 0.2s ease;
-                -o-transition: all 0.2s ease;
-                font-size: 13px;
+                // color: #333;
+              
+                // pointer-events: none;
+                // transition: all 0.2s ease;
+                // -webkit-transition: all 0.2s ease;
+                // -moz-transition: all 0.2s ease;
+                // -o-transition: all 0.2s ease;
+                // font-size: 13px;
             }
             
-            input:focus~label,
-            input:valid~label {
-                margin-top: -60px;
-                font-size: 10px;
-                color: #999;
-                /* margin-left: -253px; */
-                font-size: 16px;
-            }
+            // input:focus~label,
+            // input:valid~label {
+            //     margin-top: -60px;
+            //     font-size: 10px;
+            //     color: #999;
+            //     /* margin-left: -253px; */
+            //     font-size: 16px;
+            // }
             
             input:focus {
                 border-color: #3BA9D8;
@@ -238,6 +235,12 @@
                 background-image: linear-gradient(to right, #ee2a2a, #2e2e2e, #302b2b, #453801);
                 width: 100%;
                 height: 53px;
+                border-radius: 30px;
+            }
+
+
+            .btn-hover.color-6 {
+                background-image: linear-gradient(to right, #277104, #b89b0e, #886e00, #ffa500);
                 border-radius: 30px;
             }
             
@@ -594,11 +597,12 @@
             }
             
             .alert-success {
-                width: 15%;
-                margin: -68px auto 59px;
+                width: 32%;
+                margin: -50px auto 59px;
                 background: #00b100;
                 color: white;
                 text-align: center;
+                border-radius: .5rem;
             }
             
             .alert-dismissible .btn-close {
@@ -670,3 +674,56 @@
             .select2-container--bootstrap4 .select2-selection__clear {
                 padding-left: 0.27em;
             }
+
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 34px;
+                height: 20px;
+            }
+            
+            .switch input {
+                display: none;
+            }
+            
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                transition: 0.4s;
+                border-radius: 20px;
+            }
+            
+            .slider:before {
+                position: absolute;
+                content: '';
+                height: 14px;
+                width: 14px;
+                left: 3px;
+                bottom: 3px;
+                background-color: white;
+                transition: 0.4s;
+                border-radius: 50%;
+            }
+            
+            input:checked + .slider {
+                background-color: #2196F3;
+            }
+            
+            input:checked + .slider:before {
+                transform: translateX(14px);
+            }
+
+            #anteprima img {
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            
+              
