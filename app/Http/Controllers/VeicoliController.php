@@ -52,13 +52,8 @@ class VeicoliController extends Controller
                                                                                                              //*
 
         $validated = $request->validate([                                                                    //*
-            'nuovo_usato' => 'required',                                                                     //*
-            'targa' => 'required',                                                                           //*
-            'telaio' => 'required',                                                                          //*
-            'ubicazione' => 'required', 
             'marca' => 'required',
             'modello' => 'required',
-            'colore' => 'required',
             'nota' => 'required',
         ]);
     
