@@ -146,13 +146,16 @@
                                   
                             </div>
                                 <button class="btn btn-hover color-1 btnSearch d-block mt-3 mb-2"
-                                    id="">AGGIUNGI</button>
+                                    id="">AGGIUNGI
+                                </button>
+                            </form> 
+
                                 <a href="{{ route('home') }}" type="button"
                                     style="text-decoration:none; color:white; line-height: 39px;"
                                     class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2" id="home">TORNA ALLA
                                     HOME</a>
 
-                            </form>
+                            
                         </div>
                     </div>
                 </div>
