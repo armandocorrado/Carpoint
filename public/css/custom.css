@@ -656,15 +656,32 @@ input:checked + .slider:before {
     min-width: 145%;
     margin: auto;
   }
-  .login .cardGeneral-cerca-veicolo {
-    width: 340px;
-  }
-  .login .heightBodyCardRisultati {
+  .heightBodyCardRisultati {
     position: relative;
-    left: -29px;
-    width: 460px;
+    left: -69px;
+    width: 470px;
+    padding: 0;
   }
-  .login .card-deck {
+  .ricercaVeicoli .cardRicerca {
+    max-width: 225px;
+    position: relative;
+    left: -2rem;
+  }
+  .ricercaVeicoli .heightBodyCardRisultati {
+    position: relative;
+    left: -115px;
+    width: 470px;
+    padding: 0;
+  }
+  .ricercaVeicoli #confInv {
+    font-size: 12px;
+  }
+  .ricercaVeicoli #addNota {
+    font-size: 12px;
+    position: relative;
+    left: 16rem;
+  }
+  .card-deck {
     z-index: 600;
   }
 }

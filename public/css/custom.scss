@@ -753,34 +753,62 @@
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) { 
-    .login{
-        .card-deck .card {
-            min-width: 145%;
-            margin: auto;
-        }
+    .login .card-deck .card {
+        min-width: 145%;
+        margin: auto;
+    }
     
-        .cardGeneral-cerca-veicolo {
-        width: 340px;
-        }
-    
+
+    .heightBodyCardRisultati {
+        position: relative;
+        left: -69px;
+        width: 470px;
+        padding: 0;
+    }
+
+    .ricercaVeicoli{
+
+        .cardRicerca{
+           
+                max-width: 225px;
+                position: relative;
+                left: -2rem;
+          
+        } 
+
         .heightBodyCardRisultati {
-           position: relative;
-           left: -29px;
-           width: 460px;
-        }
-    
-      
-    
-        .card-deck {
-            z-index: 600;
-            .cardRisultatiRicerca {
-                // width: 36em;
-                // position: relative;
-                // left: -70px;
-            }
+            position: relative;
+            left: -115px;
+            width: 470px;
+            padding: 0;
         }
 
-    } 
+        #confInv {
+            font-size: 12px;
+        }
+
+        #addNota {
+            font-size: 12px;
+            position: relative;
+    left: 16rem;
+        }
+
+        
+
+
+    }
+
+
+  
+
+    .card-deck {
+        z-index: 600;
+        .cardRisultatiRicerca {
+            // width: 36em;
+            // position: relative;
+            // left: -70px;
+        }
+    }
  
  }
 
