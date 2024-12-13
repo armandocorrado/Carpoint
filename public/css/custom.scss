@@ -726,87 +726,60 @@
                 border-radius: 5px;
             }
             
+// X-Small devices (portrait phones, less than 576px)
+// No media query for `xs` since this is the default in Bootstrap
 
-            /* Stili di base (default per dispositivi grandi o desktop) */
-body {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    margin: 0;
-    padding: 0;
-}
 
-/* Per dispositivi piccoli (smartphone in verticale, fino a 576px) */
-@media (max-width: 576px) {
-    body {
-        font-size: 14px;
-    }
-
-    header {
-        flex-direction: column;
-    }
-
-    nav ul {
-        flex-direction: column;
-        gap: 10px;
+.login{
+    .btn-hover{
+    #btnSearch{
+        position: relative;
+        left:10rem;
     }
 }
+    .card-deck{ 
+        .card {
+         margin: auto;
+         width: 300px;
+                }
+            }
+        }
 
-/* Per dispositivi medi (smartphone in orizzontale o tablet piccoli, da 577px a 768px) */
-@media (min-width: 577px) and (max-width: 768px) {
-    body {
-        font-size: 15px;
-    }
 
-    header {
-        justify-content: space-between;
-    }
-
-    .content {
-        padding: 20px;
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+    .login .card-deck .card {
+        min-width: 135%;
+        margin: auto;
     }
 }
 
-/* Per tablet (da 769px a 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-    body {
-        font-size: 16px;
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) { 
+    .login .card-deck .card {
+        min-width: 145%;
+        margin: auto;
     }
+ 
+ }
 
-    .sidebar {
-        display: block;
-        width: 30%;
-    }
-
-    .main {
-        width: 70%;
-    }
-}
-
-/* Per desktop piccoli (da 1025px a 1200px) */
-@media (min-width: 1025px) and (max-width: 1200px) {
-    body {
-        font-size: 17px;
-    }
-
-    header {
-        padding: 10px 40px;
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+    .login .card-deck .card {
+        min-width: 110%;
+        margin: auto;
     }
 }
 
-/* Per desktop grandi (oltre 1200px) */
-@media (min-width: 1201px) {
-    body {
-        font-size: 18px;
-    }
 
-    header {
-        padding: 20px 60px;
+// X-Large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+    .login .card-deck .card {
+        min-width: 100%;
+        margin: auto;
     }
+ }
 
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-}
-
+// XX-Large devices (larger desktops, 1400px and up)
+@media (min-width: 1400px) { }
               
