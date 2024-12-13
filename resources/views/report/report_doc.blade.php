@@ -20,7 +20,7 @@
                                     <a href="{{route('report.m.usato')}}" type="button" style="text-decoration:none; color:white; padding-top:7px" class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2" id="">SCARICA REPORT MANUALE<br> USATO IN EXCEL</a>
                                     <a href="{{route('report.m.nuovo')}}" type="button" style="text-decoration:none; color:white; padding-top:7px" class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2" id="">SCARICA REPORT MANUALE<br> NUOVO IN EXCEL</a>
                                     <a href="" type="button" style="text-decoration:none; color:white; line-height:52px;" class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2" id="">SCARICA TUTTI I REPORT IN EXCEL</a>
-                                    <a href="{{route('home')}}" type="button" style="text-decoration:none; color:white; line-height:52px;" class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2" id="">TORNA ALLA HOME</a>
+                                    <a href="{{route('home_')}}" type="button" style="text-decoration:none; color:white; line-height:52px;" class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2" id="">TORNA ALLA HOME</a>
 
                                    
                                 
