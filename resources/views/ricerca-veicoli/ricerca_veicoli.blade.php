@@ -2,100 +2,91 @@
 @section('content')
 
 <style>
-
-
-#preloaderocr {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8); /* Sfondo semi-trasparente */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999; /* Sopra tutto */
-}
-
-.spinner {
-    width: 50px;
-    height: 50px;
-    border: 6px solid #ccc;
-    border-top-color: #3498db;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
+    #preloaderocr {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        /* Sfondo semi-trasparente */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        /* Sopra tutto */
     }
-    to {
-        transform: rotate(360deg);
+
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border: 6px solid #ccc;
+        border-top-color: #3498db;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
     }
-}
 
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
 
-
-
-
-
-
-
-
+        to {
+            transform: rotate(360deg);
+        }
+    }
 </style>
 
 
-    <div class="ricercaVeicoli mt-5">
+<div class="ricercaVeicoli mt-5">
 
 
-        @if (Session::get('status'))
-            <div class="alert alert-success alert-dismissible text-blue" role="alert">
-                <span class="text-sm">{{ Session::get('status') }} </span>
-                <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
+    @if (Session::get('status'))
+    <div class="alert alert-success alert-dismissible text-blue" role="alert">
+        <span class="text-sm">{{ Session::get('status') }} </span>
+        <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
 
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 
-        <div class="d-flex justify-content-center">
-            <div class="text-center align-items-center" id="messaggio-attesa">
-                <div class="preloader"></div>
-            </div>
-
-
-            <div class="card-deck d-md-flex justify-content-center ">
-                <div class="col-md-6 col-sm-12 mx-auto">
-                    <div class="card mx-auto mb-3 cardGeneral cardRicerca" data-aos="fade" data-aos-duration="2500">
-                        <div class="card-header text-header text-center  justify-content-center mt-3 ">
-                            <h5 class="d-inline mt-2">Ricerca veicoli</h5>
-                            <img src="{{ asset('img/logoCarPoint.png') }}" alt="Logo" width="50%" class="mt-3 mx-auto">
-
-                        </div>
+    <div class="d-flex justify-content-center">
+        <div class="text-center align-items-center" id="messaggio-attesa">
+            <div class="preloader"></div>
+        </div>
 
 
+        <div class="card-deck d-md-flex justify-content-center ">
+            <div class="col-md-6 col-sm-12 mx-auto">
+                <div class="card mx-auto mb-3 cardGeneral cardRicerca" data-aos="fade" data-aos-duration="2500">
+                    <div class="card-header text-header text-center  justify-content-center mt-3 ">
+                        <h5 class="d-inline mt-2">Ricerca veicoli</h5>
+                        <img src="{{ asset('img/logoCarPoint.png') }}" alt="Logo" width="50%" class="mt-3 mx-auto">
 
-                       
- {{-- Geolocalizzazione--}}
-
- <input hidden id="latitude" value="">
- <input hidden id="longitude" value="">
+                    </div>
 
 
- <script>
 
-        if (navigator.geolocation) {
+
+                    {{-- Geolocalizzazione--}}
+
+                    <input hidden id="latitude" value="">
+                    <input hidden id="longitude" value="">
+
+
+                    <script>
+                        if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
                     const latitude = position.coords.latitude;
@@ -117,34 +108,34 @@
 
       
 
-</script>
+                    </script>
 
- <!-- fine -->
-                      
+                    <!-- fine -->
 
 
-    <!--  PlateRecognizer -->
-  
 
-    <video id="video" hidden autoplay></video>
-    <button id="capture"  style="text-decoration: none;
+                    <!--  PlateRecognizer -->
+
+
+                    <video id="video" hidden autoplay></video>
+                    <button id="capture" style="text-decoration: none;
     color: white;
     line-height: 39px;
     width: 80%;
-    margin: auto;" class="btn btn-hover color-6 mt-4 mb-2" hidden >Cattura Immagine</button>
-    <canvas id="canvas" style="display: none;"></canvas>
-    <img id="capturedImage" hidden alt="Immagine catturata" />
+    margin: auto;" class="btn btn-hover color-6 mt-4 mb-2" hidden>Cattura Immagine</button>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                    <img id="capturedImage" hidden alt="Immagine catturata" />
 
 
-    <div id="preloaderocr" hidden>
-        <div class="spinner"></div>
-    </div>
-    
+                    <div id="preloaderocr" hidden>
+                        <div class="spinner"></div>
+                    </div>
 
 
 
-    <script>     
-      $(document).ready(function () {
+
+                    <script>
+                        $(document).ready(function () {
 
     const video = $('#video')[0]; // Seleziona il video usando jQuery
     const canvas = $('#canvas')[0]; // Seleziona il canvas usando jQuery
@@ -217,131 +208,142 @@
 
 
 
-                     </script>
+                    </script>
 
-                        <div class="card-body text-primary mt-0 ">
-                            <form class="container" style="margin-top: -5px;">
+                    <div class="card-body text-primary mt-0 ">
+                        <form class="container" style="margin-top: -5px;">
 
+                            <label class="text-secondary" style="margin-bottom: 0.2rem;">Targa</label>
+                            <div class="input-group mb-3">
 
-                               <div class="input-group mb-3">
-                                {{-- <label class="text-secondary" placeholder="Targa" style="margin-bottom: 0.2rem;">Targa</label> --}}
-                                <input name="targa" id="targa"
-                                value="{{ Session::get('targa') }}" type="" class="form-control" placeholder="Targa" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <input name="targa" id="targa" value="{{ Session::get('targa') }}" type=""
+                                    class="form-control" aria-label="Recipient's username"
+                                    aria-describedby="basic-addon2">
                                 <div class="input-group-append">
-                                    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-                                    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-                                    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-                                
-                                </div>
-                                </div>
+                                    <button class="btn btn-success" id="ocrButton" type="button">Attiva<i
+                                            class="material-icons" style="
+                                        font-size: 16px;
+                                        position: relative;
+                                        top: 3px;
+                                        left: 5px;
+                                    ">camera_alt</i>
 
-                                {{-- <div class="col-xs-4">
-                                    <div class="field" data-validate="Inserire targa completa">
-                                        <label class="text-secondary" style="margin-bottom: 0.2rem;"> Targa</label>
-                                        <input type="" name="targa" id="targa"
-                                            value="{{ Session::get('targa') }}" maxlength="7" style="max-width:50%"><br>
-                                    </div>
-                                </div> --}}
 
-                                <div class="col-xs-4">
-                                    <div class="field" data-validate="Da 7 a 17 caratteri">
-                                        {{-- <label class="text-secondary" style="margin-bottom: 0.2rem;">Numero telaio</label> --}}
-                                        <input type="" name="telaio" id="numTelaio"
-                                            value="{{ Session::get('telaio') }}" maxlength="17"  placeholder="Telaio"><br>
-                                    </div>
+                                    </button>
                                 </div>
-                                <button class="btn btn-hover color-1 btnSearch d-block mt-3 mb-2"
-                                    id="cerca">CERCA</button>
-                                <a href="{{ route('home_') }}" type="button"
-                                    style="text-decoration:none; color:white; line-height: 39px;"
-                                    class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2" id="home">TORNA ALLA
-                                    HOME</a>
+                            </div>
 
+                            {{-- <div class="col-xs-4">
+                                <div class="field" data-validate="Inserire targa completa">
+                                    <label class="text-secondary" style="margin-bottom: 0.2rem;"> Targa</label>
+                                    <input type="" name="targa" id="targa" value="{{ Session::get('targa') }}"
+                                        maxlength="7" style="max-width:50%"><br>
+                                </div>
+                            </div> --}}
+
+                            <div class="col-xs-4">
+                                <div class="field" data-validate="Da 7 a 17 caratteri">
+                                    <label class="text-secondary" style="margin-bottom: 0.2rem;">Numero telaio</label>
+                                    <input type="" name="telaio" id="numTelaio" value="{{ Session::get('telaio') }}"
+                                        maxlength="17"><br>
+                                </div>
+                            </div>
+                            <button class="btn btn-hover color-1 btnSearch d-block mt-3 mb-2" id="cerca">CERCA</button>
+                            <a href="{{ route('home_') }}" type="button"
+                                style="text-decoration:none; color:white; line-height: 39px;"
+                                class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2" id="home">TORNA ALLA
+                                HOME</a>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 mx-auto">
+                <div class="card mx-auto mb-3 cardGeneral cardRisultatiRicerca" id="contenitoreRicerca" data-aos="fade"
+                    data-aos-duration="3000">
+                    <h3 class="mb-3 mt-4 text-center qui">Risultati ricerca</h3>
+                    <p class="qui" style="text-align: center;font-size:13px;">Qui appariranno le informazioni del
+                        veicolo ricercato</p>
+                    <div class="headModello" style="display: none">
+                        <div class="card-header text-header text-center mt-3">
+                            <span id="modello">
+                                <!--     contenuto append  titolo      -->
+                            </span>
+                            <div class="d-flex justify-content-between container mt-3 mb-0 " id="veicolo">
+                                <!--     contenuto append  intestazione      -->
+                            </div>
+                        </div>
+                    </div>
+                    <div id="noresult">
+                        <!-- append -->
+                    </div>
+                    <div class="card-body text-primary ">
+                        <div class="d-flex flex-wrap justify-content-between mt-2 mb-0 " id="tableVeicoli">
+                            <!-- append contenuto   -->
+                            <button id='confInv'>CONFERMA INVENTARIO</button>
+                        </div>
+                        <div style="display: none" id=btnModInv>
+                            <form method='post' style='width:100%' action='{{ route(' destroy-trovata') }}'> @csrf
+                                <input type="number" hidden name="trovata" id="veicoloTrovataId">
+                                <button type='submit' class="btn btn-hover color-4 btnSearch" id='deleteInv'> ESCLUDI DA
+                                    INVENTARIO </button>
                             </form>
-                        </div>
 
+
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-sm-12 mx-auto">
-                    <div class="card mx-auto mb-3 cardGeneral cardRisultatiRicerca" id="contenitoreRicerca" data-aos="fade"
-                        data-aos-duration="3000">
-                        <h3 class="mb-3 mt-4 text-center qui">Risultati ricerca</h3>
-                        <p class="qui" style="text-align: center;font-size:13px;">Qui appariranno le informazioni del
-                            veicolo ricercato</p>
-                        <div class="headModello" style="display: none">
-                            <div class="card-header text-header text-center mt-3">
-                                <span id="modello">
-                                    <!--     contenuto append  titolo      -->
-                                </span>
-                                <div class="d-flex justify-content-between container mt-3 mb-0 " id="veicolo">
-                                    <!--     contenuto append  intestazione      -->
-                                </div>
-                            </div>
-                        </div>
-                        <div id="noresult">
-                            <!-- append -->
-                        </div>
-                        <div class="card-body text-primary ">
-                            <div class="d-flex flex-wrap justify-content-between mt-2 mb-0 " id="tableVeicoli">
-                                <!-- append contenuto   -->
-                                <button id='confInv'>CONFERMA INVENTARIO</button>
-                            </div>
-                            <div style="display: none" id=btnModInv>
-                                <form method='post' style='width:100%' action='{{ route('destroy-trovata') }}'> @csrf
-                                    <input type="number" hidden name="trovata" id="veicoloTrovataId">
-                                    <button type='submit' class="btn btn-hover color-4 btnSearch"
-                                         id='deleteInv'> ESCLUDI DA INVENTARIO </button>
-                                </form>
-                               
 
+                    <button id="addNota" class="btnAddNota" style="display:none">AGGIUNGI NOTA</button>
+                    <div id="notaManuale" style="display: none; position: relative;top: -70px;">
+
+                        <form style="width:100%;" id="formAddNota" action="{{ route('note-store') }}" method="post">
+                            @csrf
+                            <h2 style="color:black;text-align:center">Nuova nota</h2>
+                            <div class="container">
+                                <p id="operatore" style="display:inline;">Operatore: {{ Auth::user()->operatore }} </p>
+                                <p id="dataOra" style="display:inline;">Data e ora correnti: </p>
+                                <p id="ubicazione" style="display:inline;">Ubicazione: {{ Auth::user()->ubicazione }}
+                                </p>
+                                <textarea id="nota-textarea"
+                                    style="display:block; width:100%;height:130px;border-radius:5px;padding:10px;"
+                                    name="nota" placeholder="Scrivi qua un testo"></textarea>
+                                <input name="id_veicolo" hidden id="id_veicolo_nota">
+                                <input name="status" hidden id="status_nota">
                             </div>
-                        </div>
-                        
-        <button id="addNota" class="btnAddNota" style="display:none" >AGGIUNGI NOTA</button>
-        <div id="notaManuale" style="display: none; position: relative;top: -70px;">
 
-        <form style="width:100%;" id="formAddNota" action="{{ route('note-store') }}" method="post">
-        @csrf 
-        <h2 style="color:black;text-align:center">Nuova nota</h2>
-        <div class="container">
-        <p id="operatore" style="display:inline;">Operatore: {{ Auth::user()->operatore }} </p>
-        <p id="dataOra" style="display:inline;">Data e ora correnti: </p>
-        <p id="ubicazione" style="display:inline;">Ubicazione: {{ Auth::user()->ubicazione }}</p>
-        <textarea id="nota-textarea" style="display:block; width:100%;height:130px;border-radius:5px;padding:10px;" name="nota" placeholder="Scrivi qua un testo"></textarea> 
-        <input name="id_veicolo" hidden id="id_veicolo_nota">
-        <input name="status" hidden  id="status_nota">
-        </div>
-        
-            <div style="text-align:center;margin-top:10px">
-        <button id="annullaNota" style="background-image: linear-gradient(to right, #FF6666, #B30000);border-radius:50px;padding:12px;color:white;font-weight:700;display: inline;width: 45%;border:none;margin-bottom: 10px;">Annulla</button> 
-        <button id="aggiungiNota" style="background-image: linear-gradient(to right, #7CFC00, #006400); border-radius:50px;padding:12px;color:white;font-weight:700; display: inline; width: 45%; border:none; margin-left: 4px;margin-bottom: 10px;">Aggiungi</button> 
-            </div>
-    </form>
-</div>
-
+                            <div style="text-align:center;margin-top:10px">
+                                <button id="annullaNota"
+                                    style="background-image: linear-gradient(to right, #FF6666, #B30000);border-radius:50px;padding:12px;color:white;font-weight:700;display: inline;width: 45%;border:none;margin-bottom: 10px;">Annulla</button>
+                                <button id="aggiungiNota"
+                                    style="background-image: linear-gradient(to right, #7CFC00, #006400); border-radius:50px;padding:12px;color:white;font-weight:700; display: inline; width: 45%; border:none; margin-left: 4px;margin-bottom: 10px;">Aggiungi</button>
+                            </div>
+                        </form>
                     </div>
+
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-        <script>
-            AOS.init();
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-            integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous">
-        </script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+        integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous">
+    </script>
 
 
-        <script>
-            // nascondi in partenza il button 'conferma inventariato'           
+    <script>
+        // nascondi in partenza il button 'conferma inventariato'           
             $('#confInv').hide();
 
             // Ottieni il riferimento all'elemento che contiene l'immagine di caricamento
@@ -678,28 +680,7 @@
                                 // '<button id="addNota" style="width: 48%;display:inline;position: relative;top: -76px;left: 268px;">AGGIUNGI NOTA</button>'
 
                             );
-                            //"<input name='latitudine'  id='' value=''>" +
-                            // $('#addNota').insertAfter('#confInv');
-
-
-                            // var divIntest = $('#veicolo');
-                            // divIntest.empty();
-
-                            // var noResult = $('#noresult');
-                            // noResult.empty();
-
-
-
-
-                            // var spanTitolo = $('#modello');
-                            // spanTitolo.empty();
-
-                            // var noResult = $('#noresult');
-                            // noResult.empty();
-
-
-
-                            // Controllo se è stato inventariato il veicolo (Si/No)
+                      
 
                             if (response.test.invent == "No") {
                                 $('#confInv').show();
@@ -720,16 +701,6 @@
                                 $('#btnModInv').show();
                                 $('#addNota').removeClass('positionBtnAddNoteInvNo');
                                 $('#addNota').addClass('positionBtnAddNoteInvSi');
-
-
-                                // $('#deleteInv').click(function(event){
-                                //     event.preventDefault();
-                                //     var confirmation = confirm("Sei sicuro di voler escludere questo elemento dall'inventario?");
-                                //     if (confirmation === true) {
-
-                                //         location.reload();
-                                //     }
-                                // });
 
 
                                 $('#deleteInv').click(function(event) {
@@ -832,11 +803,11 @@
            
 
 
-        </script>
+    </script>
 
-        <script>
-            AOS.init();
-        </script>
+    <script>
+        AOS.init();
+    </script>
 
 
 

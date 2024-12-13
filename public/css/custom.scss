@@ -20,14 +20,7 @@
                 border-radius:.5rem;
             }
             
-            .card-deck {
-                z-index: 600;
-                .cardRisultatiRicerca {
-                    width: 36em;
-                    position: relative;
-                    left: -70px;
-                }
-            }
+            
             
             .textFooterCard {
                 font-size: 14px;
@@ -252,10 +245,11 @@
                 border-radius: 5px;
                 cursor: pointer;
                 border-radius: 38px;
-                width: 48%;
+                width: 40%;
                 margin: 20px auto 20px auto;
                 display: inline;
                 border-radius: 30px;
+                font-size: 13px;
             }
             
             #confInv:hover {
@@ -402,7 +396,8 @@
                 cursor: pointer;
                 border-radius: 38px;
                 display: inline;
-                width: 45%;
+                width: 40%;
+                font-size: 13px;
             }
             
             #addNota:hover {
@@ -619,9 +614,7 @@
                 background-color: rgb(255, 255, 255);
             }
             
-            .heightBodyCardRisultati {
-                height: 33em;
-            }
+           
             
             .positionBtnAddNoteInvSi {
                 position: relative;
@@ -740,7 +733,7 @@
     .card-deck{ 
         .card {
          margin: auto;
-         width: 300px;
+        
                 }
             }
         }
@@ -752,14 +745,42 @@
         min-width: 135%;
         margin: auto;
     }
+    .heightBodyCardRisultati {
+        height: 35em;
+        width: 31rem;
+    }
 }
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) { 
-    .login .card-deck .card {
-        min-width: 145%;
-        margin: auto;
-    }
+    .login{
+        .card-deck .card {
+            min-width: 145%;
+            margin: auto;
+        }
+    
+        .cardGeneral-cerca-veicolo {
+        width: 340px;
+        }
+    
+        .heightBodyCardRisultati {
+           position: relative;
+           left: -29px;
+           width: 460px;
+        }
+    
+      
+    
+        .card-deck {
+            z-index: 600;
+            .cardRisultatiRicerca {
+                // width: 36em;
+                // position: relative;
+                // left: -70px;
+            }
+        }
+
+    } 
  
  }
 
@@ -777,6 +798,14 @@
     .login .card-deck .card {
         min-width: 100%;
         margin: auto;
+    }
+    .card-deck {
+        z-index: 600;
+        .cardRisultatiRicerca {
+            width: auto;
+            position: relative;
+            left: -10rem;
+        }
     }
  }
 

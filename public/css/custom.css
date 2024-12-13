@@ -20,15 +20,6 @@ h5 {
   border-radius: 0.5rem;
 }
 
-.card-deck {
-  z-index: 600;
-}
-.card-deck .cardRisultatiRicerca {
-  width: 36em;
-  position: relative;
-  left: -70px;
-}
-
 .textFooterCard {
   font-size: 14px;
   margin-top: 70px;
@@ -197,10 +188,11 @@ input:focus {
   border-radius: 5px;
   cursor: pointer;
   border-radius: 38px;
-  width: 48%;
+  width: 40%;
   margin: 20px auto 20px auto;
   display: inline;
   border-radius: 30px;
+  font-size: 13px;
 }
 
 #confInv:hover {
@@ -336,7 +328,8 @@ input:focus {
   cursor: pointer;
   border-radius: 38px;
   display: inline;
-  width: 45%;
+  width: 40%;
+  font-size: 13px;
 }
 
 #addNota:hover {
@@ -539,10 +532,6 @@ input:focus {
   background-color: rgb(255, 255, 255);
 }
 
-.heightBodyCardRisultati {
-  height: 33em;
-}
-
 .positionBtnAddNoteInvSi {
   position: relative;
   top: -72px;
@@ -650,7 +639,6 @@ input:checked + .slider:before {
 }
 .login .card-deck .card {
   margin: auto;
-  width: 300px;
 }
 
 @media (min-width: 576px) {
@@ -658,11 +646,26 @@ input:checked + .slider:before {
     min-width: 135%;
     margin: auto;
   }
+  .heightBodyCardRisultati {
+    height: 35em;
+    width: 31rem;
+  }
 }
 @media (min-width: 768px) {
   .login .card-deck .card {
     min-width: 145%;
     margin: auto;
+  }
+  .login .cardGeneral-cerca-veicolo {
+    width: 340px;
+  }
+  .login .heightBodyCardRisultati {
+    position: relative;
+    left: -29px;
+    width: 460px;
+  }
+  .login .card-deck {
+    z-index: 600;
   }
 }
 @media (min-width: 992px) {
@@ -675,5 +678,13 @@ input:checked + .slider:before {
   .login .card-deck .card {
     min-width: 100%;
     margin: auto;
+  }
+  .card-deck {
+    z-index: 600;
+  }
+  .card-deck .cardRisultatiRicerca {
+    width: auto;
+    position: relative;
+    left: -10rem;
   }
 }/*# sourceMappingURL=custom.css.map */
