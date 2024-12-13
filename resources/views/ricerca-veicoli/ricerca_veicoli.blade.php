@@ -220,11 +220,11 @@
     });
 });
 
-
+//WF0YXXTTGYGS00222
 
                     </script>
 
-                    <div class="card-body text-primary mt-0 ">
+                            <div class="card-body text-primary " style="padding: 15px 0; ">
                         <form class="container" style="margin-top: -5px;">
 
                             <label class="text-secondary" style="margin-bottom: 0.2rem;">Targa</label>
