@@ -1,8 +1,9 @@
 @extends('layouts.app')
 @section('content')
     <div class="ricercaVeicoli">
+
         @if (Session::get('status'))
-        <div class="justify-content-center">
+        <div class="justify-content-center mt-5">
             <div class="alert alert-success alert-dismissible text-blue mx-auto" role="alert" style="position: relative;left: 47px;margin-bottom: 19px;margin-top: -87px;">
                 <span class="text-sm">{{ Session::get('status') }} </span>
                 <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
@@ -11,11 +12,19 @@
             </div>
         </div>
         @endif
+
+
         <div class="d-flex justify-content-center">
+
+   
+
             <div class="text-center" id="messaggio-attesa"></div>
             <div class="card-deck d-md-flex justify-content-center">
                 <div class="col-md-12 col-sm-12 mx-auto">
                     <div class="card mb-3 cardGeneral cardRicerca">
+                        
+           
+
                         <div class="card-header text-header text-center">
                             <h5 class="mt-3">Aggiungi veicolo</h5>
                             <img src="{{ asset('img/logoCarPoint.png') }}" alt="Logo" width="50%" class="mt-3 mx-auto">
@@ -31,7 +40,7 @@
                             </div>
                         @endif
                         <div class="card-body text-primary">
-                            <form action="{{ route('add-veicolo') }}" method="post"> @csrf
+                            <form action="{{ route('add-veicolo') }}" method="post" enctype="multipart/form-data"> @csrf
                                 <div class="row">
                                     <!-- Stato -->
                                     <div class="col-5">
