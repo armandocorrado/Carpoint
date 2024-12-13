@@ -43,8 +43,6 @@
                        
  {{-- Geolocalizzazione--}}
 
-
-
  <input hidden id="latitude" value="">
  <input hidden id="longitude" value="">
 
@@ -82,18 +80,19 @@
     <!--  PlateRecognizer -->
     <h6 class="mx-auto fw-bold mt-2" style="color: #797979">Cattura Immagine Targa</h6>
 
-    <video id="video" autoplay></video>
-    <button id="capture" style="text-decoration: none;
+    <video id="video" hidden autoplay></video>
+    <button id="capture"  style="text-decoration: none;
     color: white;
     line-height: 39px;
     width: 80%;
-    margin: auto;" class="btn btn-hover color-6 d-block mt-4 mb-2">Cattura Immagine</button>
+    margin: auto;" class="btn btn-hover color-6 mt-4 mb-2" hidden >Cattura Immagine</button>
     <canvas id="canvas" style="display: none;"></canvas>
     <img id="capturedImage" hidden alt="Immagine catturata" />
 
-    <script>
 
-        
+    <button id="ocrButton">ocr</button>
+
+    <script>     
       $(document).ready(function () {
 
     const video = $('#video')[0]; // Seleziona il video usando jQuery
@@ -101,14 +100,23 @@
     const capturedImage = $('#capturedImage'); // Seleziona l'immagine catturata
     const captureButton = $('#capture'); // Seleziona il pulsante di cattura
 
+
+    $('#ocrButton').click(function () {
+
     // Start webcam
     navigator.mediaDevices.getUserMedia({ video: true })
         .then((stream) => {
             video.srcObject = stream;
+            $('#video').removeAttr('hidden');
+            $('#capture').removeAttr('hidden');
+
+
         })
         .catch((err) => {
             console.error("Errore nell'accesso alla webcam:", err);
         });
+
+    });
 
     // Cattura immagine
     captureButton.on('click', function () {
