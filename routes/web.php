@@ -62,7 +62,7 @@ Route::post('/aggiungi-veicolo', [VeicoliController::class, 'store'])->name('add
 // TrovataController
 Route::post('/trovata', [TrovataController::class, 'store'])->name('store-trovata'); 
 Route::post('/trovata/elimina', [TrovataController::class, 'destroy'])->name('destroy-trovata'); 
-Route::post('/trovata/elimina/all', [TrovataController::class, 'destroyAll'])->name('destroy-trovata.all'); 
+Route::post('/trovata/elimina/all', [TrovataController::class, 'destroyAll'])->name('destroy-trovata.all')->middleware('role:Admin');
 
 //Ricerca Veicoli
 Route::get('/ricerca-veicoli', [RicercaVeicoliController ::class, 'search'])->name('search.veicoli');  

@@ -1,9 +1,23 @@
 @extends('layouts.app')
 @section('content')
+
+@if (Session::get('status'))
+<div class="justify-content-center mt-5">
+    <div class="alert alert-success alert-dismissible text-blue mx-auto" role="alert" style="position: relative;left: 47px;margin-bottom: 19px;margin-top: -87px;">
+        <span class="text-sm">{{ Session::get('status') }} </span>
+        <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+@endif
+
 <div class="d-flex justify-content-center">
+
+
     <div class="mt-5 ">
-        
-            
+
+          
             <div class="card-deck d-md-flex justify-content-center" data-aos="fade" data-aos-duration="2000">
                 <div class="col-md-12 col-sm-12 mx-auto">
                     <div class="card mb-3 cardGeneral cardRicerca">
@@ -18,9 +32,11 @@
                                 <a href="{{ route('piazzali') }}" type="button" style="text-decoration:none; color:white; line-height: 39px;" class="btn btn-hover color-3 d-block mt-4 mb-2" id="cercaPiazzali">PIAZZALI</a>   
                                 <a href="{{ route('new-veicolo') }}" type="button" style="text-decoration:none; color:white; line-height: 39px;" class="btn btn-hover color-2 d-block mt-4 mb-2" >AGGIUNGI VEICOLO</a>
 								
+                                @role('Admin')
                                 <form action="{{ route('destroy-trovata.all')}}" method="POST">@csrf
                                 <button type="submit" style="text-decoration:none; color:white; line-height: 42px;" class="btn btn-hover color-5 d-block mt-4 mb-2" >SVUOTA INVENTARIO</button>
                                 </form>
+                                @endrole
 
                                 <p class="text-center textFooterCard">Sofware sviluppato da Softmind S.r.l.</p>
                            

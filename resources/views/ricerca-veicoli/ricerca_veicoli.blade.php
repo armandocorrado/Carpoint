@@ -298,7 +298,7 @@
                             <button id='confInv'>CONFERMA INVENTARIO</button>
                         </div>
                         <div style="display: none" id=btnModInv>
-                            <form method='post' style='width:100%' action='{{ route(' destroy-trovata') }}'> @csrf
+                            <form method='post' style='width:100%' action='{{ route('destroy-trovata') }}'> @csrf
                                 <input type="number" hidden name="trovata" id="veicoloTrovataId">
                                 <button type='submit' class="btn btn-hover color-4 btnSearch" id='deleteInv'> ESCLUDI DA
                                     INVENTARIO </button>
