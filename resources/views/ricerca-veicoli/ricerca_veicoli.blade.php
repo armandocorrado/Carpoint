@@ -122,9 +122,9 @@
     color: white;
     line-height: 39px;
     width: 80%;
-    margin: auto;" class="btn btn-hover color-6 mt-4 mb-2" hidden>Cattura Immagine</button>
-                    <canvas id="canvas" style="display: none;"></canvas>
-                    <img id="capturedImage" hidden alt="Immagine catturata" />
+    margin: auto;" class="btn btn-hover color-6 mt-4 mb-2" hidden >Cattura Targa</button>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <img id="capturedImage" hidden alt="Immagine catturata" />
 
 
                     <div id="preloaderocr" hidden>
@@ -163,12 +163,15 @@
 
     // Cattura immagine
     captureButton.on('click', function () {
-
+    
         const context = canvas.getContext('2d');
+    
+        // Assegna dimensioni al canvas alla dimensione del video
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
+        // Mostra il preloader
         $('#preloaderocr').removeAttr('hidden');
      
 
@@ -187,19 +190,30 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
             data: JSON.stringify({ image: imageData }),
+            
+            success: function (response) {  
 
-            success: function (response) {
-
+                // Nascondi il preloader
                 $('#preloaderocr').attr('hidden', 'hidden');
 
+                // Controllo se la targa è stata riconosciuta
+                if(response.results.length == 0){
+                  alert('OCR: Non siamo riusciti a catturare la targa, ritenta')
+                }
+
+                 // Assegna la targa al campo input
                 const plate = (response.results[0].plate || "").toUpperCase();
                 $('#targa').val(plate).css('color', 'red');
 
-            },
-            error: function (xhr, status, error) {
-                console.error("Errore nella richiesta:", error);
-                $('#preloaderocr').attr('hidden', 'hidden');
-            }
+
+                },
+                error: function (xhr, status, error) {
+                    console.error("Errore nella richiesta:", error);
+                    // Nascondi il preloader
+                    $('#preloaderocr').attr('hidden', 'hidden');
+
+                    
+                }
 
             
         });
