@@ -34,6 +34,8 @@ class VeicoliController extends Controller
 
     public function addveicolo()
     {
+
+
     return view("aggiungi_veicolo");
     }
 
@@ -71,17 +73,19 @@ class VeicoliController extends Controller
        $modello = $request->input('modello');
        $colore = $request->input('colore');
        $nota = $request->input('nota');
-       $immagine = $request->input('immagine');
+       $immagine = $request->file('immagine');
 
+  
 
        if ($immagine) {
         // Ottieni il nome originale del file
         $nomefile = $immagine->getClientOriginalName();
-        
-        // Sposta il file in public/img
-        $immagine_path = $immagine->move(public_path('img'), $nomefile);
     
-        // Ora $immagine_path contiene il percorso completo dove il file è stato salvato
+        // Esempio: Salva il file in una directory specifica
+        $path = $immagine->storeAs('uploads', $nomefile, 'public');
+        echo "File salvato in: " . $path;
+    } else {
+        echo "Nessun file caricato.";
     }
 
 
@@ -92,23 +96,23 @@ class VeicoliController extends Controller
         //Controllo che la targa non si agia presente nella tabella
     if($targa_veicolo && !$telaio_veicolo){
         
-       return redirect('ricerca-veicoli')->with('status', 'Errore: un veicolo con la targa: '.$targa. ' esiste già' )->with('targa', $targa);
+       return back()->with('status', 'Errore: un veicolo con la targa: '.$targa. ' esiste già' )->with('targa', $targa);
 
     }elseif($telaio_veicolo && !$targa_veicolo){
 
             
-        return redirect('ricerca-veicoli')->with('status', 'Errore: un veicolo con il telaio: '.$telaio. ' esiste già')->with('telaio', $telaio);
+        return back()->with('status', 'Errore: un veicolo con il telaio: '.$telaio. ' esiste già')->with('telaio', $telaio);
 
 
     }elseif($telaio_veicolo == true && $targa_veicolo == true && $telaio_veicolo->nuovo_usato == $targa_veicolo->nuovo_usato){
 
             
-        return redirect('ricerca-veicoli')->with('status', 'Errore: un veicolo con la targa '.$targa.' e il telaio '.$telaio.' esiste già')->with(['telaio' => $telaio, 'targa'=> $targa ]);
+        return back()->with('status', 'Errore: un veicolo con la targa '.$targa.' e il telaio '.$telaio.' esiste già')->with(['telaio' => $telaio, 'targa'=> $targa ]);
 
     }elseif($telaio_veicolo == true && $targa_veicolo == true && $telaio_veicolo->nuovo_usato != $targa_veicolo->nuovo_usato){
 
 
-    return redirect('ricerca-veicoli')->with('status', 'Errore: due veicoli con la targa '.$targa.' e il telaio '.$telaio.' esistono già')->with(['telaio' => $telaio, 'targa'=> $targa ]);
+    return back()->with('status', 'Errore: due veicoli con la targa '.$targa.' e il telaio '.$telaio.' esistono già')->with(['telaio' => $telaio, 'targa'=> $targa ]);
 
     }else{
 
@@ -125,7 +129,7 @@ class VeicoliController extends Controller
              'modello'=> $modello,
              'colore'=> $colore,
              'nota'=> $nota,
-             'immagine' => $immagine_path,
+             'immagine' => $path,
 
 
         ]);
