@@ -169,7 +169,10 @@
                                 <input name="targa" id="targa"
                                 value="{{ Session::get('targa') }}" type="" class="form-control" placeholder="Targa" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" id="ocrButton"  type="button">Attiva camera</button>
+                                    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+                                    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+                                    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+                                
                                 </div>
                                 </div>
 
