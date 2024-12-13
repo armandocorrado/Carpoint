@@ -33,7 +33,7 @@
                 <div class="col-md-6 col-sm-12 mx-auto">
                     <div class="card mx-auto mb-3 cardGeneral cardRicerca" data-aos="fade" data-aos-duration="2500">
                         <div class="card-header text-header text-center  justify-content-center mt-3 ">
-                            <h5 class="d-inline mt-5">Ricerca veicoli</h5>
+                            <h5 class="d-inline mt-2">Ricerca veicoli</h5>
                             <img src="{{ asset('img/logoCarPoint.png') }}" alt="Logo" width="50%" class="mt-3 mx-auto">
 
                         </div>
@@ -78,7 +78,7 @@
 
 
     <!--  PlateRecognizer -->
-    <h6 class="mx-auto fw-bold mt-2" style="color: #797979">Cattura Immagine Targa</h6>
+  
 
     <video id="video" hidden autoplay></video>
     <button id="capture"  style="text-decoration: none;
@@ -90,7 +90,7 @@
     <img id="capturedImage" hidden alt="Immagine catturata" />
 
 
-    <button id="ocrButton">ocr</button>
+ 
 
     <script>     
       $(document).ready(function () {
@@ -109,6 +109,7 @@
             video.srcObject = stream;
             $('#video').removeAttr('hidden');
             $('#capture').removeAttr('hidden');
+            $('#ocrButton').css('display', 'none');
 
 
         })
@@ -160,20 +161,31 @@
                         
 
                         <div class="card-body text-primary mt-0 ">
-                            <form class="container">
+                            <form class="container" style="margin-top: -5px;">
+
+
+                               <div class="input-group mb-3">
+                                {{-- <label class="text-secondary" placeholder="Targa" style="margin-bottom: 0.2rem;">Targa</label> --}}
+                                <input name="targa" id="targa"
+                                value="{{ Session::get('targa') }}" type="" class="form-control" placeholder="Targa" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" id="ocrButton"  type="button">Attiva camera</button>
+                                </div>
+                                </div>
+
+                                {{-- <div class="col-xs-4">
+                                    <div class="field" data-validate="Inserire targa completa">
+                                        <label class="text-secondary" style="margin-bottom: 0.2rem;"> Targa</label>
+                                        <input type="" name="targa" id="targa"
+                                            value="{{ Session::get('targa') }}" maxlength="7" style="max-width:50%"><br>
+                                    </div>
+                                </div> --}}
 
                                 <div class="col-xs-4">
-                                    <div class="field" data-validate="Inserire targa completa">
-                                        <input type="" name="targa" id="targa"
-                                            value="{{ Session::get('targa') }}" maxlength="7"><br>
-                                        <label>Targa</label>
-                                    </div>
-                                </div>
-                                <div class="col-xs-4">
                                     <div class="field" data-validate="Da 7 a 17 caratteri">
+                                        {{-- <label class="text-secondary" style="margin-bottom: 0.2rem;">Numero telaio</label> --}}
                                         <input type="" name="telaio" id="numTelaio"
-                                            value="{{ Session::get('telaio') }}" maxlength="17"><br>
-                                        <label>Numero telaio</label>
+                                            value="{{ Session::get('telaio') }}" maxlength="17"  placeholder="Telaio"><br>
                                     </div>
                                 </div>
                                 <button class="btn btn-hover color-1 btnSearch d-block mt-3 mb-2"

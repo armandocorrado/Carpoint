@@ -5,10 +5,10 @@
     <div class="container mt-5">
         <div class=" row justify-content-center">
             <div class="col-md-4 col-sm-6 mx-auto">
-                <div class="card-deck d-md-flex justify-content-center mx-auto" 
+                <div class="card-deck  d-md-flex justify-content-center mx-auto" 
                 data-aos="fade" data-aos-duration="2000">
 
-                    <div class="card mb-3 cardGeneral cardRicerca">
+                    <div class="card card-login mb-3 cardGeneral cardRicerca">
                         <div class="card-header text-header text-center">
                             <h5 class="mt-4">Benvenuto</h5>
                             <img src="{{ asset('img/logoCarPoint.png') }}" alt="Logo" width="50%" class="mt-3 mx-auto">
@@ -18,9 +18,9 @@
                                 @csrf
 
                                 <div class="form-group">
-                                    <label for="email" class="mb-1">{{ __('Email') }}</label>
+                                    <label for="email" class="mb-2 text-secondary">{{ __('Email') }}</label>
                                     <input id="email" type="email"
-                                        class="form-control mb-3 @error('email') is-invalid @enderror" name="email"
+                                        class="form-control mb-3 mt-2 @error('email') is-invalid @enderror" name="email"
                                         value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                     @error('email')
@@ -31,9 +31,9 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="password">{{ __('Password') }}</label>
+                                    <label for="password" class="mb-2 text-secondary">{{ __('Password') }}</label>
                                     <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
+                                        class="form-control mt-2 @error('password') is-invalid @enderror" name="password"
                                         required autocomplete="current-password">
 
                                     @error('password')
@@ -45,7 +45,7 @@
 
                                 <div class="form-group mt-4">
                                     <div class="form-check">
-                                        <label class="" for="remember">{{ __('Ricordami') }}
+                                        <label class="text-secondary" for="remember">{{ __('Ricordami') }}
                                         </label>
                                         <input class="form-check-input" style="position: relative;left:3rem" type="checkbox" name="remember" id="remember"
                                             {{ old('remember') ? 'checked' : '' }}>
