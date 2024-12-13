@@ -1,5 +1,51 @@
 @extends('layouts.app')
 @section('content')
+
+<style>
+
+
+#preloaderocr {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Sfondo semi-trasparente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; /* Sopra tutto */
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 6px solid #ccc;
+    border-top-color: #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+
+
+
+
+
+
+</style>
+
+
     <div class="ricercaVeicoli mt-5">
 
 
@@ -90,7 +136,12 @@
     <img id="capturedImage" hidden alt="Immagine catturata" />
 
 
- 
+    <div id="preloaderocr" hidden>
+        <div class="spinner"></div>
+    </div>
+    
+
+
 
     <script>     
       $(document).ready(function () {
@@ -106,11 +157,11 @@
     // Start webcam
     navigator.mediaDevices.getUserMedia({ video: true })
         .then((stream) => {
+
             video.srcObject = stream;
             $('#video').removeAttr('hidden');
             $('#capture').removeAttr('hidden');
             $('#ocrButton').css('display', 'none');
-
 
         })
         .catch((err) => {
@@ -121,10 +172,14 @@
 
     // Cattura immagine
     captureButton.on('click', function () {
+
         const context = canvas.getContext('2d');
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        $('#preloaderocr').removeAttr('hidden');
+     
 
         // Ottieni immagine in base64
         const imageData = canvas.toDataURL('image/jpeg');
@@ -141,24 +196,28 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
             data: JSON.stringify({ image: imageData }),
-            
+
             success: function (response) {
+
+                $('#preloaderocr').attr('hidden', 'hidden');
 
                 const plate = (response.results[0].plate || "").toUpperCase();
                 $('#targa').val(plate).css('color', 'red');
+
             },
             error: function (xhr, status, error) {
                 console.error("Errore nella richiesta:", error);
+                $('#preloaderocr').attr('hidden', 'hidden');
             }
+
+            
         });
     });
 });
 
 
-    </script>
 
-
-                        
+                     </script>
 
                         <div class="card-body text-primary mt-0 ">
                             <form class="container" style="margin-top: -5px;">
@@ -337,7 +396,7 @@
                     loader.show();
 
                    
-                 
+        
 
                     $.ajax({
                         url: '{{ route('get-ajax') }}',
@@ -568,7 +627,7 @@
                             }
 
 
-                        console.log(latitude);
+                       
 
                             $('#tableVeicoli').append(
                                 "<div class='cell'>Targa: <span><strong> " + response.car
@@ -781,18 +840,7 @@
 
 
 
- <script>
 
- $(document).ready(function(){
-
-
-
-
-
- });
-
-
- </script>
 
 
 

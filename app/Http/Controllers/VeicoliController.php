@@ -135,8 +135,6 @@ class VeicoliController extends Controller
         ]);
 
        
-
-        
         //inserisco nell'inventario 
         $nuovo_usato_trovata = "";
         if($veicolo_manuale->nuovo_usato == 'n'){ 
