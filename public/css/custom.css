@@ -540,8 +540,8 @@ input:focus {
 
 .positionBtnAddNoteInvNo {
   position: relative;
-  top: -92px;
-  left: 290px;
+  top: -91px;
+  left: 270px;
 }
 
 .cardRisultatiRicercaNotfound {
@@ -641,14 +641,45 @@ input:checked + .slider:before {
   margin: auto;
 }
 
+@media (max-width: 576px) {
+  .ricercaVeicoli .positionBtnAddNoteInvNo {
+    position: relative;
+    top: -92px;
+    left: 191px;
+  }
+  .ricercaVeicoli .cell {
+    width: 94%;
+  }
+  .ricercaVeicoli #confInv {
+    font-size: 8px;
+    font-weight: 700;
+    width: 46%;
+  }
+  .ricercaVeicoli #addNota {
+    font-size: 8px;
+    font-weight: 700;
+    width: 46%;
+    position: relative;
+    left: 166px;
+    top: -84px;
+  }
+}
 @media (min-width: 576px) {
   .login .card-deck .card {
     min-width: 135%;
     margin: auto;
   }
   .heightBodyCardRisultati {
-    height: 35em;
+    height: 42em;
     width: 31rem;
+  }
+  .positionBtnAddNoteInvNo {
+    position: relative;
+    top: -92px;
+    left: 275px;
+  }
+  .cell {
+    width: 94%;
   }
 }
 @media (min-width: 768px) {
@@ -659,13 +690,13 @@ input:checked + .slider:before {
   .heightBodyCardRisultati {
     position: relative;
     left: -69px;
-    width: 470px;
+    width: 471px;
     padding: 0;
   }
   .ricercaVeicoli .cardRicerca {
-    max-width: 225px;
+    max-width: 251px;
     position: relative;
-    left: -2rem;
+    left: -3rem;
   }
   .ricercaVeicoli .heightBodyCardRisultati {
     position: relative;
@@ -708,6 +739,7 @@ input:checked + .slider:before {
     position: relative;
     width: 470px;
     padding: 0;
+    left: -85px;
   }
   .ricercaVeicoli .cardRicerca {
     max-width: 278px;

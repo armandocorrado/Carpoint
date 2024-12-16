@@ -78,7 +78,23 @@ class VeicoliController extends Controller
        $immagini = $request->file('immagini');
 
   
-     
+
+       if ($immagine) {
+        // Ottieni il nome originale del file
+        $nomefile = $immagine->getClientOriginalName();
+    
+        // Esempio: Salva il file in una directory specifica
+        $path = $immagine->storeAs('uploads', $nomefile, 'public');
+    
+    } else {
+        
+        $path = '';
+    }
+
+
+       $targa_veicolo = VeicoliManuali::where('targa', $targa)->select('targa', 'telaio', 'nuovo_usato')->first();
+       $telaio_veicolo = VeicoliManuali::where('telaio', $telaio)->select('targa', 'telaio', 'nuovo_usato')->first();
+
        
 
 

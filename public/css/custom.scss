@@ -624,8 +624,8 @@
             
             .positionBtnAddNoteInvNo {
                 position: relative;
-                top: -92px;
-                left: 290px;
+                top: -91px;
+                left: 270px
             }
             
             .cardRisultatiRicercaNotfound {
@@ -739,6 +739,47 @@
         }
 
 
+
+  // Small devices (landscape phones, 576px and up)
+@media (max-width: 576px) {
+    
+    .ricercaVeicoli{
+    .positionBtnAddNoteInvNo {
+    position: relative;
+    top: -92px;
+    left: 191px;
+}
+
+.cell {
+    width: 94%;
+}
+
+ #confInv {
+        font-size: 8px;
+        font-weight: 700;
+        width: 46%;
+    }
+
+    #addNota{
+        font-size: 8px;
+        font-weight: 700;
+        width: 46%;
+        position: relative;
+            left: 166px;
+            top: -84px
+        
+    }
+
+}
+
+
+}
+
+
+
+
+
+
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) {
     .login .card-deck .card {
@@ -746,9 +787,21 @@
         margin: auto;
     }
     .heightBodyCardRisultati {
-        height: 35em;
+        height: 42em;
         width: 31rem;
     }
+
+    .positionBtnAddNoteInvNo {
+        position: relative;
+        top: -92px;
+        left: 275px;
+    }
+    .cell {
+        width: 94%;
+    }
+
+    
+ 
 }
 
 // Medium devices (tablets, 768px and up)
@@ -762,7 +815,7 @@
     .heightBodyCardRisultati {
         position: relative;
         left: -69px;
-        width: 470px;
+        width: 471px;
         padding: 0;
     }
 
@@ -770,9 +823,9 @@
 
         .cardRicerca{
            
-                max-width: 225px;
-                position: relative;
-                left: -2rem;
+            max-width: 251px;
+            position: relative;
+            left: -3rem;
           
         } 
 
@@ -843,6 +896,7 @@
             position: relative;
             width: 470px;
             padding: 0;
+            left: -85px;
         }
     
         .cardRicerca {
