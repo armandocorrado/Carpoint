@@ -16,6 +16,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\RicercaVeicoliController;
 use App\Http\Controllers\OCRController;
 use App\Http\Controllers\PlateRecognizerController;
+use App\Http\Controllers\GpsController;
 
 
 
@@ -31,6 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
 Route::post('/ocr', [OCRController::class, 'extractText'])->name('ocr');
 Route::post('/recognize-plate', [PlateRecognizerController::class, 'recognize']);
 
+
+Route::post('/reverse-geocoding/{latitude}/{longitude}', [GpsController::class, 'reverseGeocode']);
 
 // Route::get('/sybase-usati', [SyncSybaseController::class, 'sync_usati']);
 // Route::post('/sybase-usati', [SyncSybaseController::class, 'sync_usati']);

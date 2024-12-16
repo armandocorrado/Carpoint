@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Facades\Storage;
 use App\Models\Trovata;
 use App\Models\VeicoliManuali;
+use App\Models\VeicoliImmagini;
 
 class VeicoliController extends Controller
 {
@@ -73,7 +75,7 @@ class VeicoliController extends Controller
        $modello = $request->input('modello');
        $colore = $request->input('colore');
        $nota = $request->input('nota');
-       $immagine = $request->file('immagine');
+       $immagini = $request->file('immagini');
 
   
 
@@ -94,76 +96,88 @@ class VeicoliController extends Controller
        $telaio_veicolo = VeicoliManuali::where('telaio', $telaio)->select('targa', 'telaio', 'nuovo_usato')->first();
 
        
-        //Controllo che la targa non si agia presente nella tabella
-    if($targa_veicolo && !$telaio_veicolo){
-        
-       return back()->with('status', 'Errore: un veicolo con la targa: '.$targa. ' esiste già' )->with('targa', $targa);
-
-    }elseif($telaio_veicolo && !$targa_veicolo){
-
-            
-        return back()->with('status', 'Errore: un veicolo con il telaio: '.$telaio. ' esiste già')->with('telaio', $telaio);
 
 
-    }elseif($telaio_veicolo == true && $targa_veicolo == true && $telaio_veicolo->nuovo_usato == $targa_veicolo->nuovo_usato){
+   // Avvia una transazione per garantire l'integrità dei dati
+   DB::beginTransaction();
 
-            
-        return back()->with('status', 'Errore: un veicolo con la targa '.$targa.' e il telaio '.$telaio.' esiste già')->with(['telaio' => $telaio, 'targa'=> $targa ]);
+   try {
+       // Controlla se esistono veicoli con la stessa targa o telaio, ignorando i record con valori NULL
+       $targa_veicolo = VeicoliManuali::whereNotNull('targa')->where('targa', $targa)->select('targa', 'telaio', 'nuovo_usato')->first();
+       $telaio_veicolo = VeicoliManuali::whereNotNull('telaio')->where('telaio', $telaio)->select('targa', 'telaio', 'nuovo_usato')->first();
 
-    }elseif($telaio_veicolo == true && $targa_veicolo == true && $telaio_veicolo->nuovo_usato != $targa_veicolo->nuovo_usato){
+       // Se esiste un veicolo con la stessa targa ma con un telaio diverso
+       if ($targa_veicolo && !$telaio_veicolo) {
+           return back()->with('status', 'Errore: un veicolo con la targa: ' . $targa . ' esiste già')->with('targa', $targa);
+       }
 
+       // Se esiste un veicolo con lo stesso telaio ma con una targa diversa
+       elseif ($telaio_veicolo && !$targa_veicolo) {
+           return back()->with('status', 'Errore: un veicolo con il telaio: ' . $telaio . ' esiste già')->with('telaio', $telaio);
+       }
 
-    return back()->with('status', 'Errore: due veicoli con la targa '.$targa.' e il telaio '.$telaio.' esistono già')->with(['telaio' => $telaio, 'targa'=> $targa ]);
+       // Se esistono entrambi (targa e telaio) e sono associati allo stesso tipo di veicolo (nuovo/usato)
+       elseif ($targa_veicolo && $telaio_veicolo && $telaio_veicolo->nuovo_usato == $targa_veicolo->nuovo_usato) {
+           return back()->with('status', 'Errore: un veicolo con la targa ' . $targa . ' e il telaio ' . $telaio . ' esiste già')->with(['telaio' => $telaio, 'targa' => $targa]);
+       }
 
-    }else{
+       // Se esistono entrambi (targa e telaio), ma il tipo di veicolo (nuovo/usato) è diverso
+       elseif ($targa_veicolo && $telaio_veicolo && $telaio_veicolo->nuovo_usato != $targa_veicolo->nuovo_usato) {
+           return back()->with('status', 'Errore: due veicoli con la targa ' . $targa . ' e il telaio ' . $telaio . ' esistono già con tipo diverso (nuovo/usato)')->with(['telaio' => $telaio, 'targa' => $targa]);
+       } else {
+           // Creazione del nuovo veicolo
+           $veicolo_manuale = VeicoliManuali::create([
+               'nuovo_usato' => $nuovo_usato,
+               'status' => 'M',
+               'telaio' => $telaio,
+               'targa' => $targa,
+               'ubicazione' => $ubicazione,
+               'marca' => $marca,
+               'modello' => $modello,
+               'colore' => $colore,
+               'nota' => $nota,
+               'immagine' => '', // Inizialmente nessuna immagine
+           ]);
 
+           // Gestisci le immagini
+           if ($immagini) {
+               foreach ($immagini as $immagine) {
+                   // Ottieni il nome originale del file
+                   $nomefile = $immagine->getClientOriginalName();
+                   // Salva il file nella directory "uploads"
+                   $path = $immagine->storeAs('uploads', $nomefile, 'public');
 
+                   // Salva il percorso dell'immagine nella tabella "VeicoliImmagini"
+                   VeicoliImmagini::create([
+                       'id_veicolo' => $veicolo_manuale->id,
+                       'path_immagine' => $path,
+                   ]);
+               }
+           }
 
-      $veicolo_manuale =   VeicoliManuali::create([
-        
-             'nuovo_usato' => $nuovo_usato,
-             'status'=> 'M',
-             'telaio'=> $telaio,
-             'targa'=> $targa,
-             'ubicazione'=> $ubicazione,
-             'marca'=> $marca,
-             'modello'=> $modello,
-             'colore'=> $colore,
-             'nota'=> $nota,
-             'immagine' => $path,
+           // Inserisci nel sistema dell'inventario
+           $nuovo_usato_trovata = $veicolo_manuale->nuovo_usato == 'n' ? 'mn' : 'mu';
+           Trovata::create([
+               'nuovo_usato' => $nuovo_usato_trovata,
+               'idveicolo' => $veicolo_manuale->id,
+               'trovata' => 1,
+               'id_operatore' => Auth::user()->id,
+               'user_operatore' => Auth::user()->name,
+               'dataOra' => now(),
+               'luogo' => $veicolo_manuale->ubicazione,
+           ]);
+       }
 
+       // Se tutte le operazioni sono andate a buon fine, committa la transazione
+       DB::commit();
 
-        ]);
-
-       
-        //inserisco nell'inventario 
-        $nuovo_usato_trovata = "";
-        if($veicolo_manuale->nuovo_usato == 'n'){ 
-            $nuovo_usato_trovata = "mn";  
-        }else{ 
-            $nuovo_usato_trovata = "mu"; 
-        }
-
-        Trovata::create([
-
-            'nuovo_usato' => $nuovo_usato_trovata,
-            'idveicolo' => $veicolo_manuale->id,
-            'trovata' => 1,
-            'id_operatore' => Auth::user()->id,
-            'user_operatore' => Auth::user()->name,
-            'dataOra' => now(),
-            'luogo' => $veicolo_manuale->ubicazione,
-            
-        ]);
-
-
-
-
-
-    }
-
-           return back()->with('status', 'veicolo aggiunto correattamente');
-        
+       return back()->with('status', 'Veicolo aggiunto correttamente');
+   } catch (\Exception $e) {
+       // In caso di errore, effettua il rollback della transazione
+       DB::rollBack();
+       return back()->with('status', 'Errore: ' . $e->getMessage());
+   }
+          
     }
 
     /**

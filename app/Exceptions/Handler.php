@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -46,5 +47,17 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+
+    public function render($request, Throwable $exception)
+    {
+        // Intercetta l'errore 419 (TokenMismatchException)
+        if ($exception instanceof TokenMismatchException) {
+            // Redirigi alla pagina di login con un messaggio personalizzato
+            return redirect()->route('login')->with('message', 'La sessione è scaduta. Per favore, effettua nuovamente il login.');
+        }
+
+        return parent::render($request, $exception);
     }
 }

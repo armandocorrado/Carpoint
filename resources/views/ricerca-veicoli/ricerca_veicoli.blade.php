@@ -81,35 +81,57 @@
 
                     {{-- Geolocalizzazione--}}
 
-                    <input hidden id="latitude" value="">
-                    <input hidden id="longitude" value="">
-
+                    <input hidden id="latitude" name="latitude" value="">
+                    <input hidden id="longitude" name="longitude" value="">
+                    
+                    <div>
+                        <p>Indirizzo:</p>
+                        <p id="address">In attesa...</p>
+                    </div>
+                    
 
                     <script>
                         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-
-                    $("#latitude").val(latitude);
-                    $("#longitude").val(longitude);
-                       
-                    
-                },
-                (error) => {
-                    console.error("Errore nella geolocalizzazione:", error);
-                    alert("Impossibile ottenere la posizione. Controlla le impostazioni del GPS.");
-                }
-            );
-        } else {
-            alert("La geolocalizzazione non è supportata su questo dispositivo.");
-        }
-
-      
-
+                            navigator.geolocation.getCurrentPosition(
+                                (position) => {
+                                    const latitude = position.coords.latitude;
+                                    const longitude = position.coords.longitude;
+                                    
+                                    // Imposta i valori degli input nascosti
+                                    $("#latitude").val(latitude);
+                                    $("#longitude").val(longitude);
+                                    
+                                    // Invia i dati al backend (solo via URL, senza il corpo "data")
+                                    $.ajax({
+                                        url: '/reverse-geocoding/' + latitude + '/' + longitude,
+                                        type: 'POST',
+                                        headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                        },
+                                        success: function (response) {
+                                            if (response.success) {
+                                                // Mostra l'indirizzo ricevuto
+                                                $("#address").text(response.address);
+                                            } else {
+                                                alert("Errore: " + response.message);
+                                            }
+                                        },
+                                        error: function (xhr) {
+                                            console.error("Errore nella richiesta:", xhr.responseText);
+                                            alert("Errore durante la comunicazione con il server.");
+                                        }
+                                    });
+                                },
+                                (error) => {
+                                    console.error("Errore nella geolocalizzazione:", error);
+                                    alert("Impossibile ottenere la posizione. Controlla le impostazioni del GPS.");
+                                }
+                            );
+                        } else {
+                            alert("La geolocalizzazione non è supportata su questo dispositivo.");
+                        }
                     </script>
-
+                    
                     <!-- fine -->
 
 

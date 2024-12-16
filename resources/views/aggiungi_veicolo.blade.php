@@ -158,7 +158,7 @@
                                     <div class="col-xs-4">
                                         <div class="field" style="">
                                             <label for="immagine" style="color:#999; font-size:16px;">Carica immagine</label>
-                                            <input type="file" name="immagine" id="immagine" accept="image/*">
+                                            <input type="file" name="immagini[]" id="immagine" multiple accept="image/*">
                                         </div>
                                     </div>
                                 </div>
