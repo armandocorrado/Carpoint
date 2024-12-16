@@ -84,10 +84,19 @@
                     <input hidden id="latitude" name="latitude" value="">
                     <input hidden id="longitude" name="longitude" value="">
                     
-                    <div>
-                        <p>Indirizzo:</p>
-                        <p id="address">In attesa...</p>
+                    <div style="display: flex; align-items: center; justify-content: center; text-align: center; font-weight: bold;">
+                        <i class="material-icons" style="margin-right: 8px; font-size: 18px;color: #b9b7b7;">
+                            <span class="material-symbols-outlined" style="
+                            position: relative;
+                            top: -4px;
+                            left: 11px;
+                            font-weight: bold;
+                            font-size: 14px;
+                        ">location_on</span>
+                        </i>
+                        <input id="indirizzo" style="font-size: 9px;color: #bfbfbf;margin-top: -3px;border: none; font-weight: bold;">
                     </div>
+                    
                     
 
                     <script>
@@ -111,7 +120,7 @@
                                         success: function (response) {
                                             if (response.success) {
                                                 // Mostra l'indirizzo ricevuto
-                                                $("#address").text(response.address);
+                                                $("#indirizzo").val(response.address);
                                             } else {
                                                 alert("Errore: " + response.message);
                                             }
@@ -256,12 +265,12 @@
                                     class="form-control" aria-label="Recipient's username"
                                     aria-describedby="basic-addon2">
                                 <div class="input-group-append">
-                                    <button class="btn btn-success" id="ocrButton" type="button">Attiva<i
+                                    <button class="btn btn-success" id="ocrButton" type="button"><i
                                             class="material-icons" style="
                                         font-size: 16px;
                                         position: relative;
                                         top: 3px;
-                                        left: 5px;
+                                        left: 0px;
                                     ">camera_alt</i>
 
 
