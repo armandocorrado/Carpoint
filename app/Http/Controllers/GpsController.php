@@ -9,7 +9,7 @@ class GpsController extends Controller
 {
     public function reverseGeocode($latitude, $longitude)
     {
-        $apiKey = 'pk.7d4e78ae5a5c04cd4e8e433f78feb68c';  \Log::info($apiKey);
+        $apiKey = env('LOCATION_IQ_KEY');  \Log::info($apiKey);
 
         // URL dell'API LocationIQ
         $url = "https://us1.locationiq.com/v1/reverse.php?key={$apiKey}&lat={$latitude}&lon={$longitude}&format=json";
