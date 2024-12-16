@@ -790,7 +790,7 @@
         #addNota {
             font-size: 12px;
             position: relative;
-    left: 16rem;
+           left: 16rem;
         }
 
         
@@ -832,9 +832,28 @@
         .cardRisultatiRicerca {
             width: auto;
             position: relative;
-            left: -10rem;
+            
+            min-width: 27rem;
         }
     }
+
+    .ricercaVeicoli{
+
+        .heightBodyCardRisultati {
+            position: relative;
+            width: 470px;
+            padding: 0;
+        }
+    
+        .cardRicerca {
+            max-width: 278px;
+            position: relative;
+            left: -2rem;
+        }
+
+    } 
+
+   
  }
 
 // XX-Large devices (larger desktops, 1400px and up)

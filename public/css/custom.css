@@ -702,6 +702,16 @@ input:checked + .slider:before {
   .card-deck .cardRisultatiRicerca {
     width: auto;
     position: relative;
-    left: -10rem;
+    min-width: 27rem;
+  }
+  .ricercaVeicoli .heightBodyCardRisultati {
+    position: relative;
+    width: 470px;
+    padding: 0;
+  }
+  .ricercaVeicoli .cardRicerca {
+    max-width: 278px;
+    position: relative;
+    left: -2rem;
   }
 }/*# sourceMappingURL=custom.css.map */
