@@ -119,6 +119,10 @@ class TrovataController extends Controller
 
         $inventario = Trovata::all(); 
 
+        if (Trovata::count() === 0) {
+            return back()->with('status', 'Nessun veicolo in inventario da rimuovere.');
+        }
+
         foreach ($inventario as $trovata) {
             $trovata->delete();
         }
