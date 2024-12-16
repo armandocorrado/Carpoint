@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="ricercaVeicoli">
+    <div class="aggiungiVeicoli">
 
         @if (Session::get('status'))
         <div class="justify-content-center mt-5">
@@ -21,7 +21,8 @@
             <div class="text-center" id="messaggio-attesa"></div>
             <div class="card-deck d-md-flex justify-content-center">
                 <div class="col-md-12 col-sm-12 mx-auto">
-                    <div class="card mb-3 cardGeneral cardRicerca">
+                 <div class="card mb-3 cardGeneral cardAggiungi" style="width: 360px; position: relative;">
+
                         
            
 
@@ -173,60 +174,25 @@
     </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Gestione dello switch per la Targa
-        document.getElementById('switch-targa').addEventListener('change', function () {
-            const targaInput = document.getElementById('targa');
-            const telaioInput = document.getElementById('telaio');
-            targaInput.disabled = !this.checked; // Abilita o disabilita il campo Targa
+  $(document).ready(function() {
+    $("form").on("submit", function(e) {
+        
+        var targa = $("#targa").val().trim();
+        var telaio = $("#telaio").val().trim();
 
-            // Se la Targa è disabilitata, abilita il campo Telaio
-            if (!this.checked) {
-                telaioInput.disabled = false;
-            } else {
-                // Se la Targa è abilitata, disabilita il campo Telaio
-                telaioInput.disabled = !document.getElementById('switch-telaio').checked;
-            }
-        });
-
-        // Gestione dello switch per il Numero di Telaio
-        document.getElementById('switch-telaio').addEventListener('change', function () {
-            const telaioInput = document.getElementById('telaio');
-            telaioInput.disabled = !this.checked; // Abilita o disabilita il campo Telaio
-
-            // Se il Numero di Telaio è abilitato, disabilita la Targa
-            if (this.checked) {
-                document.getElementById('switch-targa').disabled = true; // Disabilita il campo Targa
-            } else {
-                document.getElementById('switch-targa').disabled = false; // Rendi il campo Targa riabilitabile
-            }
-        });
+       
+        if (targa === "" && telaio === "") {
+           
+            alert("Compila almeno uno dei due campi: Targa o Telaio.");
+            e.preventDefault(); 
+        }
     });
+});
+
 </script>
 
 
-<script>
-//     $(document).ready(function() {
-//     // Aggiunge un evento click al pulsante
-//     $("#aggiungiVeicolo").on("click", function(e) {
-//         // Prevenire il comportamento predefinito (come il submit del form, se presente)
-//         e.preventDefault();
 
-//         // Ottieni i valori dei campi Targa e Telaio
-//         var targa = $("#targa").val().trim();
-//         var telaio = $("#telaio").val().trim();
-
-//         // Controlla se entrambi i campi sono vuoti
-//         if (targa === "" && telaio === "") {
-//             // Mostra un alert
-//             alert("Compila almeno uno dei due campi: Targa o Telaio.");
-//         } else {
-//             // Invia il form
-//             $("form").submit();
-//         }
-//     });
-// });
-</script>
 
 
 @endsection

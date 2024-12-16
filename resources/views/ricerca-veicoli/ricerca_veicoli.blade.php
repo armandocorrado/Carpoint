@@ -328,9 +328,9 @@
 
                             <div style="text-align:center;margin-top:10px">
                                 <button id="annullaNota"
-                                    style="background-image: linear-gradient(to right, #FF6666, #B30000);border-radius:50px;padding:12px;color:white;font-weight:700;display: inline;width: 45%;border:none;margin-bottom: 10px;">Annulla</button>
+                                    style="background-image: linear-gradient(to right, #a9a0a0, #11b95f);border-radius:50px;padding:12px;color:white;font-weight:700;display: inline;width: 45%;border:none;margin-bottom: 10px;">Annulla</button>
                                 <button id="aggiungiNota"
-                                    style="background-image: linear-gradient(to right, #7CFC00, #006400); border-radius:50px;padding:12px;color:white;font-weight:700; display: inline; width: 45%; border:none; margin-left: 4px;margin-bottom: 10px;">Aggiungi</button>
+                                    style="background-image: linear-gradient(to right, #0086fc, #006400); border-radius:50px;padding:12px;color:white;font-weight:700; display: inline; width: 45%; border:none; margin-left: 4px;margin-bottom: 10px;">Aggiungi</button>
                             </div>
                         </form>
                     </div>
