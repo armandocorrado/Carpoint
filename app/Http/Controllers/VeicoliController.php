@@ -83,9 +83,10 @@ class VeicoliController extends Controller
     
         // Esempio: Salva il file in una directory specifica
         $path = $immagine->storeAs('uploads', $nomefile, 'public');
-        echo "File salvato in: " . $path;
+    
     } else {
-        echo "Nessun file caricato.";
+        
+        $path = '';
     }
 
 
