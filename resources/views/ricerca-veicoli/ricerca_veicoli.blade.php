@@ -687,7 +687,7 @@
                                     response.car.telaio ? 'n' : 'u') + "'>" +
                                 "<input name='ubicazione' hidden id='ubicazione' value='{{ Auth::user()->ubicazione }}'>" +
                                 "<input name='latitudine' hidden  id='' value='"+latitudine+"'>" +
-                                "<input name='longitudine' hidden  id='' value='"+longitudine+"'>" +
+                                "<input name='longitudine' hidden id='' value='"+longitudine+"'>" +
                                 "<button type='submit'  id='confInv' >" +
                                 'CONFERMA INVENTARIO' + "</button>" + "</form>" +
                                 "<div class='textNessunaNota' id='nota_manuale'></div>" 
