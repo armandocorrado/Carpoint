@@ -50,6 +50,7 @@ class TrovataController extends Controller
         'luogo'=>$request->input('ubicazione'),
         'latitudine'=>$request->input('latitudine'),
         'longitudine'=>$request->input('longitudine'),
+        'gps_indirizzo'=>$request->input('indirizzo_gps'),
         
       ]);
 

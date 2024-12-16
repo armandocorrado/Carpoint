@@ -86,6 +86,7 @@
                     
                     <div>
                         <p>Indirizzo:</p>
+                        <input type="" id="indirizzo">
                         <p id="address">In attesa...</p>
                     </div>
                     
@@ -94,6 +95,7 @@
                         if (navigator.geolocation) {
                             navigator.geolocation.getCurrentPosition(
                                 (position) => {
+
                                     const latitude = position.coords.latitude;
                                     const longitude = position.coords.longitude;
                                     
@@ -112,6 +114,8 @@
                                             if (response.success) {
                                                 // Mostra l'indirizzo ricevuto
                                                 $("#address").text(response.address);
+                                                $("#indirizzo").val(response.address);
+
                                             } else {
                                                 alert("Errore: " + response.message);
                                             }
@@ -130,15 +134,12 @@
                         } else {
                             alert("La geolocalizzazione non è supportata su questo dispositivo.");
                         }
-                    </script>
-                    
+                    </script>          
                     <!-- fine -->
 
 
 
                     <!--  PlateRecognizer -->
-
-
                     <video id="video" hidden autoplay></video>
                     <button id="capture" style="text-decoration: none;
     color: white;
@@ -456,6 +457,7 @@
 
                           var latitudine = $('#latitude').val(); 
                           var longitudine = $('#longitude').val();
+                          var indirizzo = $('#indirizzo').val(); 
 
                             if (status_n) {
 
@@ -710,6 +712,7 @@
                                 "<input name='ubicazione' hidden id='ubicazione' value='{{ Auth::user()->ubicazione }}'>" +
                                 "<input name='latitudine' hidden  id='' value='"+latitudine+"'>" +
                                 "<input name='longitudine' hidden id='' value='"+longitudine+"'>" +
+                                "<input name='indirizzo_gps'  id='' value='"+indirizzo+"'>" +
                                 "<button type='submit'  id='confInv' >" +
                                 'CONFERMA INVENTARIO' + "</button>" + "</form>" +
                                 "<div class='textNessunaNota' id='nota_manuale'></div>" 
