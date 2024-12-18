@@ -250,6 +250,7 @@
 });
 
 //WF0YXXTTGYGS00222
+//cc631ze
 
                     </script>
 
@@ -368,6 +369,55 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal edit password -->
+<div class="modal fade" id="showGallery" tabindex="-1" aria-labelledby="showGallery" aria-hidden="true">
+    <div class="modal-dialog" style="
+    max-width: 20%;
+">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="
+                margin-top: -10px;
+                font-size: 20px;
+            " id="exampleModalLabel">Galleria foto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img class="d-block w-100" src="..." alt="First slide">
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block w-100" src="..." alt="Second slide">
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block w-100" src="..." alt="Third slide">
+                      </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>
+
+                
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
@@ -551,9 +601,14 @@
 
                             //Inserisco il titolo descrittivo del veicolo su nuovo/usato oppure in alternativa quello manuale con i campi marca e modello
                             $('#modello').append(
-                                "<h5 class='d-inline text-left'>" + (nomeVeicolo ?? response.car
-                                    .marca + ' ' + response.car.modello) + "</h5>"
-                            );
+                            "<h5 class='d-inline text-left'>" + 
+                            (nomeVeicolo ?? response.car.marca + ' ' + response.car.modello) + 
+                            "</h5>" +
+                            "<button style='background: none; color: gray; border: none; padding: 0px;' type='button' class='btn btn-success b' data-bs-toggle='modal' data-bs-target='#showGallery' id='b'>" +
+                            "<i class='fa-solid fa-key' style='position: relative; left: 8px;'></i>" +
+                            "</button>"
+);
+
 
                             $('#modello h5').addClass('classeModello');
 
