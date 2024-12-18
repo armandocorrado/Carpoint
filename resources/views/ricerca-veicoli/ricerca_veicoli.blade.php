@@ -94,7 +94,7 @@
                             font-size: 14px;
                         ">location_on</span>
                         </i>
-                        <input id="indirizzo" style="font-size: 9px;color: #bfbfbf;margin-top: -3px;border: none; font-weight: bold;">
+                        <input id="indirizzo" readonly style="font-size: 9px;color: #bfbfbf;margin-top: -3px;border: none; font-weight: bold;">
                     </div>
                     
                     
