@@ -154,7 +154,6 @@ class UserController extends Controller
                                                                                                                  
             'username' => 'required',                                                                     
             'ubicazione' => 'required',                                                                                                                                               
-            'password' => 'required', 
             'ruolo' => 'required'
         
          
@@ -163,7 +162,6 @@ class UserController extends Controller
 
       $username = $request->input('username');
       $ubicazione = $request->input('ubicazione');
-      $password = $request->input('password');
       $ruolo = $request->input('ruolo');
       
         $user = User::with('roles')->find($id); 
@@ -177,7 +175,7 @@ class UserController extends Controller
 
         $user->username = $username;
         $user->ubicazione = $ubicazione;
-        $user->password = Hash::make($password);
+
        
         $user->save();
 
@@ -200,7 +198,21 @@ class UserController extends Controller
 
 
 
-        return back()->with('status', 'dati utente aggiornati con successo, una notifica mail è stata inviata');
+        return back()->with('status', 'dati utente aggiornati con successo');
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+
+
+        $user = User::find($id);
+        $password = $request->input('password');
+
+        $user->password = Hash::make($password);
+        $user->save();
+
+
+        return back()->with('status', 'Nuova password impostata');
     }
 
     /**

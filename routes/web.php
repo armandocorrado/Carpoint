@@ -90,6 +90,7 @@ Route::get('/report-tutti', [ReportController::class, 'genera_tutti'])->name('re
 Route::get('/utenti', [UserController::class, 'utenti'])->name('user');
 Route::post('/utenti', [UserController::class, 'store'])->name('user.store');
 Route::post('/utenti/update/{id}', [UserController::class, 'update'])->name('user.update');
+Route::post('/utenti/password/update/{id}', [UserController::class, 'updatePassword'])->name('user.password.update');
 Route::post('/utenti/delete/{id}', [UserController::class, 'destroy'])->name('user.delete');
 
 
