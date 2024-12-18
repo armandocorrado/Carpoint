@@ -74,11 +74,21 @@
 
                             </div>
                             <div class="d-flex flex-wrap justify-content-center container mt-2 mb-0 scrollable "
-                                style="max-height: 500px;overflow-y: auto;width: 560px;" id="resultNU">
+                                style="background:white" id="resultNU">
                                 <!-- append contenuto   -->
                                 <p id="testoVeicoloN" style='display:none;font-size:20px;'>Veicoli <strong style="color:rgb(12, 12, 164)"> NUOVI
                                     </strong>da inventariare</p>
-                                    <p class=" chiudiN" style='display:none;color:black;margin-left: 29%;margin-top: 3%;font-weight: bolder;font-size: 13px;cursor: pointer;'>Chiudi</p>
+                                    <p class=" chiudiN" style='{
+    color: black;
+    margin-left: 19%;
+    margin-top: 3%;
+    font-weight: bolder;
+    font-size: 13px;
+    cursor: pointer;
+    background-color: #ddd5d5;
+    padding: 5px;
+    border-radius: 5px;
+}'>Chiudi</p>
                                 <table id="tablePiazzaliRisult" style='display:none'>
                                     <thead>
                                         <tr>
@@ -93,7 +103,17 @@
                                 </table>
                                 <p id="testoVeicoloU" style='display:none;font-size:20px;'>Veicoli<strong style="color:rgb(169, 180, 9)"; > USATO </strong>da
                                     inventariare</p>
-                                    <p class="chiudiU" style='display:none;color:black;margin-left: 29%;margin-top: 3%;font-weight: bolder;font-size: 13px;cursor: pointer;'>Chiudi</p>
+                                    <p class="chiudiU" style='
+    color: black;
+    margin-left: 19%;
+    margin-top: 3%;
+    font-weight: bolder;
+    font-size: 13px;
+    cursor: pointer;
+    background-color: #ddd5d5;
+    padding: 5px;
+    border-radius: 5px;
+'>Chiudi</p>
                                 <table id="tablePiazzaliRisultU" style='display:none'>
                                     <thead>
                                         <tr>
