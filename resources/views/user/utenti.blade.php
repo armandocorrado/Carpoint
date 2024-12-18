@@ -25,16 +25,23 @@
 @endif
 
 <style>
-    td{
-        padding: 0px
+ .table  td{
+       padding: 2px 9px;
+    border: 1px solid #cfcfcf;
     }
+
+    .fa-solid, .fas {
+    font-weight: 900;
+    font-size: 13px;
+    
+}
 </style>
 
         <div class="card-deck d-md-flex justify-content-center ">
             <div class="col-md-6 col-sm-12 mx-auto">
                 <div class="card mx-auto mb-3 cardGeneral cardRicerca" style="width: 760px;" data-aos="fade"
                     data-aos-duration="2500">
-                    <div class="card-header text-header text-center" style="height:62px;background-color: #d9dfe2;">
+                    <div class="card-header text-header text-center" style="height:53px;background-color: #d9dfe2;">
                         <h4 class="mx-auto">Lista utenti</h4> 
                            {{-- <img src="{{ asset('img/logoCarPoint.png') }}" alt="Logo" width="10%" class="mt-3"> --}}
                                      <!-- Button trigger modal -->
@@ -59,13 +66,17 @@ Crea ruolo
 
                         <div class="table-reponsive box" style="margin-top: 0%;font-size: 13px;">
                             <table id="utentiTable" class="table table-striped table-bordered">
-                                <thead>
+                                <thead class="mx-auto">
                                     <tr>
                                         <th>User</th>
                                         <th>Ruolo</th>
                                         <th>Ubicazione</th>
-                                        <th>Modifica </th>
-                                        <th>Elimina</th>
+                                        <th style="
+                                        max-width: 44px;
+                                    ">Modifica </th>
+                                       <th style="
+                                       max-width: 44px;
+                                   ">Elimina </th>
 
                                     </tr>
                                 </thead>
@@ -85,6 +96,11 @@ Crea ruolo
                                         
                                                     data-bs-target="#editUtente" id="b">
                                                     <i class="fa-solid fa-pen-to-square"></i>
+                                                </button>
+                                                <button style="background: none;color: gray;border:none;padding: 0px;" type="button" class="btn btn-success b" data-bs-toggle="modal"
+                                                 data-id={{ $user->id }} 
+                                                 data-username="{{$user->username}}" data-bs-target="#editPass" id="b">
+                                                 <i class="fa-solid fa-key" style="position: relative;left: 8px;"></i>
                                                 </button>
                                             </td>
                                             <td style="text-align: center;">
@@ -150,8 +166,9 @@ Crea ruolo
                             </div>
                         </div>
                         <br>
-                        <div class="col-xs-4">
-                            <select class="form-select form-select-lg mb-3" name="ruolo">
+                        <div class="col-xs-4" style="margin-top: -20px;">
+                            <label>Ruolo</label>
+                            <select class="form-select form-select-lg mb-3" name="ruolo" style="font-size:15px;padding-left: 5px;">
                                 <option>Scegli ruolo</option>
                                 @foreach ($ruoli as $ruolo)
                                     <option value="{{ $ruolo->name }}">{{ $ruolo->name }}</option>
@@ -222,9 +239,10 @@ Crea ruolo
                             </div>
                         </div>
                         <br>
-                        <div class="col-xs-4">
-                            <select class="form-select form-select-lg mb-3" name="ruolo" id="ruoloEdit">
-                               
+                        <div class="col-xs-4" style="margin-top: -20px;">
+                            <label>Ruolo</label>
+                            <select class="form-select form-select-lg mb-3" name="ruolo" id="ruoloEdit" style="font-size:15px;padding-left: 5px;">
+                             
                                 @foreach ($ruoli as $ruolo)
                                     <option value="{{ $ruolo->name }}">{{ $ruolo->name }}</option>
                                 @endforeach
@@ -241,6 +259,50 @@ Crea ruolo
         </div>
     </div>
 
+
+
+<!-- Modal edit password -->
+<div class="modal fade" id="editPass" tabindex="-1" aria-labelledby="editUtente" aria-hidden="true">
+    <div class="modal-dialog" style="
+    max-width: 20%;
+">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="
+                margin-top: -10px;
+                font-size: 20px;
+            " id="exampleModalLabel">Modifica password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="container" id="formEdit"  method="post">@csrf
+
+                
+                  
+                    <div class="col-xs-4">
+                        <div class="field mb-0" data-validate="Inserire password">
+                            <label>Password</label>
+                            <input type="password" name="password" id="rolePassword" value=""><br>
+                          
+                        </div>
+                    </div>
+                      
+                   
+                  
+
+                    <button style="text-decoration:none; color:white; line-height: 39px;"
+                        class="btn btn-hover color-2 btnSearch d-block mt-5 mb-2" type="submit">AGGIORNA</button>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+    
+
     <!-- Modal crea ruolo -->
     <div class="modal fade" id="creaRuolo" tabindex="-1" aria-labelledby="creaRuolo" aria-hidden="true">
         <div class="modal-dialog" style="
@@ -248,26 +310,30 @@ Crea ruolo
 ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Crea Ruolo</h5>
+                    <h5 class="modal-title" style="
+                    margin-top: -10px;
+                    font-size: 20px;
+                " id="exampleModalLabel">Crea ruolo</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <span style="margin-left:19px">Ruoli esistenti:
+                    <span style="margin-left:19px">Esistenti:
                         @foreach ($ruoli as $ruolo)
                     </span><span class="badge text-bg-primary">{{ $ruolo->name }}</span>
                     @endforeach
                     <form class="container" action="{{ route('ruoli.store') }}" method="post">@csrf
 
-                        <div class="col-xs-4">
+                        <div class="col-xs-4 mt-3">
                             <div class="field" data-validate="Inserire nome ruolo">
-                                <input type="text" name="nameCreaRuolo" id="nameCreaRuolo" value=""><br>
                                 <label>Crea ruolo</label>
+                                <input type="text" name="nameCreaRuolo" id="nameCreaRuolo" value=""><br>
+                                
                             </div>
                         </div>
 
 
                         <button type="submit" style="text-decoration:none; color:white; line-height: 39px;"
-                            class="btn btn-hover color-2 btnSearch d-block mt-5 mb-2">SALVA</button>
+                            class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2">SALVA</button>
 
                     </form>
                 </div>
