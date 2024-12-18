@@ -97,9 +97,9 @@ Crea ruolo
                                                     data-bs-target="#editUtente" id="b">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
-                                                <button style="background: none;color: gray;border:none;padding: 0px;" type="button" class="btn btn-success b" data-bs-toggle="modal"
+                                                <button style="background: none;color: gray;border:none;padding: 0px;" type="button" class="btn btn-success b updatePassword" data-bs-toggle="modal"
                                                  data-id={{ $user->id }} 
-                                                 data-username="{{$user->username}}" data-bs-target="#editPass" id="b">
+                                                 data-bs-target="#editPass" id="b">
                                                  <i class="fa-solid fa-key" style="position: relative;left: 8px;"></i>
                                                 </button>
                                             </td>
@@ -223,14 +223,7 @@ Crea ruolo
                                
                             </div>
                         </div>
-                        <div class="col-xs-4">
-                            <div class="field mb-0" data-validate="Inserire password">
-                                <label>Password</label>
-                                <input type="password" name="password" id="rolePassword" value=""><br>
-                              
-                            </div>
-                        </div>
-                          
+                        
                         <div class="col-xs-4">
                             <div class="field" data-validate="Inserire ubicazione">
                                 <label>Ubicazione</label>
@@ -275,21 +268,16 @@ Crea ruolo
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="container" id="formEdit"  method="post">@csrf
+                <form class="container formPassw" action="" id="formEdit"  method="post">@csrf
 
-                
-                  
                     <div class="col-xs-4">
                         <div class="field mb-0" data-validate="Inserire password">
                             <label>Password</label>
-                            <input type="password" name="password" id="rolePassword" value=""><br>
+                            <input type="password" name="password" id="rolePassword" value="" required><br>
                           
                         </div>
                     </div>
                       
-                   
-                  
-
                     <button style="text-decoration:none; color:white; line-height: 39px;"
                         class="btn btn-hover color-2 btnSearch d-block mt-5 mb-2" type="submit">AGGIORNA</button>
 
@@ -407,6 +395,26 @@ Crea ruolo
 
             </script>
 
+            <script>
+
+$('.updatePassword').click(function(){
+
+
+    var origin = window.location.origin;
+
+    var id = $(this).data("id");
+
+    $('.formPassw').attr('action', origin+'/utenti/password/update/'+id);
+
+
+
+
+
+});
+
+
+
+            </script>
 
 
 @endsection
