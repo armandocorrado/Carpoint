@@ -18,16 +18,12 @@
                                 @csrf
 
                                 <div class="form-group">
-                                    <label for="email" class="mb-2 text-secondary">{{ __('Email') }}</label>
-                                    <input id="email" type="email"
-                                        class="form-control mb-3 mt-2 @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    <label for="email" class="mb-2 text-secondary">{{ __('User') }}</label>
+                                    <input id="email" type="text"
+                                        class="form-control mb-3 mt-2" name="username"
+                                        value="{{ old('email') }}" required autocomplete="user" autofocus>
 
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                  
                                 </div>
 
                                 <div class="form-group">
