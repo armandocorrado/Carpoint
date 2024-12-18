@@ -107,13 +107,13 @@ Crea ruolo
 
     <!-- Modal crea utente -->
     <div class="modal fade" id="creaUtente" tabindex="-1" aria-labelledby="creaUtente" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="
+    max-width: 20%;
+">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel" style="
                     margin-top: -10px;
-                    Crea position: absolute;
-                    Crea position: absolute;
                     font-size: 20px;
                 ">Crea Utente</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -121,13 +121,7 @@ Crea ruolo
                 <div class="modal-body">
                     <form class="container" action="{{ route('user.store') }}" method="post">@csrf
                         <input type="hidden" value="{{$url}}" id="url">
-                        <div class="col-xs-4">
-                            <div class="field" data-validate="Inserire ubicazione">
-                                <label>Ubicazione</label>
-                                <input type="text" name="ubicazione" id="roleUbicazione" value=""><br>
-                               
-                            </div>
-                        </div>
+                      
                         <div class="col-xs-4">
                             <div class="field" data-validate="Inserire User">
                                 <label>User</label>
@@ -139,6 +133,13 @@ Crea ruolo
                             <div class="field mb-0" data-validate="Inserire password">
                                 <label>Password</label>
                                 <input type="password" name="password" id="rolePassword" value=""><br>
+                               
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="field" data-validate="Inserire ubicazione">
+                                <label>Ubicazione</label>
+                                <input type="text" name="ubicazione" id="roleUbicazione" value=""><br>
                                
                             </div>
                         </div>
@@ -177,37 +178,41 @@ Crea ruolo
 
     <!-- Modal edit utente -->
     <div class="modal fade" id="editUtente" tabindex="-1" aria-labelledby="editUtente" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="
+        max-width: 20%;
+    ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modifica dati Utente</h5>
+                    <h5 class="modal-title" style="
+                    margin-top: -10px;
+                    font-size: 20px;
+                " id="exampleModalLabel">Modifica dati Utente</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form class="container" id="formEdit"  method="post">@csrf
 
-                        <div class="col-xs-4">
-                            <div class="field" data-validate="Inserire nome user">
-                                <input type="text" name="name" id="nameEdit" value=""><br>
-                                <label>Nome</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-4">
-                            <div class="field" data-validate="Inserire ubicazione">
-                                <input type="text" name="ubicazione" id="ubicazioneEdit" value=""><br>
-                                <label>Ubicazione</label>
-                            </div>
-                        </div>
+                    
                         <div class="col-xs-4">
                             <div class="field" data-validate="Inserire Email">
-                                <input type="email" name="email" id="emailEdit" value=""><br>
-                                <label>Email</label>
+                                <label>User</label>
+                                <input type="text" name="text" id="userEdit" value=""><br>
+                               
                             </div>
                         </div>
                         <div class="col-xs-4">
                             <div class="field mb-0" data-validate="Inserire password">
-                                <input type="password" name="password" id="rolePassword" value=""><br>
                                 <label>Password</label>
+                                <input type="password" name="password" id="rolePassword" value=""><br>
+                              
+                            </div>
+                        </div>
+                          
+                        <div class="col-xs-4">
+                            <div class="field" data-validate="Inserire ubicazione">
+                                <label>Ubicazione</label>
+                                <input type="text" name="ubicazione" id="ubicazioneEdit" value=""><br>
+                                
                             </div>
                         </div>
                         <br>
@@ -232,7 +237,9 @@ Crea ruolo
 
     <!-- Modal crea ruolo -->
     <div class="modal fade" id="creaRuolo" tabindex="-1" aria-labelledby="creaRuolo" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="
+    max-width: 20%;
+">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Crea Ruolo</h5>
@@ -300,12 +307,12 @@ Crea ruolo
             $('.b').on('click', function() {
             var id = $(this).attr("data-id");
             
-            var name = $(this).attr("data-name");
-            var email = $(this).attr("data-email");
+          
+            var username = $(this).attr("username");
             var ubicazione = $(this).attr("data-ubicazione");
 
-            $('#nameEdit').val(name);
-            $('#emailEdit').val(email);
+         
+            $('#userEdit').val(email);
             $('#ubicazioneEdit').val(ubicazione);
 
 
