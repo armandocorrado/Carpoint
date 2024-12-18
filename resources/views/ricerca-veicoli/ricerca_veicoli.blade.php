@@ -506,6 +506,9 @@
 
                             const immagini = response.car.immagini;
 
+                            // Controlla che `immagini` esista e non sia vuoto
+if (Array.isArray(immagini) && immagini.length > 0) {
+
                              // Trova il contenitore del carousel
     const carouselInner = document.querySelector('#carouselExampleIndicators .carousel-inner');
     const carouselIndicators = document.querySelector('#carouselExampleIndicators .carousel-indicators');
@@ -538,7 +541,7 @@
         carouselIndicators.appendChild(indicator);
     });
 
-
+}
 
                             var status_n = response.car.status;
                             var status_nuovo;
