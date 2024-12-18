@@ -506,42 +506,43 @@
 
                             const immagini = response.car.immagini;
 
-                            // Controlla che `immagini` esista e non sia vuoto
-if (Array.isArray(immagini) && immagini.length > 0) {
+        // Controlla che `immagini` esista e non sia vuoto
+        if (Array.isArray(immagini) && immagini.length > 0) {
+            // Trova il contenitore del carousel
+            const $carouselInner = $('#carouselExampleIndicators .carousel-inner');
+            const $carouselIndicators = $('#carouselExampleIndicators .carousel-indicators');
 
-                             // Trova il contenitore del carousel
-    const carouselInner = document.querySelector('#carouselExampleIndicators .carousel-inner');
-    const carouselIndicators = document.querySelector('#carouselExampleIndicators .carousel-indicators');
+            // Svuota il contenuto esistente del carousel
+            $carouselInner.empty();
+            $carouselIndicators.empty();
 
-    // Svuota il contenuto esistente del carousel
-    carouselInner.innerHTML = '';
-    carouselIndicators.innerHTML = '';
+            // Cicla le immagini ricevute e crea gli elementi
+            $.each(immagini, function(index, immagine) {
+                // Crea l'elemento della slide
+                const slide = $('<div>').addClass('carousel-item');
+                if (index === 0) slide.addClass('active'); // La prima immagine deve essere attiva
 
-    // Cicla le immagini ricevute e crea gli elementi
-    immagini.forEach((immagine, index) => {
-        // Crea l'elemento della slide
-        const slide = document.createElement('div');
-        slide.classList.add('carousel-item');
-        if (index === 0) slide.classList.add('active'); // La prima immagine deve essere attiva
+                const img = $('<img>')
+                    .addClass('d-block w-100')
+                    .attr('src', 'storage/' + immagine.path_immagine)
+                    .attr('alt', `Slide ${index + 1}`);
 
-        const img = document.createElement('img');
-        img.classList.add('d-block', 'w-100');
-        img.src = 'storage/'+immagine.path_immagine; 
-        img.alt = `Slide ${index + 1}`;
+                slide.append(img);
+                $carouselInner.append(slide);
 
-        slide.appendChild(img);
-        carouselInner.appendChild(slide);
+                // Crea l'indicatore
+                const indicator = $('<li>')
+                    .attr('data-target', '#carouselExampleIndicators')
+                    .attr('data-slide-to', index);
+                if (index === 0) indicator.addClass('active');
 
-        // Crea l'indicatore
-        const indicator = document.createElement('li');
-        indicator.setAttribute('data-target', '#carouselExampleIndicators');
-        indicator.setAttribute('data-slide-to', index);
-        if (index === 0) indicator.classList.add('active');
+                $carouselIndicators.append(indicator);
+            });
 
-        carouselIndicators.appendChild(indicator);
-    });
+        } else {
+            console.log('Nessuna immagine trovata.');
 
-}
+        }
 
                             var status_n = response.car.status;
                             var status_nuovo;
