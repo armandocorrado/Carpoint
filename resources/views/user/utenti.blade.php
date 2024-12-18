@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="ricercaVeicoli row mt-5">
+    <div class="utentiVeicoli row mt-5">
 		@role('Admin')
      
         @if (Session::get('status'))
@@ -24,19 +24,31 @@
     </div>
 @endif
 
+<style>
+    td{
+        padding: 0px
+    }
+</style>
+
         <div class="card-deck d-md-flex justify-content-center ">
             <div class="col-md-6 col-sm-12 mx-auto">
-                <div class="card mx-auto mb-3 cardGeneral cardRicerca" style="width: 100%" data-aos="fade"
+                <div class="card mx-auto mb-3 cardGeneral cardRicerca" style="width: 760px;" data-aos="fade"
                     data-aos-duration="2500">
                     <div class="card-header text-header text-center" style="height:62px;background-color: #d9dfe2;">
-                        <h3 class="mx-auto">Lista utenti</h3> 
+                        <h4 class="mx-auto">Lista utenti</h4> 
                            {{-- <img src="{{ asset('img/logoCarPoint.png') }}" alt="Logo" width="10%" class="mt-3"> --}}
                                      <!-- Button trigger modal -->
-                                   <button type="button" class="btn btn-light float-right ml-2" style="margin-top: -37px;border-radius:30px;background-color: #f8f9fa5e;border-color:#f8f9fa;" data-bs-toggle="modal" data-bs-target="#creaUtente">
-                                        <i class="fa-solid fa-user"></i>   Crea utente
+                                   <button type="button" class="btn btn-light float-right ml-2" style="margin-top: -38px;
+    border-radius: 30px;
+    background-color: #f8f9fa5e;
+    border-color: #f8f9fa;
+    font-size: 13px;
+    margin-right: 119px;
+}" data-bs-toggle="modal" data-bs-target="#creaUtente">
+                                        <i class="fa-solid fa-user" style="font-size:13px"></i>   Crea utente
                                       </button>
- <button type="button" class="btn btn-light float-right" style="margin-top: -38px;border-radius:30px;background-color: #f8f9fa5e;border-color:#f8f9fa;" data-bs-toggle="modal" data-bs-target="#creaRuolo">
-   <i class="fa fa-address-book" aria-hidden="true"></i>
+ <button type="button" class="btn btn-light float-right" style="margin-top: -38px;border-radius:30px;background-color: #f8f9fa5e;border-color:#f8f9fa;font-size:13px;" data-bs-toggle="modal" data-bs-target="#creaRuolo">
+   <i class="fa fa-address-book" aria-hidden="true" style="font-size:13px"></i>
 Crea ruolo
  </button>
 
@@ -45,14 +57,14 @@ Crea ruolo
                     <div class="card-body text-primary mt-0 ">
 
 
-                        <div class="table-reponsive box" style="margin-top: 0%;">
+                        <div class="table-reponsive box" style="margin-top: 0%;font-size: 13px;">
                             <table id="utentiTable" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Utente</th>
+                                        <th>User</th>
                                         <th>Ruolo</th>
                                         <th>Ubicazione</th>
-                                        <th>Email</th>
+                                       
                                         <th>Modifica </th>
                                         <th>Elimina</th>
 
@@ -61,19 +73,19 @@ Crea ruolo
                                 <tbody>
                                     @foreach ($users as $user)  
                                         <tr> 
-                                            <td>{{ $user->name ?? '' }}</td>
+                                            <td>{{ $user->email ?? '' }}</td>
                                             <td>{{ $user['roles'][0]['name'] ?? '' }}</td>
                                             <td>{{ $user->ubicazione ?? '' }}</td>
-                                            <td>{{ $user->email ?? '' }}</td>
+                                           
                                             <td style="text-align: center;">
-												<button type="button" class="btn btn-success b" data-bs-toggle="modal" data-id={{ $user->id }} data-name="{{$user->name}}" data-ubicazione="{{$user->ubicazione}}" data-email="{{$user->email}}" 
+												<button style="background: none;color: gray;border:none;padding: 0px;" type="button" class="btn btn-success b" data-bs-toggle="modal" data-id={{ $user->id }} data-name="{{$user->name}}" data-ubicazione="{{$user->ubicazione}}" data-email="{{$user->email}}" 
                                                     data-bs-target="#editUtente" id="b">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
                                             </td>
                                             <td style="text-align: center;">
                                                 <form action="{{route('user.delete', $user->id)}}" method="post"> @csrf
-                                            <button type="submit" class="btn btn-danger">
+                                            <button type="submit" class="btn btn-danger" style="background: none;color: gray;border:none;padding: 0px;">
                                                 <i class="fa-sharp fa-solid fa-trash"></i>
                                             </button>  
                                         </form>
@@ -100,34 +112,36 @@ Crea ruolo
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Crea Utente</h5>
+                    <h5 class="modal-title" id="exampleModalLabel" style="
+                    margin-top: -10px;
+                    Crea position: absolute;
+                    Crea position: absolute;
+                    font-size: 20px;
+                ">Crea Utente</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form class="container" action="{{ route('user.store') }}" method="post">@csrf
                         <input type="hidden" value="{{$url}}" id="url">
                         <div class="col-xs-4">
-                            <div class="field" data-validate="Inserire nome user">
-                                <input type="text" name="name" id="roleName" value=""><br>
-                                <label>Nome</label>
-                            </div>
-                        </div>
-                        <div class="col-xs-4">
                             <div class="field" data-validate="Inserire ubicazione">
-                                <input type="text" name="ubicazione" id="roleUbicazione" value=""><br>
                                 <label>Ubicazione</label>
+                                <input type="text" name="ubicazione" id="roleUbicazione" value=""><br>
+                               
                             </div>
                         </div>
                         <div class="col-xs-4">
-                            <div class="field" data-validate="Inserire Email">
-                                <input type="email" name="email" ><br>
-                                <label>Email</label>
+                            <div class="field" data-validate="Inserire User">
+                                <label>User</label>
+                                <input type="email" name="username" ><br>
+                                
                             </div>
                         </div>
                         <div class="col-xs-4">
                             <div class="field mb-0" data-validate="Inserire password">
-                                <input type="password" name="password" id="rolePassword" value=""><br>
                                 <label>Password</label>
+                                <input type="password" name="password" id="rolePassword" value=""><br>
+                               
                             </div>
                         </div>
                         <br>
