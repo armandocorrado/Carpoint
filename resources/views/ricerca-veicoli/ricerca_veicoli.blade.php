@@ -371,11 +371,10 @@
     </div>
 
 
-    <!-- Modal edit password -->
+    <!-- Modal immagini -->
 <div class="modal fade" id="showGallery" tabindex="-1" aria-labelledby="showGallery" aria-hidden="true">
     <div class="modal-dialog" style="
-    max-width: 20%;
-">
+    max-width: 20%;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" style="
@@ -411,8 +410,6 @@
                       <span class="sr-only">Next</span>
                     </a>
                   </div>
-
-                
             </div>
 
         </div>
@@ -451,7 +448,6 @@
                  $('.qui').hide();
                  $('.cardRisultatiRicerca').addClass('heightBodyCardRisultati');
                 
-                 
             
                     var targa = $('#targa').val();
                     var telaio = $('#numTelaio').val();
@@ -504,8 +500,45 @@
                             'telaio': telaio,
                         },
 
-                        success: function(response) {
+                        success: function(response) { 
                             loader.hide();
+
+
+                            const immagini = response.car.immagini;
+
+                             // Trova il contenitore del carousel
+    const carouselInner = document.querySelector('#carouselExampleIndicators .carousel-inner');
+    const carouselIndicators = document.querySelector('#carouselExampleIndicators .carousel-indicators');
+
+    // Svuota il contenuto esistente del carousel
+    carouselInner.innerHTML = '';
+    carouselIndicators.innerHTML = '';
+
+    // Cicla le immagini ricevute e crea gli elementi
+    immagini.forEach((immagine, index) => {
+        // Crea l'elemento della slide
+        const slide = document.createElement('div');
+        slide.classList.add('carousel-item');
+        if (index === 0) slide.classList.add('active'); // La prima immagine deve essere attiva
+
+        const img = document.createElement('img');
+        img.classList.add('d-block', 'w-100');
+        img.src = 'storage/'+immagine.path_immagine; 
+        img.alt = `Slide ${index + 1}`;
+
+        slide.appendChild(img);
+        carouselInner.appendChild(slide);
+
+        // Crea l'indicatore
+        const indicator = document.createElement('li');
+        indicator.setAttribute('data-target', '#carouselExampleIndicators');
+        indicator.setAttribute('data-slide-to', index);
+        if (index === 0) indicator.classList.add('active');
+
+        carouselIndicators.appendChild(indicator);
+    });
+
+
 
                             var status_n = response.car.status;
                             var status_nuovo;

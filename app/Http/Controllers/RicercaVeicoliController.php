@@ -89,11 +89,13 @@ class RicercaVeicoliController extends Controller
         if($targa != "" && $telaio == "" ){
             $car = VeicoliManuali::where('targa', 'like',  $targa.'%')
             ->whereIn('nuovo_usato', ['n', 'u'])
+            ->with('immagini')
             ->first();
 
     }elseif($targa == "" && $telaio != "" ){
         $car = VeicoliManuali::where('telaio', 'like',  $telaio.'%')
       ->whereIn('nuovo_usato', ['n', 'u'])
+      ->with('immagini')
       ->first();
 
 
@@ -101,6 +103,7 @@ class RicercaVeicoliController extends Controller
         $car = VeicoliManuali::where('targa', 'like',  $targa.'%')
         ->where('telaio', 'like',  $telaio.'%')
         ->whereIn('nuovo_usato', ['n', 'u'])
+        ->with('immagini')
         ->first();
     }
 }
@@ -108,7 +111,7 @@ class RicercaVeicoliController extends Controller
 
 
      
-     $trovata =    Trovata::whereIdveicolo($car->id_veicolo)->orWhere('idveicolo', $car->id)->whereIn('nuovo_usato', ['n', 'u', 'mu', 'mn'])->first();
+     $trovata = Trovata::whereIdveicolo($car->id_veicolo)->orWhere('idveicolo', $car->id)->whereIn('nuovo_usato', ['n', 'u', 'mu', 'mn'])->first();
 
 
 

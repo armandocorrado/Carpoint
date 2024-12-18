@@ -10,4 +10,13 @@ class VeicoliManuali extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+
+    //relazioni
+
+    public function immagini(){
+
+        return $this->hasMany(VeicoliImmagini::class, 'id_veicolo');
+
+    }
 }
