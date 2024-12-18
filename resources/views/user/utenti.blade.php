@@ -76,7 +76,13 @@ Crea ruolo
                                             <td>{{ $user['roles'][0]['name'] ?? '' }}</td>
                                             <td>{{ $user->ubicazione ?? '' }}</td>
                                             <td style="text-align: center;">
-												<button style="background: none;color: gray;border:none;padding: 0px;" type="button" class="btn btn-success b" data-bs-toggle="modal" data-id={{ $user->id }} data-name="{{$user->name}}" data-ubicazione="{{$user->ubicazione}}" data-email="{{$user->email}}" 
+												<button style="background: none;color: gray;border:none;padding: 0px;" type="button" class="btn btn-success b" data-bs-toggle="modal"
+                                                 data-id={{ $user->id }} 
+                                                 data-username="{{$user->username}}" 
+                                                 data-ubicazione="{{$user->ubicazione}}" 
+                                                 data-password="{{$user->password}}"
+                                                 data-ruolo="{{ $user['roles'][0]['name'] }}"
+                                        
                                                     data-bs-target="#editUtente" id="b">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
@@ -196,7 +202,7 @@ Crea ruolo
                         <div class="col-xs-4">
                             <div class="field" data-validate="Inserire Email">
                                 <label>User</label>
-                                <input type="text" name="text" id="userEdit" value=""><br>
+                                <input type="text" name="username" id="userEdit" value=""><br>
                                
                             </div>
                         </div>
@@ -211,14 +217,14 @@ Crea ruolo
                         <div class="col-xs-4">
                             <div class="field" data-validate="Inserire ubicazione">
                                 <label>Ubicazione</label>
-                                <input type="text" name="ubicazione" id="ubicazioneEdit" value=""><br>
+                                <input type="text" name="ubicazione" id="ubicazioneEdit"><br>
                                 
                             </div>
                         </div>
                         <br>
                         <div class="col-xs-4">
-                            <select class="form-select form-select-lg mb-3" name="ruolo">
-                                <option>Scegli ruolo</option>
+                            <select class="form-select form-select-lg mb-3" name="ruolo" id="ruoloEdit">
+                               
                                 @foreach ($ruoli as $ruolo)
                                     <option value="{{ $ruolo->name }}">{{ $ruolo->name }}</option>
                                 @endforeach
@@ -304,16 +310,23 @@ Crea ruolo
 
             <script>
 
-            $('.b').on('click', function() {
-            var id = $(this).attr("data-id");
-            
-          
-            var username = $(this).attr("username");
-            var ubicazione = $(this).attr("data-ubicazione");
 
+            $('.b').on('click', function() {
+
+            var id = $(this).data("id");
+            
+            var username = $(this).data("username"); 
+            var ubicazione = $(this).data("ubicazione"); 
+            var password = $(this).data("password"); 
+            var ruolo = $(this).data("ruolo"); 
          
-            $('#userEdit').val(email);
+            $('#userEdit').val(username);
             $('#ubicazioneEdit').val(ubicazione);
+            $('#rolePassword').val(password);
+            
+            $('#roleEdit').val(ruolo).change(); 
+
+
 
 
 
