@@ -61,8 +61,9 @@ class UserController extends Controller
                 $validated = $request->validate([       
                                                                                                                  
                 'name' => 'required',                                                                     
-                'ubicazione' => 'required',                                                                          
-                'email' => 'required|email|unique:users,email',                                                                          
+                'ubicazione' => 'required', 
+                'username' => 'required|string|alpha_dash|unique:users,username|min:3|max:20',                                                                         
+                // 'email' => 'required|email|unique:users,email',                                                                          
                 'password' => 'required', 
                
              
@@ -75,9 +76,9 @@ class UserController extends Controller
                                                                                                     
 
         
-      $nome = $request->input('name');
+      
       $ubicazione = $request->input('ubicazione');
-      $email = $request->input('email');
+      $username = $request->input('username');
       $password = $request->input('password');
       $ruolo = $request->input('ruolo');
 
@@ -87,28 +88,28 @@ class UserController extends Controller
 
        'name'=> $nome,
        'ubicazione'=> $ubicazione,
-       'email'=> $email,
+       'username'=> $username,
        'password' =>  Hash::make($password),
 
                          ]);
 
-    // Assegno ruolo
+      // Assegno ruolo
       $user->assignRole($ruolo);
 
 
 
-    //Invio mail di notifica ////
-      $mailData = [
+     //Invio mail di notifica ////
+    //   $mailData = [
 
-            "name" => $user->name,
-            "ubicazione" => $ubicazione,
-            "email" => $email,
-            "password" => $password,
-            "ruolo" => $ruolo
+    //         "name" => $user->name,
+    //         "ubicazione" => $ubicazione,
+    //         "email" => $email,
+    //         "password" => $password,
+    //         "ruolo" => $ruolo
              
-                 ];
+    //              ];
 
-    Mail::to($user->email)->send(new MailUser($mailData));
+    // Mail::to($user->email)->send(new MailUser($mailData));
 
     
 
@@ -153,32 +154,31 @@ class UserController extends Controller
 
         $validated = $request->validate([       
                                                                                                                  
-            'name' => 'required',                                                                     
-            'ubicazione' => 'required',                                                                          
-            'email' => 'required',                                                                          
+            'username' => 'required',                                                                     
+            'ubicazione' => 'required',                                                                                                                                               
             'password' => 'required', 
             'ruolo' => 'required'
-            
-           
+        
          
             ]);
         
 
-      $nome = $request->input('name');
+      $username = $request->input('username');
       $ubicazione = $request->input('ubicazione');
-      $email = $request->input('email');
       $password = $request->input('password');
       $ruolo = $request->input('ruolo');
       
         $user = User::with('roles')->find($id); 
 
         if($user->hasRole(['Admin', 'Operatore'])){
+
         $user->removeRole($user['roles'][0]['name']);
+
         }
 
-        $user->name = $nome;
+
+        $user->username = $username;
         $user->ubicazione = $ubicazione;
-        $user->email = $email;
         $user->password = Hash::make($password);
        
         $user->save();

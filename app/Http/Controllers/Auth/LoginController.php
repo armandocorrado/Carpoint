@@ -39,6 +39,11 @@ class LoginController extends Controller
     }
 
 
+    public function username()
+{
+    return 'username'; // Qui specifichi il campo che vuoi usare per il login
+}
+
     public function logout()
 {
     Auth::logout();

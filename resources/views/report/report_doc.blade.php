@@ -23,7 +23,6 @@
                                     <a href="{{route('home_')}}" type="button" style="text-decoration:none; color:white; line-height:52px;" class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2" id="">TORNA ALLA HOME</a>
 
                                    
-                                
                                 <p class="text-center textFooterCard">Sofware sviluppato da Softmind S.r.l.</p>
                             </form>
                         </div>

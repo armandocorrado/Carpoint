@@ -54,7 +54,7 @@ class TrovataController extends Controller
         
       ]);
 
-
+        
         return back()->with('status', 'il veicolo è stato inventariato');
     }
 
