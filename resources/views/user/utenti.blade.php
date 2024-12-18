@@ -64,7 +64,6 @@ Crea ruolo
                                         <th>User</th>
                                         <th>Ruolo</th>
                                         <th>Ubicazione</th>
-                                       
                                         <th>Modifica </th>
                                         <th>Elimina</th>
 
@@ -76,7 +75,6 @@ Crea ruolo
                                             <td>{{ $user->email ?? '' }}</td>
                                             <td>{{ $user['roles'][0]['name'] ?? '' }}</td>
                                             <td>{{ $user->ubicazione ?? '' }}</td>
-                                           
                                             <td style="text-align: center;">
 												<button style="background: none;color: gray;border:none;padding: 0px;" type="button" class="btn btn-success b" data-bs-toggle="modal" data-id={{ $user->id }} data-name="{{$user->name}}" data-ubicazione="{{$user->ubicazione}}" data-email="{{$user->email}}" 
                                                     data-bs-target="#editUtente" id="b">
@@ -133,7 +131,7 @@ Crea ruolo
                         <div class="col-xs-4">
                             <div class="field" data-validate="Inserire User">
                                 <label>User</label>
-                                <input type="email" name="username" ><br>
+                                <input type="text" name="username" ><br>
                                 
                             </div>
                         </div>
