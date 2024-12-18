@@ -72,7 +72,7 @@ Crea ruolo
                                 <tbody>
                                     @foreach ($users as $user)  
                                         <tr> 
-                                            <td>{{ $user->email ?? '' }}</td>
+                                            <td>{{ $user->username ?? '' }}</td>
                                             <td>{{ $user['roles'][0]['name'] ?? '' }}</td>
                                             <td>{{ $user->ubicazione ?? '' }}</td>
                                             <td style="text-align: center;">

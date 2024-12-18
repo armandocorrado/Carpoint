@@ -40,13 +40,13 @@ class LoginController extends Controller
 
 
     public function username()
-{
-    return 'username'; // Qui specifichi il campo che vuoi usare per il login
-}
+    {
+        return 'username'; // Qui specifichi il campo che vuoi usare per il login
+    }
 
-    public function logout()
-{
-    Auth::logout();
-    return redirect('/login');
-}
+        public function logout()
+    {
+        Auth::logout();
+        return redirect('/login');
+    }
 }

@@ -59,8 +59,7 @@ class UserController extends Controller
                                                                                                              //*
 
                 $validated = $request->validate([       
-                                                                                                                 
-                'name' => 'required',                                                                     
+                                                                                                                                                                                     
                 'ubicazione' => 'required', 
                 'username' => 'required|string|alpha_dash|unique:users,username|min:3|max:20',                                                                         
                 // 'email' => 'required|email|unique:users,email',                                                                          
@@ -86,7 +85,6 @@ class UserController extends Controller
     // Creo utenza
     $user =  User::create([
 
-       'name'=> $nome,
        'ubicazione'=> $ubicazione,
        'username'=> $username,
        'password' =>  Hash::make($password),
