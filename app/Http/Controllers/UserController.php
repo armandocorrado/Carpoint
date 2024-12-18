@@ -187,17 +187,17 @@ class UserController extends Controller
 
 
 
-        $mailData = [
+    //     $mailData = [
 
-            "name" => $user->name,
-            "ubicazione" => $ubicazione,
-            "email" => $email,
-            "password" => $password,
-            "ruolo" => $ruolo
+    //         "name" => $user->name,
+    //         "ubicazione" => $ubicazione,
+    //         "email" => $email,
+    //         "password" => $password,
+    //         "ruolo" => $ruolo
              
-                 ];
+    //              ];
 
-    Mail::to($user->email)->send(new MailUpdateUser($mailData));
+    // Mail::to($user->email)->send(new MailUpdateUser($mailData));
 
 
 
