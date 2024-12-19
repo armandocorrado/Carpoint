@@ -239,6 +239,11 @@
                 background-image: linear-gradient(to right, #277104, #b89b0e, #886e00, #ffa500);
                 border-radius: 30px;
             }
+
+            .btn-hover.color-7 {
+                background-image: linear-gradient(to right, #ff0e0e, #99bd11, #886e00, #d10808);
+                border-radius: 30px;
+            }
             
             #confInv {
                 background-image: linear-gradient(to right, #080808, #2e2e2e, #302b2b, #453801);
@@ -741,7 +746,19 @@
             }
         }
 
+        .ricercaVeicoli{
 
+            .heightBodyCardRisultati {
+                position: relative;
+                width: 470px;
+                min-height: 800px;
+                padding: 0;
+                left: -85px;
+            }
+        
+            
+    
+        } 
 
   // Small devices (landscape phones, 576px and up)
 @media (max-width: 576px) {

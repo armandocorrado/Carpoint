@@ -192,7 +192,13 @@
                                     
                                         <video id="camera" width="100%"  autoplay></video>
                                         <canvas id="snapshot" style="display:none;"></canvas>
-                                        <button id="capture" type="button">Scatta foto</button>
+                                        <button class="btn btn-hover color-7 mt-4 mb-2" id="capture" type="button" style="max-width: 80%;margin:auto"> Scatta<i
+                                            class="material-icons" style="
+                                        font-size: 21px;
+                                        position: relative;
+                                        top: 4px;
+                                        left: 10px;
+                                    ">camera_alt</i></button>
                                         <input type="hidden" name="foto_base64[]" id="foto_base64" multiple>
                                         <div id="photos-container"></div>  
                 

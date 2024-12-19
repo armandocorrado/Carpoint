@@ -327,10 +327,11 @@
                             <!-- append contenuto   -->
                             <button id='confInv'>CONFERMA INVENTARIO</button>
                         </div>
-                        <div style="display: none" id=btnModInv>
+                        <div style="display: none;padding:3px;" id=btnModInv>
                             <form method='post' style='width:100%' action='{{ route('destroy-trovata') }}'> @csrf
                                 <input type="number" hidden name="trovata" id="veicoloTrovataId">
-                                <button type='submit' class="btn btn-hover color-4 btnSearch" id='deleteInv'> ESCLUDI DA
+                                <button type='submit' class="btn btn-hover color-4 btnSearch" id='deleteInv' style="font-size: 11px;font-weight:100;max-height: 55px;
+    max-width: 178px;"> ESCLUDI DA
                                     INVENTARIO </button>
                             </form>
 
