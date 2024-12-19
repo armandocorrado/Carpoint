@@ -79,17 +79,17 @@ class VeicoliController extends Controller
 
   
 
-//        if ($immagine) {
-//         // Ottieni il nome originale del file
-//         $nomefile = $immagine->getClientOriginalName();
+    //    if ($immagine) {
+    //     // Ottieni il nome originale del file
+    //     $nomefile = $immagine->getClientOriginalName();
     
-//         // Esempio: Salva il file in una directory specifica
-//         $path = $immagine->storeAs('uploads', $nomefile, 'public');
+    //     // Esempio: Salva il file in una directory specifica
+    //     $path = $immagine->storeAs('uploads', $nomefile, 'public');
     
-//     } else {
+    // } else {
         
-//         $path = '';
-//     }
+    //     $path = '';
+    // }
 
 
 //        $targa_veicolo = VeicoliManuali::where('targa', $targa)->select('targa', 'telaio', 'nuovo_usato')->first();
