@@ -85,7 +85,6 @@ Route::get('/report-manuali-usato', [ReportController::class, 'report_manuali_us
 Route::get('/report-tutti', [ReportController::class, 'genera_tutti'])->name('report.all');
 
 
-
 // UserController
 Route::get('/utenti', [UserController::class, 'utenti'])->name('user');
 Route::post('/utenti', [UserController::class, 'store'])->name('user.store');
