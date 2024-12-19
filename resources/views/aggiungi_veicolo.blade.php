@@ -14,6 +14,32 @@
         @endif
 
 
+        <style>
+        
+        #photos-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#photos-container img {
+    border: 1px solid #ccc;
+    padding: 5px;
+    background: #fff;
+    border-radius: 5px;
+}
+
+#photos-container button {
+    margin-left: 5px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+        
+        </style>
+
         <div class="d-flex justify-content-center">
 
    
@@ -154,19 +180,37 @@
                                         </div>
                                     </div>
 
-                                    <!-- Carica Immagine -->
+                                    <!-- Carica Immagine  -->
                                     <div class="col-xs-4">
                                         <div class="field" style="">
                                             <label for="immagine" style="color:#999; font-size:16px;">Carica immagine</label>
-                                            <input type="file" name="immagini[]" id="immagine" multiple accept="image/*">
+                                            <input type="file" name="immagini[]" id="immagine" multiple accept="image/*" capture="camera">
                                         </div>
                                     </div>
-                                </div>
+                                   
 
-                                <button class="btn btn-hover color-1 btnSearch d-block mt-3 mb-2" id="">AGGIUNGI</button>
-                                <a href="{{ route('home_') }}" type="button" style="text-decoration:none; color:white; line-height: 39px;" class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2" id="home">TORNA ALLA HOME</a>
+                                    
+                                        <video id="camera" width="100%"  autoplay></video>
+                                        <canvas id="snapshot" style="display:none;"></canvas>
+                                        <button id="capture" type="button">Scatta foto</button>
+                                        <input type="hidden" name="foto_base64[]" id="foto_base64" multiple>
+                                        <div id="photos-container"></div>  
+                
+        
+
+
+                                </div>
+                                
+                                <button type="submit" class="btn btn-hover  color-1 btnSearch d-block mt-3 mb-2" id="">AGGIUNGI</button>
                             </form>
+
+                           
+                            
+                        <a href="{{ route('home_') }}" type="button" style="text-decoration:none; color:white; line-height: 39px;" class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2" id="home">TORNA ALLA HOME</a>
+                        
                         </div>
+
+
                     </div>
                 </div>
             </div>
@@ -192,7 +236,71 @@
 </script>
 
 
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+    const video = document.getElementById("camera");
+    const canvas = document.getElementById("snapshot");
+    const captureButton = document.getElementById("capture");
+    const fotoBase64Input = document.getElementById("foto_base64");
+    const photosContainer = document.getElementById("photos-container");
 
+    // Verifica che l'elemento 'photos-container' esista
+    if (!photosContainer) {
+        console.error("Elemento photos-container non trovato!");
+        return;
+    }
+
+    // Richiedi l'accesso alla fotocamera
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices
+            .getUserMedia({ video: true })
+            .then((stream) => {
+                video.srcObject = stream;
+            })
+            .catch((err) => {
+                console.error("Errore nell'accesso alla fotocamera:", err);
+                alert("Impossibile accedere alla fotocamera.");
+            });
+    } else {
+        alert("La fotocamera non è supportata su questo dispositivo.");
+    }
+
+    // Cattura l'immagine quando si clicca il pulsante
+    captureButton.addEventListener("click", () => {
+        const context = canvas.getContext("2d");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        // Disegna il fotogramma corrente del video sul canvas
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Converte l'immagine in formato Base64
+        const base64Image = canvas.toDataURL("image/png");
+        fotoBase64Input.value = base64Image;
+
+        // Crea l'elemento immagine e aggiungi il pulsante di rimozione
+        const imgElement = document.createElement("img");
+        imgElement.src = base64Image;
+        imgElement.style.maxWidth = "100px"; // Imposta una larghezza fissa per le anteprime
+
+        const removeButton = document.createElement("button");
+        removeButton.innerText = "Rimuovi";
+        removeButton.addEventListener("click", () => {
+            imgElement.remove();
+            removeButton.remove();
+
+            // Rimuovi anche dal form
+            fotoBase64Input.value = fotoBase64Input.value.replace(base64Image, "");
+        });
+
+        // Aggiungi l'immagine e il pulsante di rimozione al container
+        photosContainer.appendChild(imgElement);
+        photosContainer.appendChild(removeButton);
+
+        alert("Foto catturata!");
+    });
+});
+    </script>
 
 
 @endsection
