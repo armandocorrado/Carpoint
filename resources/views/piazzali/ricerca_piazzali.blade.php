@@ -44,7 +44,7 @@
                                 </div>
                                 <button class="btn btn-hover color-3 d-block mt-4 mb-2" id="searchPiazzali"
                                     type="submit">CERCA</button>
-                                <a href="{{ route('home') }}" type="button"
+                                <a href="{{ route('home_') }}" type="button"
                                     style="text-decoration:none; color:white; line-height: 39px;"
                                     class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2" id="home">TORNA ALLA
                                     HOME</a>
@@ -78,17 +78,7 @@
                                 <!-- append contenuto   -->
                                 <p id="testoVeicoloN" style='display:none;font-size:20px;'>Veicoli <strong style="color:rgb(12, 12, 164)"> NUOVI
                                     </strong>da inventariare</p>
-                                    <p class=" chiudiN" style='{
-    color: black;
-    margin-left: 19%;
-    margin-top: 3%;
-    font-weight: bolder;
-    font-size: 13px;
-    cursor: pointer;
-    background-color: #ddd5d5;
-    padding: 5px;
-    border-radius: 5px;
-}'>Chiudi</p>
+                                    <p class=" chiudiN" style='display:none;color:black;margin-left: 29%;margin-top: 3%;font-weight: bolder;font-size: 13px;cursor: pointer;'>Chiudi</p>
                                 <table id="tablePiazzaliRisult" style='display:none'>
                                     <thead>
                                         <tr>
@@ -103,17 +93,7 @@
                                 </table>
                                 <p id="testoVeicoloU" style='display:none;font-size:20px;'>Veicoli<strong style="color:rgb(169, 180, 9)"; > USATO </strong>da
                                     inventariare</p>
-                                    <p class="chiudiU" style='
-    color: black;
-    margin-left: 19%;
-    margin-top: 3%;
-    font-weight: bolder;
-    font-size: 13px;
-    cursor: pointer;
-    background-color: #ddd5d5;
-    padding: 5px;
-    border-radius: 5px;
-'>Chiudi</p>
+                                    <p class="chiudiU" style='display:none;color:black;margin-left: 29%;margin-top: 3%;font-weight: bolder;font-size: 13px;cursor: pointer;'>Chiudi</p>
                                 <table id="tablePiazzaliRisultU" style='display:none'>
                                     <thead>
                                         <tr>
@@ -136,6 +116,27 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="dynamicModal" tabindex="-1" role="dialog" aria-labelledby="dynamicModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="max-height: 58px;background:rgb(225, 225, 225)"">
+                    <h5 class="modal-title" id="dynamicModalLabel" style="font-size: 18px;position: relative;top: -54px;>Dettagli veicolo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Ciao
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
     <script>
         // Ottieni il riferimento all'elemento che contiene l'immagine di caricamento
         var loader = $('#messaggio-attesa');
@@ -245,30 +246,38 @@
 
                               
                         var tableNuovo = $('#tablePiazzaliRisult tbody');
-                        tableNuovo.empty();
-                        $.each(response.veicoliNuoviDaInv, function(index, elemento) {
-            
-                            var riga = "<tr><td>" + elemento.targa + "</td><td>" +
-                                elemento.telaio + "</td><td>" + elemento.descrizione_marca + "</td>" + "<td>" + elemento.descrizione_modello + "</td>" + "</tr>";
-                            $('#tablePiazzaliRisult tbody').append(riga);
+tableNuovo.empty();
+$.each(response.veicoliNuoviDaInv, function (index, elemento) {
+    var riga = "<tr class='open-modal' " +
+        "data-targa='" + elemento.targa + "' " +
+        "data-telaio='" + elemento.telaio + "' " +
+        "data-marca='" + elemento.descrizione_marca + "' " +
+        "data-modello='" + elemento.descrizione_modello + "'>" +
+        "<td>" + elemento.targa + "</td>" +
+        "<td>" + elemento.telaio + "</td>" +
+        "<td>" + elemento.descrizione_marca + "</td>" +
+        "<td>" + elemento.descrizione_modello + "</td>" +
+        "</tr>";
+    $('#tablePiazzaliRisult tbody').append(riga);
+});
+
+var tableUsato = $('#tablePiazzaliRisultU tbody');
+tableUsato.empty();
+$.each(response.veicoliUsatiDaInv, function (index, elemento) {
+    var riga = "<tr class='open-modal' " +
+        "data-targa='" + elemento.targa + "' " +
+        "data-telaio='" + elemento.vin + "' " +
+        "data-marca='" + elemento.marca + "' " +
+        "data-modello='" + elemento.modello + "'>" +
+        "<td>" + elemento.targa + "</td>" +
+        "<td>" + elemento.vin + "</td>" +
+        "<td>" + elemento.marca + "</td>" +
+        "<td>" + elemento.modello + "</td>" +
+        "</tr>";
+    $('#tablePiazzaliRisultU tbody').append(riga);
+});
 
 
-                        });
-
-
-
-                        var tableUsato = $('#tablePiazzaliRisultU tbody');
-                        tableUsato.empty();
-
-                        $.each(response.veicoliUsatiDaInv, function(index, elemento) {
-
-                            var riga = "<tr><td>" + elemento.targa + "</td><td>" +
-                                elemento.vin + "</td><td>" + elemento.marca + "</td>" +
-                                "<td>" + elemento.modello + "</td>" + "</tr>";
-                            $('#tablePiazzaliRisultU tbody').append(riga);
-
-
-                        });
 
 
 
@@ -307,10 +316,35 @@
 
 
 
-
     </script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
     <script>
         AOS.init();
+      </script>
+
+      <script>
+$(document).on('click', '.open-modal', function () {
+    // Estrai i dati dal `data-*` attribute della riga cliccata
+    var targa = $(this).data('targa');
+    var telaio = $(this).data('telaio');
+    var marca = $(this).data('marca');
+    var modello = $(this).data('modello');
+
+    // Aggiungi i dati al modal
+    $('#dynamicModal .modal-body').html(
+        '<p><strong>Targa:</strong> ' + targa + '</p>' +
+        '<p><strong>Telaio:</strong> ' + telaio + '</p>' +
+        '<p><strong>Marca:</strong> ' + marca + '</p>' +
+        '<p><strong>Modello:</strong> ' + modello + '</p>'
+    );
+    jQuery('#dynamicModal').modal('show');
+});
+
+
+
+
       </script>
 @endsection

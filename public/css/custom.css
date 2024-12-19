@@ -114,6 +114,9 @@ input:focus {
   color: #6b7280;
   font-weight: 300;
 }
+.ricercaVeicoli .heightBodyCardRisultati {
+  min-height: 700px;
+}
 
 .buttons {
   margin: 10%;

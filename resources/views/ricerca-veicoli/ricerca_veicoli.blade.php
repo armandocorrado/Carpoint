@@ -504,7 +504,7 @@
                             loader.hide();
 
 
-                            const immagini = response.car.immagini;
+                            const immagini = response.car.immagini; 
 
         // Controlla che `immagini` esista e non sia vuoto
         if (Array.isArray(immagini) && immagini.length > 0) {
@@ -641,8 +641,8 @@
                             "<h5 class='d-inline text-left'>" + 
                             (nomeVeicolo ?? response.car.marca + ' ' + response.car.modello) + 
                             "</h5>" +
-                            "<button style='background: none; color: gray; border: none; padding: 0px;' type='button' class='btn btn-success b' data-bs-toggle='modal' data-bs-target='#showGallery' id='b'>" +
-                            "<i class='fa-solid fa-key' style='position: relative; left: 8px;'></i>" +
+                            "<button style='background: none; color: gray; border:1px solid gray; padding: 0px;' type='button' class='btn btn-success b' data-bs-toggle='modal' data-bs-target='#showGallery' id='b'>" +
+                            "<i class='fa-regular fa-images' style='position: relative; left: 8px;'></i>" +
                             "</button>"
 );
 
@@ -963,4 +963,5 @@
     <!--CX936AS si inventario-->
     <!--SJ305HD  no inventario-->
     <!--AJ305HD -->
+    <!--6FP4XXMJ24NB62731-->
     <!---->
