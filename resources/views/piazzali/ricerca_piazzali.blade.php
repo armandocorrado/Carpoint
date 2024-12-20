@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="ricercaPiazzali mt-5">
+    <div class="ricercaPiazzali mt-2">
         <div class="d-flex justify-content-center">
             <div class="text-center" id="messaggio-attesa">
                 <div class="text-center align-items-center" id="messaggio-attesa">
@@ -69,12 +69,12 @@
                             <!-- append -->
                         </div>
                         <div class="card-body text-primary">
-                            <div class="d-flex flex-wrap justify-content-center container mt-2 mb-0 " id="tablePiazzali">
+                            <div class="d-flex flex-wrap justify-content-center container mt-2 mb-0 " id="tablePiazzali" style="background:white;padding:10px;">
                                 <!-- append contenuto   -->
 
                             </div>
-                            <div class="d-flex flex-wrap justify-content-center container mt-2 mb-0 scrollable "
-                                style="background:white" id="resultNU">
+                            <div class="d-flex flex-wrap justify-content-center container mt-2 mb-0 scrollable  "
+                                style="background:white;padding:10px;" id="resultNU">
                                 <!-- append contenuto   -->
                                 <p id="testoVeicoloN" style='display:none;font-size:20px;'>Veicoli <strong style="color:rgb(12, 12, 164)"> NUOVI
                                     </strong>da inventariare</p>

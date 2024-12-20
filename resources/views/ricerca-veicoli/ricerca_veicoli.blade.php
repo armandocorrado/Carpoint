@@ -330,8 +330,7 @@
                         <div style="display: none;padding:3px;" id=btnModInv>
                             <form method='post' style='width:100%' action='{{ route('destroy-trovata') }}'> @csrf
                                 <input type="number" hidden name="trovata" id="veicoloTrovataId">
-                                <button type='submit' class="btn btn-hover color-4 btnSearch" id='deleteInv' style="font-size: 11px;font-weight:100;max-height: 55px;
-    max-width: 178px;"> ESCLUDI DA
+                                <button type='submit' class="btn btn-hover color-4 btnSearch" id='deleteInv' style="font-size: 11px;font-weight:100;max-height: 55px;margin-top:10px;margin-left:1.1rem"> ESCLUDI DA
                                     INVENTARIO </button>
                             </form>
 
@@ -344,11 +343,11 @@
 
                         <form style="width:100%;" id="formAddNota" action="{{ route('note-store') }}" method="post">
                             @csrf
-                            <h2 style="color:black;text-align:center">Nuova nota</h2>
+                            <h4 class="mt-2" style="color:black;text-align:center">Nuova nota</h4>
                             <div class="container">
-                                <p id="operatore" style="display:inline;">Operatore: {{ Auth::user()->operatore }} </p>
-                                <p id="dataOra" style="display:inline;">Data e ora correnti: </p>
-                                <p id="ubicazione" style="display:inline;">Ubicazione: {{ Auth::user()->ubicazione }}
+                                <p id="operatore" style="display:inline;">Operatore<b>{{ Auth::user()->operatore }} </p>
+                                <p id="dataOra" style="display:inline;">>Data e ora correnti:</b<b></b> </p>
+                                <p id="ubicazione" style="display:inline;">Ubicazione:<b> {{ Auth::user()->ubicazione }}</b>
                                 </p>
                                 <textarea id="nota-textarea"
                                     style="display:block; width:100%;height:130px;border-radius:5px;padding:10px;"
@@ -358,10 +357,10 @@
                             </div>
 
                             <div style="text-align:center;margin-top:10px">
-                                <button id="annullaNota"
-                                    style="background-image: linear-gradient(to right, #a9a0a0, #11b95f);border-radius:50px;padding:12px;color:white;font-weight:700;display: inline;width: 45%;border:none;margin-bottom: 10px;">Annulla</button>
-                                <button id="aggiungiNota"
-                                    style="background-image: linear-gradient(to right, #0086fc, #006400); border-radius:50px;padding:12px;color:white;font-weight:700; display: inline; width: 45%; border:none; margin-left: 4px;margin-bottom: 10px;">Aggiungi</button>
+                                <button id="annullaNota" class="btn btn-hover color-8"
+                                    style="border-radius:50px;padding:12px;color:white;font-weight:700;display: inline;width: 45%;border:none;margin-bottom: 10px;">Annulla</button>
+                                <button id="aggiungiNota" class="btn btn-hover color-9"
+                                    style="border-radius:50px;padding:12px;color:white;font-weight:700; display: inline; width: 45%; border:none; margin-left: 4px;margin-bottom: 10px;">Aggiungi</button>
                             </div>
                         </form>
                     </div>
@@ -798,7 +797,25 @@
                                     .car.data_fattura_v ?? '-') + "</span></strong>" +
                                 "</div>" +
 
-
+                                 
+                                  // Griglia Bootstrap con due row e tre colonne per row
+                                  "<table class='table table-bordered table-dati-operatore'>" +
+                                    "<thead class='table-light'>" +
+                                        "<tr>" +
+                                            "<th>Operatore</th>" +
+                                            "<th>Ubicazione</th>" +
+                                            "<th>Data</th>" +
+                                        "</tr>" +
+                                    "</thead>" +
+                                    "<tbody>" +
+                                        "<tr>" +
+                                            "<td>Fabio{{ Auth::user()->operatore }}</td>" +
+                                            "<td>{{ Auth::user()->ubicazione }}</td>" +
+                                            "<td>11/11/2024</td>" +
+                                        "</tr>" +
+                                    "</tbody>" +
+                                "</table>" +
+                                "</div>" +
                                 "<div class='textNessunaNotaInfinity' id='nota_infinity'></div>" +
                                 "<form method='post' style='width:100%' action='{{ route('store-trovata') }}'>" +
                                 '@csrf' +
@@ -811,7 +828,7 @@
                                 "<input name='ubicazione' hidden id='ubicazione' value='{{ Auth::user()->ubicazione }}'>" +
                                 "<input name='latitudine' hidden  id='' value='"+latitudine+"'>" +
                                 "<input name='longitudine' hidden id='' value='"+longitudine+"'>" +
-                                "<input name='indirizzo_gps'  id='' value='"+indirizzo+"'>" +
+                                "<input name='indirizzo_gps'  id='indirizzo_gps' value='"+indirizzo+"'>" +
                                 "<button type='submit'  id='confInv' >" +
                                 'CONFERMA INVENTARIO' + "</button>" + "</form>" +
                                 "<div class='textNessunaNota' id='nota_manuale'></div>" 
@@ -923,10 +940,13 @@
                         $('#headModello').hide();
                         $('#btnModInv').hide();
                         $('#noresult').append(
-                            "<h4 style='font-size:29px;text-align:center;margin-top:18px;'>" +
-                            'Nessun risultato' + "</h4>" +
-                            "<a href='/aggiungi-veicolo'><button class='cellData' id='myButton'>CREA UN NUOVO VEICOLO</button>"
-                        );
+    "<h4 style='font-size:29px;text-align:center;margin-top:18px;'>" +
+    'Nessun risultato' + "</h4>" +
+    "<a href='/aggiungi-veicolo'>" +
+    "<button class='cellData' id='myButton' style='width:86%; display:block; margin-left:auto; margin-right:auto;'>CREA UN NUOVO VEICOLO</button>" +
+    "</a>"
+);
+
 
 
                         loader.hide();

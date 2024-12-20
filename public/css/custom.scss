@@ -49,7 +49,7 @@
                 border-radius: 5px;
                 width: 100%;
                 outline: 0;
-                font-size: 14px;
+                font-size: 12px;
                 padding: 6px 5px 5px;
             }
             
@@ -218,7 +218,7 @@
                 background-image: -o-linear-gradient(to right, #080808, #2e2e2e, #302b2b, #453801);
                 background-image: -mozlinear-gradient(to right, #080808, #2e2e2e, #302b2b, #453801);
                 background-image: linear-gradient(to right, #080808, #2e2e2e, #302b2b, #453801);
-                width: 48%;
+                width: 90%;
                 height: 58px;
                 border-radius: 30px;
             }
@@ -244,7 +244,13 @@
                 background-image: linear-gradient(to right, #ff0e0e, #99bd11, #886e00, #d10808);
                 border-radius: 30px;
             }
-            
+
+            .btn-hover.color-8 {
+                background: -webkit-linear-gradient(right, #ff0000, #cc0000, #880000, #690000);
+            }
+            .btn-hover.color-9 {
+            background: -webkit-linear-gradient(right, #006939, #00884a, #00cc6e, #00ff89);
+            }
             #confInv {
                 background-image: linear-gradient(to right, #080808, #2e2e2e, #302b2b, #453801);
                 color: white;
@@ -404,8 +410,9 @@
                 cursor: pointer;
                 border-radius: 38px;
                 display: inline;
-                width: 40%;
+                width: 82%;
                 font-size: 13px;
+                margin: auto;
             }
             
             #addNota:hover {
@@ -625,9 +632,7 @@
            
             
             .positionBtnAddNoteInvSi {
-                position: relative;
-                top: -72px;
-                left: 290px;
+              
             }
             
             .positionBtnAddNoteInvNo {
@@ -751,12 +756,14 @@
             .heightBodyCardRisultati {
                 position: relative;
                 width: 470px;
-                min-height: 800px;
+                min-height:820px;
                 padding: 0;
-                left: -85px;
             }
         
-            
+          #operatore,#dataOra,#ubicazione{
+            font-size: 13px;
+            margin-left: 13px;
+          }  
     
         } 
 
@@ -792,6 +799,29 @@
 
 }
 
+
+}
+
+.table-dati-operatore {
+    border: 1px solid #dee2e6;
+    font-size: 12px;
+    width: 95%;
+    margin: auto;
+    margin-top: 10px;
+
+     th, td {
+        padding: 0.1rem;
+    }
+
+    #indirizzo_gps{
+        border: 2px solid #d9d9d9;
+    border-radius: 5px;
+    width: 97%;
+    outline: 0;
+    font-size: 12px;
+    padding: 6px 5px 5px;
+
+    }
 
 }
 
@@ -852,7 +882,7 @@
         .heightBodyCardRisultati {
             position: relative;
             left: -115px;
-            width: 470px;
+            width: 460px;
             padding: 0;
         }
 
@@ -863,7 +893,8 @@
         #addNota {
             font-size: 12px;
             position: relative;
-           left: 16rem;
+          
+            top: -14px;
         }
 
         
