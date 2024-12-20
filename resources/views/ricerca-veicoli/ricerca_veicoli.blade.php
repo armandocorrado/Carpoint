@@ -503,7 +503,7 @@
                         success: function(response) { 
                             loader.hide();
 
-
+                             console.log(response);
                             const immagini = response.car.immagini; 
 
         // Controlla che `immagini` esista e non sia vuoto
@@ -764,7 +764,28 @@
                                 luogo = response.car.ubicazione;
                             }
 
+                            var operatore;
+                            var luogo;
+                            var data;
 
+                            if(response.trovata != null){
+
+                                var operatore = response.trovata.user_operatore;
+                                var luogo = response.trovata.luogo;
+                                var data = response.trovata.dataOra;
+
+
+                            }else{
+
+                                var operatore = '';
+                                var luogo = '';
+                                var data = '';
+
+                            }
+
+                          
+
+                             
                        
 
                             $('#tableVeicoli').append(
@@ -809,9 +830,9 @@
                                     "</thead>" +
                                     "<tbody>" +
                                         "<tr>" +
-                                            "<td>Fabio{{ Auth::user()->operatore }}</td>" +
-                                            "<td>{{ Auth::user()->ubicazione }}</td>" +
-                                            "<td>11/11/2024</td>" +
+                                            "<td>'"+operatore + "'</td>" +
+                                            "<td>'"+luogo + "'</td>" +
+                                            "<td>'"+data + "'</td>" +
                                         "</tr>" +
                                     "</tbody>" +
                                 "</table>" +
