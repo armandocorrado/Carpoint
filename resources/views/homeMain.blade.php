@@ -34,7 +34,13 @@
 								
                                 @role('Admin')
                                 <form action="{{ route('destroy-trovata.all')}}" method="POST">@csrf
-                                <button type="submit" style="text-decoration:none; color:white; line-height: 42px;" class="btn btn-hover color-5 d-block mt-4 mb-2" >SVUOTA INVENTARIO</button>
+                                <button type="submit" style="text-decoration:none; color:white; line-height: 42px;" class="btn btn-hover color-5 d-block mt-4 mb-2 svuota-db" >SVUOTA INVENTARIO</button>
+                                </form>
+                                @endrole
+
+                                @role('Admin')
+                                <form action="{{ route('destroy-trovata.all')}}" method="POST">@csrf
+                                <button type="submit" style="text-decoration:none; color:white; line-height: 42px;" class="btn btn-hover color-5 d-block mt-4 mb-2 svuota-veicoli-manuali" >SVUOTA VEICOLI MANUALI</button>
                                 </form>
                                 @endrole
 
@@ -47,6 +53,28 @@
                 </div>
             </div>
         </div>
+        <script>
+            $(document).ready(function () {
+    // Intercetta il click sul pulsante con classe svuota-db
+    $('.svuota-db').on('click', function (event) {
+        event.preventDefault(); // Previene l'invio immediato del form
+        if (confirm("Sei sicuro di voler svuotare l'inventario?")) {
+            $(this).closest('form').submit(); // Invia il form solo se confermato
+        }
+    });
+
+    // Intercetta il click sul pulsante con classe svuota-veicoli-manuali
+    $('.svuota-veicoli-manuali').on('click', function (event) {
+        event.preventDefault(); // Previene l'invio immediato del form
+        if (confirm("Sei sicuro di voler svuotare i veicoli manuali?")) {
+            $(this).closest('form').submit(); // Invia il form solo se confermato
+        }
+    });
+});
+
+        </script>
+
+
         <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
         <script>
             AOS.init();
@@ -66,6 +94,11 @@ var loader = $('#messaggio-attesa');
 // Nascondi l'immagine di caricamento all'inizio
 
         </script>
+
+
+
+
+
     @endsection
 
 
