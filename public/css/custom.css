@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body {
   background-color: #f2f2f2;
   font-family: "Poppins", sans-serif;
@@ -68,11 +69,10 @@ input:focus {
   font-size: 17px;
 }
 .ricercaVeicoli .card-deck .cardRisultatiRicerca .card-body {
-  margin-top: -24px;
+  margin-top: -43px;
 }
 .ricercaVeicoli .card-deck .cardRisultatiRicerca .headModello .card-header {
   border: none;
-  background-color: #f1f1f1;
   margin: 0% 2%;
 }
 .ricercaVeicoli .cardRicerca .form-group {
@@ -115,7 +115,7 @@ input:focus {
   font-weight: 300;
 }
 .ricercaVeicoli .heightBodyCardRisultati {
-  min-height: 700px;
+  min-height: 200px;
 }
 
 .buttons {
@@ -208,7 +208,7 @@ input:focus {
   border-radius: 5px;
   cursor: pointer;
   border-radius: 38px;
-  width: 40%;
+  width: 100%;
   margin: 20px auto 20px auto;
   display: inline;
   border-radius: 30px;
@@ -229,21 +229,17 @@ input:focus {
   width: 45%;
   margin: 10px 11px 2px 10px;
   padding: 6px;
-  background-color: #f1f1f1;
-  border: 1px solid #ddd;
   color: black;
-  font-size: 15px;
+  font-size: 12px;
   border-radius: 5px;
 }
 
 .cellData {
-  width: 97%;
+  width: 45%;
   margin: 10px 11px 2px 10px;
   padding: 6px;
-  background-color: #f1f1f1;
-  border: 1px solid #ddd;
   color: black;
-  font-size: 15px;
+  font-size: 12px;
   border-radius: 5px;
 }
 
@@ -324,7 +320,8 @@ input:focus {
 .textNessunaNotaInfinity {
   display: block;
   color: gray;
-  margin-top: 10px;
+  margin-top: -13px;
+  margin-left: 10px;
 }
 
 .textAncoraNoInventory {
@@ -348,7 +345,7 @@ input:focus {
   cursor: pointer;
   border-radius: 38px;
   display: inline;
-  width: 82%;
+  width: 92%;
   font-size: 13px;
   margin: auto;
 }
@@ -531,12 +528,15 @@ input:focus {
 }
 
 .alert-success {
-  width: 57%;
+  width: 63%;
   margin: -50px auto 59px;
   background: #00b100;
   color: white;
   text-align: center;
   border-radius: 0.5rem;
+}
+.alert-success .text-sm {
+  text-align: center;
 }
 
 .alert-dismissible .btn-close {
@@ -555,13 +555,11 @@ input:focus {
 
 .positionBtnAddNoteInvNo {
   position: relative;
-  top: -91px;
-  left: 270px;
+  top: -23px;
 }
 
 .cardRisultatiRicercaNotfound {
   width: 36em;
-  height: 9em;
 }
 
 .alert {
@@ -659,12 +657,26 @@ input:checked + .slider:before {
 .ricercaVeicoli .heightBodyCardRisultati {
   position: relative;
   width: 470px;
-  min-height: 820px;
   padding: 0;
 }
 .ricercaVeicoli #operatore, .ricercaVeicoli #dataOra, .ricercaVeicoli #ubicazione {
   font-size: 13px;
   margin-left: 13px;
+}
+
+.info-veicolo, .info-stato, .info-inventariato {
+  color: green;
+  font-weight: 900;
+}
+
+.card-ricerca {
+  background-color: #000; /* Sfondo nero */
+  color: #fff; /* Testo bianco per visibilità */
+  max-height: 200px; /* Altezza massima */
+  overflow-y: auto; /* Barra di scorrimento verticale se necessario */
+  border-radius: 8px; /* Bordo arrotondato */
+  padding: 15px; /* Spaziatura interna */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombra per un effetto migliore */
 }
 
 @media (max-width: 576px) {
@@ -674,20 +686,21 @@ input:checked + .slider:before {
     left: 191px;
   }
   .ricercaVeicoli .cell {
-    width: 94%;
+    width: 45%;
   }
   .ricercaVeicoli #confInv {
-    font-size: 8px;
+    font-size: 13px;
     font-weight: 700;
-    width: 46%;
+    position: relative;
+    top: -1rem;
   }
   .ricercaVeicoli #addNota {
-    font-size: 8px;
+    font-size: 13px;
     font-weight: 700;
-    width: 46%;
+    width: 92%;
     position: relative;
-    left: 166px;
-    top: -84px;
+    left: 1px;
+    top: -22px;
   }
 }
 .table-dati-operatore {
@@ -718,13 +731,9 @@ input:checked + .slider:before {
     height: 42em;
     width: 31rem;
   }
-  .positionBtnAddNoteInvNo {
+  #confInv {
     position: relative;
-    top: -92px;
-    left: 275px;
-  }
-  .cell {
-    width: 94%;
+    top: -1.3rem;
   }
 }
 @media (min-width: 768px) {
@@ -751,11 +760,14 @@ input:checked + .slider:before {
   }
   .ricercaVeicoli #confInv {
     font-size: 12px;
+    position: relative;
+    top: -1.4rem;
   }
   .ricercaVeicoli #addNota {
     font-size: 12px;
     position: relative;
-    top: -14px;
+    top: -1rem;
+    left: 1px;
   }
   .card-deck {
     z-index: 600;
@@ -778,6 +790,7 @@ input:checked + .slider:before {
   .card-deck .cardRisultatiRicerca {
     width: auto;
     position: relative;
+    left: -2rem;
     min-width: 27rem;
   }
   .ricercaVeicoli .heightBodyCardRisultati {

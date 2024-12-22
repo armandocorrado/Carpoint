@@ -4,7 +4,7 @@
 
         @if (Session::get('status'))
         <div class="justify-content-center mt-5">
-            <div class="alert alert-success alert-dismissible text-blue mx-auto" role="alert" style="position: relative;left: 47px;margin-bottom: 19px;margin-top: -87px;">
+            <div class="alert alert-success alert-dismissible text-blue mx-auto" role="alert">
                 <span class="text-sm">{{ Session::get('status') }} </span>
                 <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -30,11 +30,13 @@
 }
 
 #photos-container button {
-    margin-left: 5px;
-    background: red;
+    background: #b8b4b4;
     color: white;
     border: none;
     cursor: pointer;
+    margin-left: -28px;
+    height: 19px;
+    font-size: 11px;
 }
 
         
@@ -290,7 +292,7 @@
         imgElement.style.maxWidth = "100px"; // Imposta una larghezza fissa per le anteprime
 
         const removeButton = document.createElement("button");
-        removeButton.innerText = "Rimuovi";
+        removeButton.innerText = "x";
         removeButton.addEventListener("click", () => {
             imgElement.remove();
             removeButton.remove();

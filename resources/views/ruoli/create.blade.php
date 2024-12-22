@@ -4,7 +4,7 @@
 
         @if (Session::get('status'))
         <div class="justify-content-center">
-            <div class="alert alert-success alert-dismissible text-blue mx-auto" role="alert" style="position: relative;left: 47px;margin-bottom: 19px;margin-top: -87px;">
+            <div class="alert alert-success alert-dismissible text-blue mx-auto" role="alert">
                 <span class="text-sm">{{ Session::get('status') }} </span>
                 <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

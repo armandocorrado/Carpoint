@@ -304,8 +304,8 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-12 mx-auto">
-                <div class="card mx-auto mb-3 cardGeneral cardRisultatiRicerca" id="contenitoreRicerca" data-aos="fade"
-                    data-aos-duration="3000">
+                <div class=" card mx-auto mb-3 cardGeneral cardRisultatiRicerca" id="contenitoreRicerca" data-aos="fade"
+                    data-aos-duration="3000" style="max-height: 600px; overflow-y: auto;">
                     <h3 class="mb-3 mt-4 text-center qui">Risultati ricerca</h3>
                     <p class="qui" style="text-align: center;font-size:13px;">Qui appariranno le informazioni del
                         veicolo ricercato</p>
@@ -322,7 +322,7 @@
                     <div id="noresult">
                         <!-- append -->
                     </div>
-                    <div class="card-body text-primary ">
+                    <div class="card-body text-primary " style="">
                         <div class="d-flex flex-wrap justify-content-between mt-2 mb-0 " id="tableVeicoli">
                             <!-- append contenuto   -->
                             <button id='confInv'>CONFERMA INVENTARIO</button>
@@ -641,8 +641,8 @@
                             "<h5 class='d-inline text-left'>" + 
                             (nomeVeicolo ?? response.car.marca + ' ' + response.car.modello) + 
                             "</h5>" +
-                            "<button style='background: none; color: gray; border:1px solid gray; padding: 0px;' type='button' class='btn btn-success b' data-bs-toggle='modal' data-bs-target='#showGallery' id='b'>" +
-                            "<i class='fa-regular fa-images' style='position: relative; left: 8px;'></i>" +
+                            "<button type='button' style='padding:1px 5px;' class='btn btn-secpmdary ms-2 b' data-bs-toggle='modal' data-bs-target='#showGallery' data-bs-toggle='tooltip' title='Apri la galleria' id='b'>" +
+                            "<i class='fa-regular fa-images'></i>" +
                             "</button>"
 );
 
@@ -694,11 +694,11 @@
 
                             $('#veicolo').append(
                                 "<div class='subTitleVeicolo'>" + "Veicolo: " +
-                                "<span> <strong>" + nuovo_usato + "</strong> </span>" +
+                                "<span class='info-veicolo'> <strong>" + nuovo_usato + "</strong> </span>" +
                                 "</div>" +
-                                "<div class='subTitleStatus'>Status: <span>" + status +
+                                "<div class='subTitleStatus'>Status: <span class='info-stato'>" + status +
                                 "</span>" + "</div>" +
-                                "<div class='subTitleInventariato'>Inventariato: <span id='inventario'>" +
+                                "<div class='subTitleInventariato'>Inventariato: <span class='info-inventariato' id='inventario'>" +
                                 response.test.invent + "</span>" + "</div>"
                             );
 
@@ -789,55 +789,60 @@
                        
 
                             $('#tableVeicoli').append(
-                                "<div class='cell'>Targa: <span><strong> " + response.car
+                                "<div class='cell'>Targa: <span class='d-block'><strong> " + response.car
                                 .targa + ' ' +
                                 "</span></strong>" + "</div>" +
-                                "<div class='cell'>Telaio: <span><strong> " + (response.car
+                                "<div class='cell'>Tipo di ritiro: <span class='d-block'><strong> " + (linea) +
+                                "</span></strong>" + "</div>" +
+                                "<div class='cell'>Telaio: <span class='d-block'><strong> " + (response.car
                                     .telaio ?
                                     response.car.telaio : response.car.vin) +
                                 "</span> </strong>" +
                                 "</div>" +
-                                "<div class='cell'>Colore: <span><strong> " + response.car
-                                .colore +
-                                "</span></strong>" + "</div>" +
-                                "<div class='cell'>Ubicazione: <span><strong> " + luogo +
-                                "</span></strong>" + "</div>" +
-                                "<div class='cell'>Tipo prodotto: <span><strong> " + (linea) +
-                                "</span></strong>" + "</div>" +
-                                "<div class='cell'>N° contratto: <span><strong> " + (response
+                                "<div class='cell'>N° contratto: <span class='d-block'><strong> " + (response
                                     .car
                                     .numero_contratto ?? '-') + "</span></strong>" + "</div>" +
-                                "<div class='cellData'>Data stipula contratto: <span><strong> " +
+                                "<div class='cell'>Colore: <span class='d-block'><strong> " + response.car
+                                .colore +
+                                "</span></strong>" + "</div>" +
+                                "<div class='cellData cell'>Data stipula contratto: <span class='d-block'><strong> " +
                                 (response.car.data_contratto ?? '-') + "</span></strong>" +
                                 "</div>" +
-                                "<div class='cellData'>Data chiusura contratto: <span><strong> " +
-                                (response.car.data_uscita ?? '-') + "</span></strong>" +
-                                "</div>" +
-                                "<div class='cellData'>Data fattura vendita: <span><strong> " +
+                                "<div class='cell'>Ubicazione: <span class='d-block'><strong> " + luogo +
+                                "</span></strong>" + "</div>" +
+                                
+                                "<div class='cellData cell'>Data fattura vendita: <span class='d-block'><strong> " +
                                 (response
                                     .car.data_fattura_v ?? '-') + "</span></strong>" +
                                 "</div>" +
+                                
+                                // "<div class='cellData cell'>Data chiusura contratto: <span><strong> " +
+                                // (response.car.data_uscita ?? '-') + "</span></strong>" +
+                                // "</div>" +
+                               
 
                                  
                                   // Griglia Bootstrap con due row e tre colonne per row
-                                  "<table class='table table-bordered table-dati-operatore'>" +
-                                    "<thead class='table-light'>" +
-                                        "<tr>" +
-                                            "<th>Operatore</th>" +
-                                            "<th>Ubicazione</th>" +
-                                            "<th>Data</th>" +
-                                        "</tr>" +
-                                    "</thead>" +
-                                    "<tbody>" +
-                                        "<tr>" +
-                                            "<td>'"+operatore + "'</td>" +
-                                            "<td>'"+luogo + "'</td>" +
-                                            "<td>'"+data + "'</td>" +
-                                        "</tr>" +
-                                    "</tbody>" +
-                                "</table>" +
+                                //   "<table class='table table-bordered table-dati-operatore'>" +
+                                //     "<thead class='table-light'>" +
+                                //         "<tr>" +
+                                //             "<th>Operatore</th>" +
+                                //             "<th>Ubicazione</th>" +
+                                //             "<th>Data</th>" +
+                                //         "</tr>" +
+                                //     "</thead>" +
+                                //     "<tbody>" +
+                                //         "<tr>" +
+                                //             "<td>'"+operatore + "'</td>" +
+                                //             "<td>'"+luogo + "'</td>" +
+                                //             "<td>'"+data + "'</td>" +
+                                //         "</tr>" +
+                                //     "</tbody>" +
+                                // "</table>" +
+                               "<p style='font-size: 13px;color:gray;margin-left:10px;'>Inventariato dall'operatore: '"+operatore + "' in data: '"+data + "' presso: '"+luogo + "'</p>"+
+
                                 "</div>" +
-                                "<div class='textNessunaNotaInfinity' id='nota_infinity'></div>" +
+                               
                                 "<form method='post' style='width:100%' action='{{ route('store-trovata') }}'>" +
                                 '@csrf' +
                                 "<input name='id_operatore' hidden id='id_operatore' value='{{ Auth::user()->id }}'>" +
@@ -849,10 +854,11 @@
                                 "<input name='ubicazione' hidden id='ubicazione' value='{{ Auth::user()->ubicazione }}'>" +
                                 "<input name='latitudine' hidden  id='' value='"+latitudine+"'>" +
                                 "<input name='longitudine' hidden id='' value='"+longitudine+"'>" +
-                                "<input name='indirizzo_gps'  id='indirizzo_gps' value='"+indirizzo+"'>" +
+                                "<input readonly name='indirizzo_gps'  id='indirizzo_gps' value='"+indirizzo+"' style='width:96%;margin-left:.6rem;position:relative;top:3rem;'>" +
                                 "<button type='submit'  id='confInv' >" +
                                 'CONFERMA INVENTARIO' + "</button>" + "</form>" +
-                                "<div class='textNessunaNota' id='nota_manuale'></div>" 
+                                "<div class='textNessunaNota' id='nota_manuale'></div>" +
+                                "<div class='textNessunaNotaInfinity' id='nota_infinity'></div>"  
                                 // '<button id="addNota" style="width: 48%;display:inline;position: relative;top: -76px;left: 268px;">AGGIUNGI NOTA</button>'
 
                             );
@@ -988,7 +994,13 @@
         AOS.init();
     </script>
 
+<script>
+    // Inizializza tutti i tooltip nella pagina
+$(document).ready(function () {
+    $('[data-bs-toggle="tooltip"]').tooltip();
+});
 
+</script>
 
 
 

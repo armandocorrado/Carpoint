@@ -17,7 +17,7 @@
           <img src="/img/teamIcon.png" style="width:7%;" class="mt-1 float-end">
           <h6 class="float-end " style="margin-top: 14px;margin-right:10px;font-size: 20px;font-weight:700">{{Auth::user()->name  }}</h6>
         </div>
-        <div class="dropdown-menu" style="margin-top: 8px;font-size:20px;" aria-labelledby="dropdownMenuButton" class="mt-3 float-end">
+        <div class="dropdown-menu" style="margin-top:-14px;font-size:15px;" aria-labelledby="dropdownMenuButton" class="mt-3 float-end">
           <a class="dropdown-item" style="color:rgb(124, 124, 124);" href="{{ route('home_') }}"><strong>Home</strong></a>
           <a class="dropdown-item" style="color:black;" href="{{route('report.index')}}"><strong>Report</strong></a>
           <a class="dropdown-item" style="color:green;" href="{{ route('search.veicoli') }}"><strong>Ricerca veicoli</strong></a>
