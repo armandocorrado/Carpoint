@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
     <div class="ricercaPiazzali mt-2">
         <div class="d-flex justify-content-center">
             <div class="text-center" id="messaggio-attesa">
@@ -248,73 +247,44 @@
                               
                         var tableNuovo = $('#tablePiazzaliRisult tbody');
 tableNuovo.empty();
-
 $.each(response.veicoliNuoviDaInv, function (index, elemento) {
-
-    var colore = elemento.colore || elemento.descr_colore || 'N/A';
-    var telaio = elemento.telaio || elemento.vin || 'N/A';
-    var interni = elemento.descr_int || elemento.colint || 'N/A';
-    var alimentazione = elemento.alimentazione || 'N/A';  
-    var kw = elemento.potenzakw || elemento.kw || 'N/A';
-    var kmpercorsi = elemento.km_percorsi ||  'N/A';
-    var ubicazione = elemento.descrizione_ubicazioni || elemento.desc_ubicazione || ubicazione || 'N/A';
-    var marca = elemento.descrizione_marca || elemento.marca || 'N/A';
-    var modello = elemento.descrizione_modello || elemento.modello || 'N/A';
-
-
     var riga = "<tr class='open-modal' " +
         "data-targa='" + elemento.targa + "' " +
-        "data-telaio='" + telaio + "' " +
-        "data-marca='" + marca + "' " +
-        "data-modello='" + modello + "'" +
-        "data-colore='" + colore + "' " +
-        "data-interni='" + interni + "'" +
-        "data-alimentazione='" + alimentazione + "'" +
-        "data-kw='" + kw + "'" +
-        "data-kmpercorsi='" + kmpercorsi + "'" +
-        "data-ubicazione='" + ubicazione + "'>"+
-    
+        "data-telaio='" + elemento.telaio + "' " +
+        "data-marca='" + elemento.descrizione_marca + "' " +
+        "data-modello='" + elemento.descrizione_modello + "'>" +
         "<td>" + elemento.targa + "</td>" +
-        "<td>" + telaio + "</td>" +
-        "<td>" + marca + "</td>" +
-        "<td>" + modello + "</td>" +
+        "<td>" + elemento.telaio + "</td>" +
+        "<td>" + elemento.descrizione_marca + "</td>" +
+        "<td>" + elemento.descrizione_modello + "</td>" +
         "</tr>";
     $('#tablePiazzaliRisult tbody').append(riga);
 });
 
 var tableUsato = $('#tablePiazzaliRisultU tbody');
 tableUsato.empty();
-
 $.each(response.veicoliUsatiDaInv, function (index, elemento) {
-
-    var colore = elemento.colore || elemento.descr_colore || 'N/A';
-    var telaio = elemento.telaio || elemento.vin || 'N/A';
-    var interni = elemento.descr_int || elemento.colint || 'N/A';
-    var alimentazione = elemento.alimentazione || 'N/A';  
-    var kw = elemento.potenzakw || elemento.kw || 'N/A';
-    var kmpercorsi = elemento.km_percorsi ||  'N/A';
-    var ubicazione = elemento.descrizione_ubicazioni || elemento.desc_ubicazione || ubicazione || 'N/A';
-    var marca = elemento.desrizione_marca || elemento.marca || 'N/A';
-    var modello = elemento.descrizione_modello || elemento.modello || 'N/A';
-
     var riga = "<tr class='open-modal' " +
-    "data-targa='" + elemento.targa + "' " +
-        "data-telaio='" + telaio + "' " +
-        "data-marca='" + marca + "' " +
-        "data-modello='" + modello + "'>" +
-        "data-colore='" + colore + "'>" +
-        "data-interni='" + interni + "'>" +
-        "data-alimentazione='" + alimentazione + "'>" +
-        "data-kw='" + kw + "'>" +
-        "data-kmpercorsi='" + kmpercorsi + "'>" +
-        "data-ubicazione='" + ubicazione + "'>"+
-        "<td>" + targa + "</td>" +
-        "<td>" + telaio + "</td>" +
-        "<td>" + marca + "</td>" +
-        "<td>" + modello + "</td>" +
+        "data-targa='" + elemento.targa + "' " +
+        "data-telaio='" + elemento.vin + "' " +
+        "data-marca='" + elemento.marca + "' " +
+        "data-modello='" + elemento.modello + "'>" +
+        "<td>" + elemento.targa + "</td>" +
+        "<td>" + elemento.vin + "</td>" +
+        "<td>" + elemento.marca + "</td>" +
+        "<td>" + elemento.modello + "</td>" +
         "</tr>";
     $('#tablePiazzaliRisultU tbody').append(riga);
 });
+
+
+
+
+
+
+
+
+
 
                         $('#tablePiazzali').after(
                             "<div id='usatoDaInv' style='display:none'><table><thead><tr><th>Targa1</th><th>Telaio</th><th>Marca</th><th>Modello</th></tr></thead><tbody><tr><td>Dato 1</td><td>Dato 2</td><td>Dato 3</td><td>Dato 4</td></tr></tbody></table></div>"
@@ -348,9 +318,8 @@ $.each(response.veicoliUsatiDaInv, function (index, elemento) {
 
     </script>
        
-     
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
         AOS.init();
@@ -363,29 +332,13 @@ $(document).on('click', '.open-modal', function () {
     var telaio = $(this).data('telaio');
     var marca = $(this).data('marca');
     var modello = $(this).data('modello');
-    var colore = $(this).data('colore');
-    var interni = $(this).data('interni');
-    var alimentazione = $(this).data('alimentazione');
-    var kw = $(this).data('kw');
-    var kmpercorsi = $(this).data('kmpercorsi');
-    var ubicazione = $(this).data('ubicazione');
 
-   
     // Aggiungi i dati al modal
     $('#dynamicModal .modal-body').html(
         '<p><strong>Targa:</strong> ' + targa + '</p>' +
         '<p><strong>Telaio:</strong> ' + telaio + '</p>' +
         '<p><strong>Marca:</strong> ' + marca + '</p>' +
-        '<p><strong>Modello:</strong> ' + modello + '</p>'+
-        '<p><strong>Colore:</strong> ' + colore + '</p>'+
-        '<p><strong>Interni:</strong> ' + interni + '</p>'+
-        '<p><strong>Alimentazione:</strong> ' + alimentazione + '</p>'+
-        '<p><strong>Kw:</strong> ' + kw + '</p>'+
-        '<p><strong>Ubicazione:</strong> ' + ubicazione + '</p>'+
-        '<p><strong>AlimentaziKm percorsione:</strong> ' + kmpercorsi + '</p>'
-
-
-
+        '<p><strong>Modello:</strong> ' + modello + '</p>'
     );
     jQuery('#dynamicModal').modal('show');
 });
