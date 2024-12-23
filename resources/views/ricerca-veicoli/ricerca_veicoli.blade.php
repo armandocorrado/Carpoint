@@ -754,31 +754,21 @@
 
 
                             // controllo l'ubicazione
-                            var luogo;
-                            if (response.car.descrizione_ubicazioni) {
-
-                                luogo = response.car.descrizione_ubicazioni;
-                            } else if (response.car.desc_ubicazione) {
-                                luogo = response.car.desc_ubicazione;
-                            } else {
-                                luogo = response.car.ubicazione;
-                            }
+                            var luogo = response.car.descrizione_ubicazioni || response.car.desc_ubicazione || response.car.ubicazione || response.trovata.luogo || 'NC';
+                           
 
                             var operatore;
-                            var luogo;
                             var data;
 
                             if(response.trovata != null){
 
                                 var operatore = response.trovata.user_operatore;
-                                var luogo = response.trovata.luogo;
                                 var data = response.trovata.dataOra;
 
 
                             }else{
 
                                 var operatore = '';
-                                var luogo = '';
                                 var data = '';
 
                             }
@@ -846,7 +836,7 @@
                                 "<form method='post' style='width:100%' action='{{ route('store-trovata') }}'>" +
                                 '@csrf' +
                                 "<input name='id_operatore' hidden id='id_operatore' value='{{ Auth::user()->id }}'>" +
-                                "<input name='user_operatore' hidden id='user_operatore' value='{{ Auth::user()->name }}'>" +
+                                "<input name='user_operatore'  id='user_operatore' value='{{ Auth::user()->name }}'>" +
                                 "<input name='idveicolo' hidden id='idveicolo' value='" +
                                 response.car.id_veicolo + "'>" +
                                 "<input name='nuovo_usato' hidden id='nuovo_usato' value='" + (
