@@ -6,12 +6,14 @@ body {
 
 h5 {
   display: block;
-  font-size: 25px;
+  font-size: 18px;
   color: #333333;
   line-height: 1.2;
   text-align: center;
   font-weight: 800;
   margin-top: 48px;
+  font-family: "Poppins", serif;
+  font-style: normal;
 }
 
 .card {
@@ -69,7 +71,7 @@ input:focus {
   font-size: 17px;
 }
 .ricercaVeicoli .card-deck .cardRisultatiRicerca .card-body {
-  margin-top: -43px;
+  margin-top: -35px;
 }
 .ricercaVeicoli .card-deck .cardRisultatiRicerca .headModello .card-header {
   border: none;
@@ -193,7 +195,7 @@ input:focus {
 }
 
 .btn-hover.color-9 {
-  background: -webkit-linear-gradient(right, #006939, #00884a, #00cc6e, #00ff89);
+  background: -webkit-linear-gradient(right, #006939, #00884a, #00cc6e, #0e9b5a);
 }
 
 .btn-hover.color-10 {
@@ -219,15 +221,14 @@ input:focus {
   background-image: linear-gradient(to right, #080808, #5e5e5e, #302b2b, #727272);
 }
 
-.subTitleVeicolo span,
-.subTitleStatus span,
-.subTitleInventariato span {
-  font-weight: 700;
+.classeModello {
+  position: relative;
+  top: -3rem;
 }
 
 .cell {
   width: 45%;
-  margin: 10px 11px 2px 10px;
+  margin: -7px 11px 2px 10px;
   padding: 6px;
   color: black;
   font-size: 12px;
@@ -320,8 +321,7 @@ input:focus {
 .textNessunaNotaInfinity {
   display: block;
   color: gray;
-  margin-top: -13px;
-  margin-left: 10px;
+  margin: -32px auto;
 }
 
 .textAncoraNoInventory {
@@ -695,12 +695,86 @@ input:checked + .slider:before {
     top: -1rem;
   }
   .ricercaVeicoli #addNota {
-    font-size: 13px;
-    font-weight: 700;
-    width: 92%;
+    font-size: 12px;
     position: relative;
+    top: -1rem;
     left: 1px;
-    top: -22px;
+  }
+  .ricercaVeicoli #indirizzo_gps {
+    width: 96%;
+    margin-left: 0.6rem;
+    position: relative;
+    top: -1.8rem;
+    border: 1px solid #e0dfdf;
+  }
+  .ricercaVeicoli .inventariato {
+    position: relative;
+    top: 2.6rem;
+    font-size: 11px !important;
+    color: gray;
+    left: 1rem;
+  }
+  .ricercaVeicoli .btn-foto {
+    position: relative;
+    top: -27.5px;
+    left: -344px;
+    color: gray;
+    display: none;
+  }
+  .ricercaVeicoli .card {
+    max-height: 510px;
+    overflow-y: auto;
+  }
+  .ricercaVeicoli .subTitleVeicolo {
+    position: relative;
+    top: -3.8rem;
+    left: 19.2rem;
+    font-size: 13px;
+  }
+  .ricercaVeicoli .subTitleStatus {
+    position: relative;
+    top: -2.7rem;
+    left: 10.9rem;
+    font-size: 13px;
+  }
+  .ricercaVeicoli .subTitleInventariato {
+    position: relative;
+    top: -1.6rem;
+    left: 1.5rem;
+    font-size: 13px;
+  }
+  .ricercaVeicoli .classeModello {
+    position: relative;
+    top: -1.3rem;
+    left: -4rem;
+    font-weight: bolder;
+  }
+  .ricercaVeicoli .cell-ritiro {
+    position: relative;
+    left: 7px;
+    max-width: 84px;
+    padding: 0px;
+  }
+  .ricercaVeicoli .cell-ncontratto {
+    position: relative;
+    left: 18px;
+    max-width: 85px;
+    padding: 0px;
+  }
+  .ricercaVeicoli .cell-stipula-contratto {
+    position: relative;
+    left: 17px;
+    max-width: 141px;
+    padding: 0px;
+  }
+  .ricercaVeicoli .cell-data-vendita {
+    position: relative;
+    left: 20px;
+    max-width: 134px;
+    padding: 0px;
+  }
+  .ricercaVeicoli h5 {
+    font-size: 18px;
   }
 }
 .table-dati-operatore {
@@ -732,8 +806,86 @@ input:checked + .slider:before {
     width: 31rem;
   }
   #confInv {
+    font-size: 12px;
     position: relative;
-    top: -1.3rem;
+    top: -1.2rem;
+  }
+  #addNota {
+    font-size: 12px;
+    position: relative;
+    top: -1rem;
+    left: 1px;
+  }
+  #indirizzo_gps {
+    width: 96%;
+    margin-left: 0.6rem;
+    position: relative;
+    top: -1.8rem;
+    border: 1px solid #e0dfdf;
+  }
+  .inventariato {
+    position: relative;
+    top: 2.6rem;
+    font-size: 11px !important;
+    color: gray;
+    left: 1rem;
+  }
+  .btn-foto {
+    position: relative;
+    top: -25px;
+    left: -345px;
+    color: gray;
+  }
+  .card {
+    max-height: 510px;
+    overflow-y: auto;
+  }
+  .subTitleVeicolo {
+    position: relative;
+    top: -59px;
+    left: 298px;
+    font-size: 13px;
+  }
+  .subTitleStatus {
+    position: relative;
+    top: -45px;
+    left: 170px;
+    font-size: 13px;
+  }
+  .subTitleInventariato {
+    position: relative;
+    top: -30px;
+    left: 22px;
+    font-size: 13px;
+  }
+  .classeModello {
+    position: relative;
+    top: -14px;
+    left: -53px;
+  }
+  .cell-ritiro {
+    position: relative;
+    left: 7px;
+    max-width: 89px;
+    padding: 0px;
+  }
+  .cell-ncontratto {
+    position: relative;
+    left: 18px;
+    max-width: 85px;
+    padding: 0px;
+  }
+  .cell-stipula-contratto {
+    position: relative;
+    left: 17px;
+    max-width: 141px;
+    padding: 0px;
+  }
+  .cell-data-vendita {
+    position: relative;
+    left: 20px;
+    max-width: 134px;
+    padding: 0px;
   }
 }
 @media (min-width: 768px) {
@@ -761,7 +913,7 @@ input:checked + .slider:before {
   .ricercaVeicoli #confInv {
     font-size: 12px;
     position: relative;
-    top: -1.4rem;
+    top: -1.2rem;
   }
   .ricercaVeicoli #addNota {
     font-size: 12px;
@@ -769,8 +921,79 @@ input:checked + .slider:before {
     top: -1rem;
     left: 1px;
   }
+  .ricercaVeicoli #indirizzo_gps {
+    width: 96%;
+    margin-left: 0.6rem;
+    position: relative;
+    top: -1.8rem;
+    border: 1px solid #e0dfdf;
+  }
+  .ricercaVeicoli .inventariato {
+    position: relative;
+    top: 2.6rem;
+    font-size: 11px !important;
+    color: gray;
+    left: 1rem;
+  }
+  .ricercaVeicoli .btn-foto {
+    position: relative;
+    top: -26.5px;
+    left: -336px;
+    color: gray;
+  }
+  .ricercaVeicoli .card {
+    max-height: 510px;
+    overflow-y: auto;
+  }
   .card-deck {
     z-index: 600;
+  }
+  .subTitleVeicolo {
+    position: relative;
+    top: -49px;
+    left: 290px;
+    font-size: 13px;
+  }
+  .subTitleStatus {
+    position: relative;
+    top: -35px;
+    left: 167px;
+    font-size: 13px;
+  }
+  .subTitleInventariato {
+    position: relative;
+    top: -21px;
+    left: 24px;
+    font-size: 13px;
+  }
+  .classeModello {
+    position: relative;
+    top: -8px;
+    left: -3.2rem;
+  }
+  .cell-ritiro {
+    position: relative;
+    left: 7px;
+    max-width: 88px;
+    padding: 0px;
+  }
+  .cell-ncontratto {
+    position: relative;
+    left: 18px;
+    max-width: 85px;
+    padding: 0px;
+  }
+  .cell-stipula-contratto {
+    position: relative;
+    left: 17px;
+    max-width: 141px;
+    padding: 0px;
+  }
+  .cell-data-vendita {
+    position: relative;
+    left: 20px;
+    max-width: 134px;
+    padding: 0px;
   }
 }
 @media (min-width: 992px) {

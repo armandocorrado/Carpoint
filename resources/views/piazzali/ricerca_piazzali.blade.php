@@ -247,7 +247,6 @@
                               
                         var tableNuovo = $('#tablePiazzaliRisult tbody');
 tableNuovo.empty();
-
 $.each(response.veicoliNuoviDaInv, function (index, elemento) {
 
     var colore = elemento.colore || elemento.descr_colore || 'N/A';
@@ -277,16 +276,15 @@ $.each(response.veicoliNuoviDaInv, function (index, elemento) {
         "data-ubicazione='" + ubicazione + "'>"+
     
         "<td>" + elemento.targa + "</td>" +
-        "<td>" + telaio + "</td>" +
-        "<td>" + marca + "</td>" +
-        "<td>" + modello + "</td>" +
+        "<td>" + elemento.telaio + "</td>" +
+        "<td>" + elemento.descrizione_marca + "</td>" +
+        "<td>" + elemento.descrizione_modello + "</td>" +
         "</tr>";
     $('#tablePiazzaliRisult tbody').append(riga);
 });
 
 var tableUsato = $('#tablePiazzaliRisultU tbody');
 tableUsato.empty();
-
 $.each(response.veicoliUsatiDaInv, function (index, elemento) {
 
     var colore = elemento.colore || elemento.descr_colore || 'N/A';
@@ -321,6 +319,15 @@ $.each(response.veicoliUsatiDaInv, function (index, elemento) {
     $('#tablePiazzaliRisultU tbody').append(riga);
 });
 
+
+
+
+
+
+
+
+
+
                         $('#tablePiazzali').after(
                             "<div id='usatoDaInv' style='display:none'><table><thead><tr><th>Targa1</th><th>Telaio</th><th>Marca</th><th>Modello</th></tr></thead><tbody><tr><td>Dato 1</td><td>Dato 2</td><td>Dato 3</td><td>Dato 4</td></tr></tbody></table></div>"
                             );
@@ -352,7 +359,7 @@ $.each(response.veicoliUsatiDaInv, function (index, elemento) {
 
 
     </script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+       
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
@@ -376,7 +383,6 @@ $(document).on('click', '.open-modal', function () {
     var dataImmatric = $(this).data('immatricolazione');
 
 
-   
     // Aggiungi i dati al modal
     $('#dynamicModal .modal-body').html(
         '<p><strong>Targa:</strong> ' + targa + '</p>' +
