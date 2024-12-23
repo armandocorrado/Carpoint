@@ -39,7 +39,7 @@
                                 @endrole
 
                                 @role('Admin')
-                                <form action="{{ route('destroy-trovata.all')}}" method="POST">@csrf
+                                <form action="{{ route('destroy-veicolo')}}" method="POST">@csrf
                                 <button type="submit" style="text-decoration:none; color:white; line-height: 42px;" class="btn btn-hover color-5 d-block mt-4 mb-2 svuota-veicoli-manuali" >SVUOTA VEICOLI MANUALI</button>
                                 </form>
                                 @endrole

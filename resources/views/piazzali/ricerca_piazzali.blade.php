@@ -259,6 +259,8 @@ $.each(response.veicoliNuoviDaInv, function (index, elemento) {
     var ubicazione = elemento.descrizione_ubicazioni || elemento.desc_ubicazione || ubicazione || 'N/A';
     var marca = elemento.descrizione_marca || elemento.marca || 'N/A';
     var modello = elemento.descrizione_modello || elemento.modello || 'N/A';
+    var dataImma = elemento.data_immatricolazione ||  'N/A';
+
 
 
     var riga = "<tr class='open-modal' " +
@@ -271,6 +273,7 @@ $.each(response.veicoliNuoviDaInv, function (index, elemento) {
         "data-alimentazione='" + alimentazione + "'" +
         "data-kw='" + kw + "'" +
         "data-kmpercorsi='" + kmpercorsi + "'" +
+        "data-immatricolazione='" + dataImma + "'" +
         "data-ubicazione='" + ubicazione + "'>"+
     
         "<td>" + elemento.targa + "</td>" +
@@ -293,21 +296,24 @@ $.each(response.veicoliUsatiDaInv, function (index, elemento) {
     var kw = elemento.potenzakw || elemento.kw || 'N/A';
     var kmpercorsi = elemento.km_percorsi ||  'N/A';
     var ubicazione = elemento.descrizione_ubicazioni || elemento.desc_ubicazione || ubicazione || 'N/A';
-    var marca = elemento.desrizione_marca || elemento.marca || 'N/A';
+    var marca = elemento.descrizione_marca || elemento.marca || 'N/A';
     var modello = elemento.descrizione_modello || elemento.modello || 'N/A';
+    var dataImma = elemento.data_immatricolazione ||  'N/A';
+
 
     var riga = "<tr class='open-modal' " +
     "data-targa='" + elemento.targa + "' " +
         "data-telaio='" + telaio + "' " +
         "data-marca='" + marca + "' " +
-        "data-modello='" + modello + "'>" +
-        "data-colore='" + colore + "'>" +
-        "data-interni='" + interni + "'>" +
-        "data-alimentazione='" + alimentazione + "'>" +
-        "data-kw='" + kw + "'>" +
-        "data-kmpercorsi='" + kmpercorsi + "'>" +
+        "data-modello='" + modello + "'" +
+        "data-colore='" + colore + "'" +
+        "data-interni='" + interni + "'" +
+        "data-alimentazione='" + alimentazione + "'" +
+        "data-kw='" + kw + "'" +
+        "data-kmpercorsi='" + kmpercorsi + "'" +
+        "data-immatricolazione='" + dataImma + "'" +
         "data-ubicazione='" + ubicazione + "'>"+
-        "<td>" + targa + "</td>" +
+        "<td>" + elemento.targa + "</td>" +
         "<td>" + telaio + "</td>" +
         "<td>" + marca + "</td>" +
         "<td>" + modello + "</td>" +
@@ -367,6 +373,8 @@ $(document).on('click', '.open-modal', function () {
     var kw = $(this).data('kw');
     var kmpercorsi = $(this).data('kmpercorsi');
     var ubicazione = $(this).data('ubicazione');
+    var dataImmatric = $(this).data('immatricolazione');
+
 
    
     // Aggiungi i dati al modal
@@ -380,7 +388,9 @@ $(document).on('click', '.open-modal', function () {
         '<p><strong>Alimentazione:</strong> ' + alimentazione + '</p>'+
         '<p><strong>Kw:</strong> ' + kw + '</p>'+
         '<p><strong>Ubicazione:</strong> ' + ubicazione + '</p>'+
-        '<p><strong>AlimentaziKm percorsione:</strong> ' + kmpercorsi + '</p>'
+        '<p><strong>Km percorsi:</strong> ' + kmpercorsi + '</p>'+
+        '<p><strong>Data Immatricolazione</strong> ' + dataImmatric + '</p>'
+
 
 
 
