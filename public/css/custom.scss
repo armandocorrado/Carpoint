@@ -5,12 +5,14 @@
             
             h5 {
                 display: block;
-                font-size: 25px;
+                font-size: 18px;
                 color: #333333;
                 line-height: 1.2;
                 text-align: center;
                 font-weight: 800;
                 margin-top: 48px;
+                font-family: "Poppins", serif;
+                font-style: normal;
             }
             
             .card {
@@ -855,10 +857,11 @@
 
 
     .btn-foto {
-        position: relative;
-        top: -32.5px;
-        left: -296px;
+        position:relative;
+        top: -27.5px;
+        left: -344px;
         color: gray;
+        display: none;
     }
 
     .card{
@@ -869,13 +872,13 @@
     .subTitleVeicolo{
         position: relative;
     top: -3.8rem;
-    left: 19rem;
+    left: 19.2rem;
     font-size: 13px;
     }
     .subTitleStatus{
         position: relative;
     top: -2.7rem;
-    left: 10.3rem;
+    left: 10.9rem;
     font-size: 13px;
     }
     .subTitleInventariato {
@@ -887,8 +890,9 @@
 
     .classeModello {
         position: relative;
-        top: -1rem;
-        left: -6.7rem;
+        top: -1.3rem;
+        left: -4rem;
+        font-weight: bolder;
     }
 
     .cell-ritiro{
@@ -917,6 +921,12 @@
         left: 20px;
         max-width: 134px;
         padding: 0px;
+    }
+
+    h5 {
+       
+        font-size: 18px;
+        
     }
 
 }
@@ -1002,8 +1012,8 @@
 
     .btn-foto {
         position: relative;
-        top: -32.5px;
-        left: -296px;
+        top: -25px;
+        left: -345px;
         color: gray;
     }
 
@@ -1014,33 +1024,33 @@
 
     .subTitleVeicolo{
         position: relative;
-    top: -3.8rem;
-    left: 19rem;
+        top: -59px;
+        left: 298px;
     font-size: 13px;
     }
     .subTitleStatus{
         position: relative;
-    top: -2.7rem;
-    left: 10.3rem;
+        top: -45px;
+        left: 170px;
     font-size: 13px;
     }
     .subTitleInventariato {
         position: relative;
-        top: -1.6rem;
-        left: 1.5rem; 
+        top: -30px;
+        left: 22px;
         font-size: 13px;
     }
 
     .classeModello {
         position: relative;
-        top: -1rem;
-        left: -6.7rem;
+        top: -14px;
+        left: -53px;
     }
 
     .cell-ritiro{
     position: relative;
     left: 7px;
-    max-width: 84px;
+    max-width: 89px;
     padding: 0px;
 
     }
@@ -1139,9 +1149,9 @@
 
         .btn-foto {
             position: relative;
-            top: -32.5px;
-            left: -296px;
-            color: gray;
+            top: -26.5px;
+            left: -336px;
+            color: gray
         }
 
         .card{
@@ -1168,33 +1178,33 @@
 
     .subTitleVeicolo{
         position: relative;
-    top: -3.8rem;
-    left: 19rem;
+    top: -49px;
+    left: 290px;
     font-size: 13px;
     }
     .subTitleStatus{
         position: relative;
-        top: -2.7rem;
-        left: 10.5rem;
+        top: -35px;
+        left: 167px;
     font-size: 13px;
     }
     .subTitleInventariato {
         position: relative;
-        top: -1.6rem;
-        left: 2rem; 
+        top: -21px;
+        left: 24px; 
         font-size: 13px;
     }
 
     .classeModello {
         position: relative;
-        top: -1rem;
-        left: -6.7rem;
+        top: -8px;
+        left: -3.2rem;
     }
 
     .cell-ritiro{
     position: relative;
     left: 7px;
-    max-width: 84px;
+    max-width: 88px;
     padding: 0px;
 
     }

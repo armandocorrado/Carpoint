@@ -641,7 +641,7 @@
                             "<h5 class='d-inline text-left'>" + 
                             (nomeVeicolo ?? response.car.marca + ' ' + response.car.modello) + 
                             "</h5>" +
-                            "<button type='button' style='padding:1px 5px;' class='btn btn-foto ms-2 b' data-bs-toggle='modal' data-bs-target='#showGallery' data-bs-toggle='tooltip' title='Apri la galleria' id='b'>" +
+                            "<button type='button' style='padding:1px 5px;position:relative;' class='btn btn-foto ms-2 b' data-bs-toggle='modal' data-bs-target='#showGallery' data-bs-toggle='tooltip' title='Apri la galleria' id='b'>" +
                             "<i class='fa-regular fa-images'></i>" +
                             "</button>"
 );
@@ -693,12 +693,12 @@
 
 
                             $('#veicolo').append(
-                                "<div class='subTitleVeicolo' style='display:block'>" + "Veicolo: " +
+                                "<div class='subTitleVeicolo' style='display:block;font-weight:700'>" + "Veicolo: " +
                                 "<span class='info-veicolo'> <strong>" + nuovo_usato + "</strong> </span>" +
                                 "</div>" +
-                                "<div class='subTitleStatus' style='display:block'>Status: <span class='info-stato'>" + status +
+                                "<div class='subTitleStatus' style='display:block;font-weight:700'>Status: <span class='info-stato'>" + status +
                                 "</span>" + "</div>" +
-                                "<div class='subTitleInventariato' style='display:block'>Inventariato: <span class='info-inventariato' id='inventario'>" +
+                                "<div class='subTitleInventariato' style='display:;font-weight:700'>Inventariato: <span class='info-inventariato' id='inventario'>" +
                                 response.test.invent + "</span>" + "</div>"
                             );
 
@@ -789,7 +789,7 @@
                        
 
                             $('#tableVeicoli').append(
-                                "<div class='cell'><span style='color:gray'>Targa:</span> <span class='d-block'><strong> " + response.car
+                                "<div class='cell'><span style='color:gray;margin-top:-4px;'>Targa:</span> <span class='d-block'><strong> " + response.car
                                 .targa + ' ' +
                                 "</span></strong>" + "</div>" +
                                 "<div class='cell cell-ritiro'><span style='color:gray'>Tipo di ritiro:</span> <span class='d-block'><strong> " + (linea) +
