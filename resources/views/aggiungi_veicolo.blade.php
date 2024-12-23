@@ -245,11 +245,11 @@
 
 
 <script>
+   
    document.addEventListener("DOMContentLoaded", function () {
     const video = document.getElementById("camera");
     const canvas = document.getElementById("snapshot");
     const captureButton = document.getElementById("capture");
-    const fotoBase64Input = document.getElementById("foto_base64");
     const photosContainer = document.getElementById("photos-container");
 
     // Verifica che l'elemento 'photos-container' esista
@@ -284,21 +284,29 @@
 
         // Converte l'immagine in formato Base64
         const base64Image = canvas.toDataURL("image/png");
-        fotoBase64Input.value = base64Image;
 
-        // Crea l'elemento immagine e aggiungi il pulsante di rimozione
+        // Crea un nuovo input nascosto per questa immagine
+        const hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.name = "foto_base64[]";
+        hiddenInput.value = base64Image;
+
+        // Aggiungi il nuovo input al container
+        photosContainer.appendChild(hiddenInput);
+
+        // Crea l'elemento immagine per l'anteprima
         const imgElement = document.createElement("img");
         imgElement.src = base64Image;
         imgElement.style.maxWidth = "100px"; // Imposta una larghezza fissa per le anteprime
+        imgElement.style.marginRight = "10px";
 
+        // Crea un pulsante per rimuovere l'immagine
         const removeButton = document.createElement("button");
         removeButton.innerText = "x";
         removeButton.addEventListener("click", () => {
             imgElement.remove();
             removeButton.remove();
-
-            // Rimuovi anche dal form
-            fotoBase64Input.value = fotoBase64Input.value.replace(base64Image, "");
+            hiddenInput.remove();
         });
 
         // Aggiungi l'immagine e il pulsante di rimozione al container
@@ -308,7 +316,11 @@
         alert("Foto catturata!");
     });
 });
-    </script>
+
+
+
+
+</script>
 
 
 @endsection

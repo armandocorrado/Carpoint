@@ -60,6 +60,7 @@ Route::get('/ricerca-piazzali/ajax', [PiazzaliController::class, 'store'])->name
 //VeicoliController
 Route::get('/aggiungi-veicolo', [VeicoliController::class, 'addveicolo'])->name('new-veicolo');
 Route::post('/aggiungi-veicolo', [VeicoliController::class, 'store'])->name('add-veicolo');
+Route::post('/svuota-veicoli', [VeicoliController::class, 'destroy'])->name('destroy-veicolo');
 
 
 // TrovataController

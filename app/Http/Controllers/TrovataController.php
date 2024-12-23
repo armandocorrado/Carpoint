@@ -127,6 +127,8 @@ class TrovataController extends Controller
         foreach ($inventario as $trovata) {
             $trovata->delete();
         }
+
+        
         
 
         return back()->with('status', 'veicoli rimossi dallo stato inventariato');

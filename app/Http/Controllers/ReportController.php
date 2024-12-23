@@ -386,164 +386,224 @@ return response()->download($filename)->deleteFileAfterSend();
 
 
     //ANCHOR report_manuali_usato()
-    public function report_manuali_usato(){
+//     public function report_manuali_usato(){
 
-        $v_manuali = VeicoliManuali::whereNuovo_usato('u')->get();
-
-
-        $id_veicolo = [];
+//         $v_manuali = VeicoliManuali::whereNuovo_usato('u')->get();
 
 
-        /* INIZIO INTERROGAZIONE DB PER "TROVATA" */
-        // $trovata = Trovata::whereNuovo_usato('n')->whereIn('idveicolo', $v_nuovi[0]['id_veicolo'])->get(); 
+//         $id_veicolo = [];
+
+
+//         /* INIZIO INTERROGAZIONE DB PER "TROVATA" */
+//         // $trovata = Trovata::whereNuovo_usato('n')->whereIn('idveicolo', $v_nuovi[0]['id_veicolo'])->get(); 
 
     
 
 
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+//         $spreadsheet = new Spreadsheet();
+//         $sheet = $spreadsheet->getActiveSheet();
 
-        $header = [
+//         $header = [
 
-            "id",
-            "status",
-            "telaio",
-            "targa",
-            "ubicazione",
-            "marca",
-            "modello",
-            "colore",
-            "inventario",
-            "operatore_inventario",
-            "data_ora_inventario",
-            "ubicazione_inventario",
-            "note"
+//             "id",
+//             "status",
+//             "telaio",
+//             "targa",
+//             "ubicazione",
+//             "marca",
+//             "modello",
+//             "colore",
+//             "inventario",
+//             "operatore_inventario",
+//             "data_ora_inventario",
+//             "ubicazione_inventario",
+//             "note"
                        
-        ];
+//         ];
 
-        $sheet->fromArray([$header], NULL, 'A1');
+//         $sheet->fromArray([$header], NULL, 'A1');
 
-        $data = [];
-
-
-foreach ($v_manuali as $veicolo) {
+//         $data = [];
 
 
-    $row = [
+// foreach ($v_manuali as $veicolo) {
+
+
+//     $row = [
         
-        $veicolo->id,  
-        $veicolo->status,
-        $veicolo->telaio,
-        $veicolo->targa,
-        $veicolo->ubicazione,
-        $veicolo->marca,
-        $veicolo->modello,
-        $veicolo->colore,
-        $veicolo->inventario,
-        $veicolo->operatore_inventario,
-        $veicolo->data_ora_inventario,
-        $veicolo->ubicazione_inventario,
-        $veicolo->note
+//         $veicolo->id,  
+//         $veicolo->status,
+//         $veicolo->telaio,
+//         $veicolo->targa,
+//         $veicolo->ubicazione,
+//         $veicolo->marca,
+//         $veicolo->modello,
+//         $veicolo->colore,
+//         $veicolo->inventario,
+//         $veicolo->operatore_inventario,
+//         $veicolo->data_ora_inventario,
+//         $veicolo->ubicazione_inventario,
+//         $veicolo->note
         
+//     ];
+
+//     array_push($data, $row);
+
+// }
+
+// $sheet->fromArray($data, NULL, 'A2');
+
+
+// // Applica uno stile all'intestazione
+// $header_style = $sheet->getStyle('A1:v1');
+// $header_style->getFont()->setBold(true);
+// $header_style->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('C5D9F1');
+
+
+// $sheet->setTitle('Veicoli Manuali usati');
+// $writer = new Xlsx($spreadsheet);
+// $filename = 'veicoli_nuovi.xlsx';
+// $writer->save($filename);
+
+
+// return response()->download($filename)->deleteFileAfterSend();
+
+
+//     }
+
+public function report_manuali_usato()
+{
+    $v_manuali = VeicoliManuali::whereNuovo_usato('u')->with('immagini')->get(); 
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+
+    $header = [
+        "id",
+        "status",
+        "telaio",
+        "targa",
+        "ubicazione",
+        "marca",
+        "modello",
+        "colore",
+        "inventario",
+        "operatore_inventario",
+        "data_ora_inventario",
+        "ubicazione_inventario",
+        "note",
+        "immagini" 
     ];
 
-    array_push($data, $row);
+    $sheet->fromArray([$header], NULL, 'A1');
 
+    $data = [];
+
+    foreach ($v_manuali as $veicolo) {
+        // Ottieni i link delle immagini
+        $immagini = $veicolo->immagini->map(function ($media) {
+            return url("storage/" . $media->path);
+        })->join(', '); // Converti la collezione in una stringa separata da virgole
+
+        $row = [
+            $veicolo->id,
+            $veicolo->status,
+            $veicolo->telaio,
+            $veicolo->targa,
+            $veicolo->ubicazione,
+            $veicolo->marca,
+            $veicolo->modello,
+            $veicolo->colore,
+            $veicolo->inventario,
+            $veicolo->operatore_inventario,
+            $veicolo->data_ora_inventario,
+            $veicolo->ubicazione_inventario,
+            $veicolo->note,
+            $immagini // Aggiungi i link delle immagini
+        ];
+
+        array_push($data, $row);
+    }
+
+    $sheet->fromArray($data, NULL, 'A2');
+
+    // Applica uno stile all'intestazione
+    $header_style = $sheet->getStyle('A1:O1'); // Aggiorna il range delle colonne
+    $header_style->getFont()->setBold(true);
+    $header_style->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('C5D9F1');
+
+    $sheet->setTitle('Veicoli Manuali usati');
+    $writer = new Xlsx($spreadsheet);
+    $filename = 'veicoli_manuali_usati.xlsx';
+    $writer->save($filename);
+
+    return response()->download($filename)->deleteFileAfterSend();
 }
 
-$sheet->fromArray($data, NULL, 'A2');
-
-
-// Applica uno stile all'intestazione
-$header_style = $sheet->getStyle('A1:v1');
-$header_style->getFont()->setBold(true);
-$header_style->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('C5D9F1');
-
-
-$sheet->setTitle('Veicoli Manuali usati');
-$writer = new Xlsx($spreadsheet);
-$filename = 'veicoli_nuovi.xlsx';
-$writer->save($filename);
-
-
-return response()->download($filename)->deleteFileAfterSend();
-
-
-    }
 
     public function report_manuali_nuovo(){
 
-        $v_manuali = VeicoliManuali::whereNuovo_usato('n')->get();
+    $v_manuali = VeicoliManuali::whereNuovo_usato('n')->with('immagini')->get(); 
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
 
-
-        /* INIZIO INTERROGAZIONE DB PER "TROVATA" */
-        // $trovata = Trovata::whereNuovo_usato('n')->whereIn('idveicolo', $v_nuovi[0]['id_veicolo'])->get(); dd($trovata);
-
-
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
-        $header = [
-
-            "id",
-            "status",
-            "telaio",
-            "targa",
-            "ubicazione",
-            "marca",
-            "modello",
-            "colore",
-            "inventario",
-            "operatore_inventario",
-            "data_ora_inventario",
-            "ubicazione_inventario",
-            "note"
-                       
-        ];
-
-        $sheet->fromArray([$header], NULL, 'A1');
-
-        $data = [];
-
-
-foreach ($v_manuali as $veicolo) {
-
-
-    $row = [
-        
-        $veicolo->id,  
-        $veicolo->status,
-        $veicolo->telaio,
-        $veicolo->targa,
-        $veicolo->ubicazione,
-        $veicolo->marca,
-        $veicolo->modello,
-        $veicolo->colore,
-        $veicolo->inventario,
-        $veicolo->operatore_inventario,
-        $veicolo->data_ora_inventario,
-        $veicolo->ubicazione_inventario,
-        $veicolo->note
-        
+    $header = [
+        "id",
+        "status",
+        "telaio",
+        "targa",
+        "ubicazione",
+        "marca",
+        "modello",
+        "colore",
+        "inventario",
+        "operatore_inventario",
+        "data_ora_inventario",
+        "ubicazione_inventario",
+        "note",
+        "immagini" 
     ];
 
-    array_push($data, $row);
+    $sheet->fromArray([$header], NULL, 'A1');
 
-}
+    $data = [];
 
-$sheet->fromArray($data, NULL, 'A2');
+    foreach ($v_manuali as $veicolo) {
+        // Ottieni i link delle immagini
+        $immagini = $veicolo->immagini->map(function ($media) {
+            return url("storage/" . $media->path);
+        })->join(', '); // Converti la collezione in una stringa separata da virgole
 
+        $row = [
+            $veicolo->id,
+            $veicolo->status,
+            $veicolo->telaio,
+            $veicolo->targa,
+            $veicolo->ubicazione,
+            $veicolo->marca,
+            $veicolo->modello,
+            $veicolo->colore,
+            $veicolo->inventario,
+            $veicolo->operatore_inventario,
+            $veicolo->data_ora_inventario,
+            $veicolo->ubicazione_inventario,
+            $veicolo->note,
+            $immagini // Aggiungi i link delle immagini
+        ];
 
-// Applica uno stile all'intestazione
-$header_style = $sheet->getStyle('A1:v1');
-$header_style->getFont()->setBold(true);
-$header_style->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('C5D9F1');
+        array_push($data, $row);
+    }
 
+    $sheet->fromArray($data, NULL, 'A2');
 
-$sheet->setTitle('Veicoli Manuali usati');
-$writer = new Xlsx($spreadsheet);
-$filename = 'veicoli_nuovi.xlsx';
-$writer->save($filename);
+    // Applica uno stile all'intestazione
+    $header_style = $sheet->getStyle('A1:O1'); // Aggiorna il range delle colonne
+    $header_style->getFont()->setBold(true);
+    $header_style->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('C5D9F1');
+
+    $sheet->setTitle('Veicoli Manuali nuovi');
+    $writer = new Xlsx($spreadsheet);
+    $filename = 'veicoli_manuali_nuovi.xlsx';
+    $writer->save($filename);
 
 
 return response()->download($filename)->deleteFileAfterSend();

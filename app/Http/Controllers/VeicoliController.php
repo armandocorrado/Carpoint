@@ -259,7 +259,7 @@ public function store(Request $request)
         // Salva immagini caricate in Base64
         if ($immaginiBase64) {
             foreach ($immaginiBase64 as $base64) {
-                
+                \Log::info('Immagini Base64:', ['count' => count($immaginiBase64)]);
                 if (!empty($base64)) {
                 // Decodifica l'immagine Base64 e salva come file
                 $nomefile = 'base64_' . uniqid() . '.png';
@@ -343,8 +343,26 @@ public function store(Request $request)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        
+         // Cancella i file associati di VeicoliImmagini
+    $immagini = VeicoliImmagini::all();
+    foreach ($immagini as $immagine) {
+        // Costruisci il percorso completo del file
+        $filePath = "public/" . $immagine->path_immagine;
+
+        // Verifica se il file esiste nello storage e lo elimina
+        if (Storage::exists($filePath)) {
+            Storage::delete($filePath);
+        }
+    }
+
+    // Cancella i record dalle tabelle
+    VeicoliManuali::truncate();
+    VeicoliImmagini::truncate();
+
+        return back()->with('status', 'Veicoli Manuali svuotati');
+
     }
 }
