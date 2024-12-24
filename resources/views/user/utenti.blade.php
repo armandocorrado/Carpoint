@@ -235,7 +235,7 @@ Crea ruolo
                         <div class="col-xs-4" style="margin-top: -20px;">
                             <label>Ruolo</label>
                             <select class="form-select form-select-lg mb-3" name="ruolo" id="ruoloEdit" style="font-size:15px;padding-left: 5px;">
-                             
+                                <option value=""></option>
                                 @foreach ($ruoli as $ruolo)
                                     <option value="{{ $ruolo->name }}">{{ $ruolo->name }}</option>
                                 @endforeach
@@ -378,7 +378,7 @@ Crea ruolo
             $('#ubicazioneEdit').val(ubicazione);
             $('#rolePassword').val(password);
             
-            $('#roleEdit').val(ruolo).change(); 
+            $('#ruoloEdit').val(ruolo).change(); 
 
 
 

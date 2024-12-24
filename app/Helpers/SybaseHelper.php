@@ -225,7 +225,9 @@ left outer join n_status_ordine on n_status_ordine.id_status_ordine=n_veicoli.id
 left outer join cm_mandati on  n_veicoli.id_mandato=cm_mandati.id_mandato
 left join tipo_cliente_ocf_cm on tipo_cliente_ocf_cm.id=n_testata_contratto.id_tipo_cliente_ocf_cm
  WHERE n_veicoli.linea IN ('00')  
- AND ( (n_veicoli.status ='C') OR (n_veicoli.status ='T') OR n_veicoli.status ='A')";
+ AND ( (n_veicoli.status ='C') OR (n_veicoli.status ='T')  OR n_veicoli.status ='A')";
+ // status, aggiungere "v", "U"
+ // linea--> togliere tutte
 
 
 //        AND n_veicoli.id_veicolo = ('302500')  
@@ -443,7 +445,7 @@ AND  1=1
 AND  1=1  
 AND  1=1"; 
 
-
+// status T A V U (D)
 
 
 
