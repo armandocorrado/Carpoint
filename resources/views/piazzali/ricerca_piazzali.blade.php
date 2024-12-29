@@ -8,8 +8,8 @@
                 </div>
             </div>
             <div class="card-deck d-md-flex justify-content-center">
-                <div class="col-md-6 col-sm-12 mx-auto">
-                    <div class="card mx-auto mb-3 cardGeneral cardRicerca">
+                <div class="col-md-4 col-sm-12 mx-auto">
+                    <div class="card mx-auto mb-3 cardGeneral cardRicerca" style=" max-width: 245px;">
                         <div class="card-header text-header text-center mt-3">
                             <h5 class="d-inline mt-5">Ricerca piazzali</h5>
                             <img src="{{ asset('img/logoCarPoint.png') }}" alt="Logo" width="50%" class="mt-3 mx-auto">
@@ -53,8 +53,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12 mx-auto">
-                    <div class="card mx-auto mb-3 cardGeneral cardRisultatiRicerca" id="contenitoreRicerca" >
+                <div class="col-md-8 col-sm-12 mx-auto">
+                    <div class="card mx-auto mb-3 cardGeneral cardRisultatiRicerca" id="contenitoreRicerca" style="width:553px;" >
                         <h3 class="mb-3 mt-4 text-center qui">Risultati ricerca</h3>
                         <p class="text-center qui">Qui appariranno i risultati della tua ricerca</p>
                         {{-- <div class="card-header text-header text-center mt-4 mb-3">
@@ -73,7 +73,7 @@
                                 <!-- append contenuto   -->
 
                             </div>
-                            <div class="d-flex flex-wrap justify-content-center container mt-2 mb-0 scrollable  "
+                            <div class="d-flex flex-wrap container mt-2 mb-0 scrollable  "
                                 style="background:white;padding:10px;" id="resultNU">
                                 <!-- append contenuto   -->
                                 <p id="testoVeicoloN" style='display:none;font-size:20px;'>Veicoli <strong style="color:rgb(12, 12, 164)"> NUOVI
@@ -93,8 +93,8 @@
                                 </table>
                                 <p id="testoVeicoloU" style='display:none;font-size:20px;'>Veicoli<strong style="color:rgb(169, 180, 9)"; > USATO </strong>da
                                     inventariare</p>
-                                    <p class="chiudiU" style='display:none;color:black;margin-left: 29%;margin-top: 3%;font-weight: bolder;font-size: 13px;cursor: pointer;'>Chiudi</p>
-                                <table id="tablePiazzaliRisultU" style='display:none'>
+                                    <p class="chiudiU" style='display:none;background-color:rgb(174, 174, 174);margin-left: 29%;margin-top: 3%;font-weight: bolder;font-size: 13px;cursor: pointer;padding: 4px;color: black;border-radius: 5px;'>Chiudi</p>
+                                <table id="tablePiazzaliRisultU" style='display:none;font-size:13px;'>
                                     <thead>
                                         <tr>
                                             <th>Targa</th>
@@ -119,18 +119,18 @@
 
     <div class="modal fade" id="dynamicModal" tabindex="-1" role="dialog" aria-labelledby="dynamicModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="width: 85%;">
                 <div class="modal-header" style="max-height: 58px;background:rgb(225, 225, 225)">
                     <h5 class="modal-title" id="dynamicModalLabel" style="font-size: 18px;position: relative;top: -54px;">Dettagli veicolo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="font-size: 13px;">
                     Ciao
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px;">Chiudi</button>
                 </div>
             </div>
         </div>
@@ -384,28 +384,92 @@ $(document).on('click', '.open-modal', function () {
 
 
     // Aggiungi i dati al modal
-    $('#dynamicModal .modal-body').html(
-        '<p><strong>Targa:</strong> ' + targa + '</p>' +
-        '<p><strong>Telaio:</strong> ' + telaio + '</p>' +
-        '<p><strong>Marca:</strong> ' + marca + '</p>' +
-        '<p><strong>Modello:</strong> ' + modello + '</p>'+
-        '<p><strong>Colore:</strong> ' + colore + '</p>'+
-        '<p><strong>Interni:</strong> ' + interni + '</p>'+
-        '<p><strong>Alimentazione:</strong> ' + alimentazione + '</p>'+
-        '<p><strong>Kw:</strong> ' + kw + '</p>'+
-        '<p><strong>Ubicazione:</strong> ' + ubicazione + '</p>'+
-        '<p><strong>Km percorsi:</strong> ' + kmpercorsi + '</p>'+
-        '<p><strong>Data Immatricolazione</strong> ' + dataImmatric + '</p>'
+
+// Aggiungi i dati al modal
+$('#dynamicModal .modal-body').html(
+    '<div class="container">' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><span style="color: gray; display: block;">Targa:</span>' +
+                '<span style="display: block;"><strong>' + targa + '</strong></span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><span style="color: gray; display: block;">Telaio:</span>' +
+                '<span style="display: block;"><strong>' + telaio + '</strong></span></p>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><span style="color: gray; display: block;">Marca:</span>' +
+                '<span style="display: block;"><strong>' + marca + '</strong></span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><span style="color: gray; display: block;">Modello:</span>' +
+                '<span style="display: block;"><strong>' + modello + '</strong></span></p>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><span style="color: gray; display: block;">Colore:</span>' +
+                '<span style="display: block;"><strong>' + colore + '</strong></span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><span style="color: gray; display: block;">Interni:</span>' +
+                '<span style="display: block;"><strong>' + interni + '</strong></span></p>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><span style="color: gray; display: block;">Alimentazione:</span>' +
+                '<span style="display: block;"><strong>' + alimentazione + '</strong></span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><span style="color: gray; display: block;">Kw:</span>' +
+                '<span style="display: block;"><strong>' + kw + '</strong></span></p>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><span style="color: gray; display: block;">Ubicazione:</span>' +
+                '<span style="display: block;"><strong>' + ubicazione + '</strong></span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><span style="color: gray; display: block;">Km percorsi:</span>' +
+                '<span style="display: block;"><strong>' + kmpercorsi + '</strong></span></p>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><span style="color: gray; display: block;">Data Immatricolazione:</span>' +
+                '<span style="display: block;"><strong>' + dataImmatric + '</strong></span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><span style="color: gray; display: block;">Status:</span>' +
+                '<span style="display: block;"><strong>' + status + '</strong></span></p>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><span style="color: gray; display: block;">Linea:</span>' +
+                '<span style="display: block;"><strong>' + linea + '</strong></span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><span style="color: gray; display: block;">Descrizione:</span>' +
+                '<span style="display: block;"><strong>' + descrizione + '</strong></span></p>' +
+            '</div>' +
+        '</div>' +
+    '</div>'
+);
 
 
 
 
-    );
     jQuery('#dynamicModal').modal('show');
 });
 
 
-
+//WF0FXXWPMHRL62060
 
       </script>
+     
 @endsection

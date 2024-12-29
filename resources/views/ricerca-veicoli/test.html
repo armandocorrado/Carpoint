@@ -38,7 +38,7 @@
 </style>
 
 
-<div class="ricercaVeicoli">
+<div class="ricercaVeicoli mt-5">
 
 
     @if (Session::get('status'))
@@ -328,16 +328,16 @@ navigator.mediaDevices.getUserMedia({
                     <h3 class="mb-3 mt-4 text-center qui">Risultati ricerca</h3>
                     <p class="qui" style="text-align: center;font-size:13px;">Qui appariranno le informazioni del
                         veicolo ricercato</p>
-                        <div class="headModello" style="display: none">
-                            <div class="card-header text-header mt-3">
-                                <span id="modello">
-                                   <!--     contenuto append  titolo      -->
-                                </span>
-                                <div class="d-flex justify-content-between container mt-3 mb-0 " id="veicolo">
-                                  xx  <!--     contenuto append  intestazione      -->
-                                </div>
+                    <div class="headModello" style="display: none">
+                        <div class="card-header text-header text-center mt-3">
+                            <span id="modello">
+                                <!--     contenuto append  titolo      -->
+                            </span>
+                            <div class="d-flex justify-content-between container mt-3 mb-0 " id="veicolo">
+                                <!--     contenuto append  intestazione      -->
                             </div>
                         </div>
+                    </div>
                     <div id="noresult">
                         <!-- append -->
                     </div>
@@ -349,8 +349,8 @@ navigator.mediaDevices.getUserMedia({
                         <div style="display: none;padding:3px;" id=btnModInv>
                             <form method='post' style='width:100%' action='{{ route('destroy-trovata') }}'> @csrf
                                 <input type="number" hidden name="trovata" id="veicoloTrovataId">
-                                           <button type='submit' class="btn btn-hover color-4 btnSearch" id='deleteInv' style="font-size: 11px;font-weight:100;max-height: 55px;margin-top:10px;margin-left:1.1rem;margin-left: 0.1rem;font-weight: bolder;width: 100%;position: relative;top: -4px;"> ESCLUDI DA INVENTARIO </button>
-
+                                <button type='submit' class="btn btn-hover color-4 btnSearch" id='deleteInv' style="font-size: 11px;font-weight:100;max-height: 55px;margin-top:10px;margin-left:1.1rem"> ESCLUDI DA
+                                    INVENTARIO </button>
                             </form>
 
 
@@ -616,15 +616,15 @@ navigator.mediaDevices.getUserMedia({
 
 
 
-                             //Inserisco il titolo descrittivo del veicolo su nuovo/usato oppure in alternativa quello manuale con i campi marca e modello
-                             $('#modello').append(
-                            "<h5 class='text-left limit-text'>" + 
+                            //Inserisco il titolo descrittivo del veicolo su nuovo/usato oppure in alternativa quello manuale con i campi marca e modello
+                            $('#modello').append(
+                            "<h5 class='d-inline text-left'>" + 
                             (nomeVeicolo ?? response.car.marca + ' ' + response.car.modello) + 
-                            "</h5>"
-                            // "<button type='button' style='padding:1px 5px;position:relative;' class='btn btn-foto ms-2 b' data-bs-toggle='modal' data-bs-target='#showGallery' data-bs-toggle='tooltip' title='Apri la galleria' id='b'>" +
-                            // "<i class='fa-regular fa-images'></i>" +
-                            // "</button>"
-                            );
+                            "</h5>" +
+                            "<button type='button' style='padding:1px 5px;position:relative;' class='btn btn-foto ms-2 b' data-bs-toggle='modal' data-bs-target='#showGallery' data-bs-toggle='tooltip' title='Apri la galleria' id='b'>" +
+                            "<i class='fa-regular fa-images'></i>" +
+                            "</button>"
+);
 
 
                             $('#modello h5').addClass('classeModello');
@@ -671,65 +671,16 @@ navigator.mediaDevices.getUserMedia({
                             noResult.empty();
 
 
-                            var inventarioStatus = response.test.invent; // Memorizza il valore di inventario
-console.log('Inventario Status:', inventarioStatus);
 
-var backgroundColor = "";
-var fontSize = "15px"; // Imposta la dimensione del font a 15px
-var borderRadius = "30px"; // Imposta il border-radius a 30px
-var padding = "5px 9px"; // Imposta il padding a 5px 9px
-var color = "white"; // Imposta il colore del testo a bianco
-var width = "32px"; // Imposta la larghezza a 32px
-var height = "32px"; // Imposta l'altezza a 32px
-var display = "inline-block"; // Imposta il display inline-block
-
-// Normalizza il valore di inventario per evitare problemi di case-sensitivity
-if (inventarioStatus) {
-    inventarioStatus = inventarioStatus.toLowerCase();
-}
-
-// Controlla il valore di inventario e imposta il colore di sfondo
-if (inventarioStatus === "si") {
-    backgroundColor = "green";
-} else if (inventarioStatus === "no") {
-    backgroundColor = "red";
-} else {
-    console.warn('Valore inventario non riconosciuto:', inventarioStatus);
-}
-
-$('#veicolo').append(
-    "<div class='dati-header'>" +
-        "<div class='subTitleVeicolo' style='display:block;font-weight:700'>Veicolo: " +
-        "<span class='info-veicolo'> <strong>" + nuovo_usato + "</strong> </span>" +
-        "</div>" +
-        "<div class='subTitleStatus' style='display:block;font-weight:700'>Status: " +
-        "<span class='info-stato'>" + status + "</span>" +
-        "</div>" +
-        "<div class='subTitleInventariato' style='display:block;font-weight:700'>Inventariato: " +
-        "<span class='info-inventariato' id='inventario'>" + inventarioStatus + "</span>" +
-        "</div>" +
-    "</div>"
-).promise().done(function() {
-    // Assicurati che l'elemento esista prima di applicare gli stili
-    if ($('#inventario').length) {
-        $('#inventario').css({
-            'background-color': backgroundColor,
-            'font-size': fontSize,
-            'border-radius': borderRadius,
-            'padding': padding,
-            'color': color,
-            'width': width,
-            'height': height,
-            'display': display
-        });
-    } else {
-        console.error('Elemento #inventario non trovato nel DOM.');
-    }
-});
-
-
-
-
+                            $('#veicolo').append(
+                                "<div class='subTitleVeicolo' style='display:block;font-weight:700'>" + "Veicolo: " +
+                                "<span class='info-veicolo'> <strong>" + nuovo_usato + "</strong> </span>" +
+                                "</div>" +
+                                "<div class='subTitleStatus' style='display:block;font-weight:700'>Status: <span class='info-stato'>" + status +
+                                "</span>" + "</div>" +
+                                "<div class='subTitleInventariato' style='display:;font-weight:700'>Inventariato: <span class='info-inventariato' id='inventario'>" +
+                                response.test.invent + "</span>" + "</div>"
+                            );
 
                             //-------------------------------------------------------------------------
 
@@ -783,7 +734,7 @@ $('#veicolo').append(
 
 
                             // controllo l'ubicazione
-                            var luogo =  response.car.descrizione_ubicazioni || response.car.ubicazione || 'NC';
+                            var luogo = response.car.descrizione_ubicazioni || response.car.desc_ubicazione || response.car.ubicazione || response.trovata.luogo || 'NC';
                            
 
                             var operatore;
@@ -806,37 +757,66 @@ $('#veicolo').append(
 
                              
                        
-                           var formattedDate = data.split(' ')[0].split('-').reverse().join('-');
+
                             $('#tableVeicoli').append(
-                                "<div class='cell cell-targa'><span class='span-cell-targa' style='color:gray;margin-top:-4px;'>Targa:</span> <span class='d-block dato-cell-targa'><strong> " + response.car.targa + ' ' +
+                                "<div class='cell'><span style='color:gray;margin-top:-4px;'>Targa:</span> <span class='d-block'><strong> " + response.car
+                                .targa + ' ' +
                                 "</span></strong>" + "</div>" +
-                                "<div class='cell cell-ritiro'><span class='span-cell-ritiro'>Tipo di ritiro:</span> <span class='d-block dato-cell-ritiro'><strong> " + (linea) +
+                                "<div class='cell cell-ritiro'><span style='color:gray'>Tipo di ritiro:</span> <span class='d-block'><strong> " + (linea) +
                                 "</span></strong>" + "</div>" +
-                                "<div class='cell cell-telaio'><span class='span-cell-telaio'>Telaio:</span> <span class='d-block dato-cell-telaio'><strong> " + (response.car.telaio ? response.car.telaio : response.car.vin) +
-                                "</span> </strong>" + "</div>" +
-                                "<div class='cell cell-ncontratto'><span class='span-cell-ncontratto'>N° contratto:</span> <span class='d-block dato-cell-ncontratto'><strong> " + (response.car.numero_contratto ?? '-') +
+                                "<div class='cell'><span style='color:gray'>Telaio:</span> <span class='d-block'><strong> " + (response.car
+                                    .telaio ?
+                                    response.car.telaio : response.car.vin) +
+                                "</span> </strong>" +
+                                "</div>" +
+                                "<div class='cell cell-ncontratto'><span style='color:gray'>N° contratto:</span> <span class='d-block'><strong> " + (response
+                                    .car
+                                    .numero_contratto ?? '-') + "</span></strong>" + "</div>" +
+                                "<div class='cell'><span style='color:gray'>Colore:</span> <span class='d-block'><strong> " + response.car
+                                .colore +
                                 "</span></strong>" + "</div>" +
-                                "<div class='cell cell-colore'><span class='span-cell-colore'>Colore:</span> <span class='d-block dato-cell-colore'><strong> " + response.car.colore +
+                                "<div class='cellData cell-stipula-contratto'><span style='color:gray'>Data stipula contratto:</span> <span class='d-block'><strong> " +
+                                (response.car.data_contratto ?? '-') + "</span></strong>" +
+                                "</div>" +
+                                "<div class='cell'><span style='color:gray'>Ubicazione:</span> <span class='d-block'><strong> " + luogo +
                                 "</span></strong>" + "</div>" +
-                                "<div class='cellData cell-stipula-contratto'><span class='span-cell-stipula-contratto'>Data stipula contratto:</span> <span class='d-block dato-cell-stipula-contratto'><strong> " +
-                                (response.car.data_contratto ?? '-') + "</span></strong>" + "</div>" +
-                                "<div class='cell cell-ubicazione'><span class='span-cell-ubicazione'>Ubicazione:</span> <span class='d-block dato-cell-ubicazione'><strong> " + luogo +
-                                "</span></strong>" + "</div>" +
-                                "<div class='cellData cell-data-vendita'><span class='span-cell-data-vendita'>Data fattura vendita:</span> <span class='d-block dato-cell-vendita'><strong> " +
-                                (response.car.data_fattura_v ?? '-') + "</span></strong>" + "</div>" +
+                                
+                                "<div class='cellData cell-data-vendita'><span style='color:gray'>Data fattura vendita:</span> <span class='d-block'><strong> " +
+                                (response
+                                    .car.data_fattura_v ?? '-') + "</span></strong>" +
+                                "</div>" +
+                                
+                                // "<div class='cellData cell'>Data chiusura contratto: <span><strong> " +
+                                // (response.car.data_uscita ?? '-') + "</span></strong>" +
+                                // "</div>" +
+                               
 
-                                                                
-                                                                                                             "<p class='inventariato'><span class='info-inventario'>Inventariato</span> Operatore: <span class='info-operatore'>" + operatore +  "</span> in data: <span class='info-data'>" + formattedDate + "</span> presso: <span class='info-luogo'>" + luogo + "</span></p>" +
-
-
-
+                                 
+                                  // Griglia Bootstrap con due row e tre colonne per row
+                                //   "<table class='table table-bordered table-dati-operatore'>" +
+                                //     "<thead class='table-light'>" +
+                                //         "<tr>" +
+                                //             "<th>Operatore</th>" +
+                                //             "<th>Ubicazione</th>" +
+                                //             "<th>Data</th>" +
+                                //         "</tr>" +
+                                //     "</thead>" +
+                                //     "<tbody>" +
+                                //         "<tr>" +
+                                //             "<td>'"+operatore + "'</td>" +
+                                //             "<td>'"+luogo + "'</td>" +
+                                //             "<td>'"+data + "'</td>" +
+                                //         "</tr>" +
+                                //     "</tbody>" +
+                                // "</table>" +
+                               "<p class='inventariato'>Inventariato dall'operatore: '"+operatore + "' in data: '"+data + "' presso: '"+luogo + "'</p>"+
 
                                 "</div>" +
                                
                                 "<form method='post' style='width:100%' action='{{ route('store-trovata') }}'>" +
                                 '@csrf' +
                                 "<input name='id_operatore' hidden id='id_operatore' value='{{ Auth::user()->id }}'>" +
-                                "<input style='border:none' hidden name='user_operatore'  id='user_operatore' value='{{ Auth::user()->name }}'>" +
+                                "<input name='user_operatore'  id='user_operatore' value='{{ Auth::user()->name }}'>" +
                                 "<input name='idveicolo' hidden id='idveicolo' value='" +
                                 response.car.id_veicolo + "'>" +
                                 "<input name='nuovo_usato' hidden id='nuovo_usato' value='" + (
@@ -844,7 +824,7 @@ $('#veicolo').append(
                                 "<input name='ubicazione' hidden id='ubicazione' value='{{ Auth::user()->ubicazione }}'>" +
                                 "<input name='latitudine' hidden  id='' value='"+latitudine+"'>" +
                                 "<input name='longitudine' hidden id='' value='"+longitudine+"'>" +
-                                "<input readonly hidden name='indirizzo_gps'  id='indirizzo_gps' value='"+indirizzo+"'>" +
+                                "<input readonly name='indirizzo_gps'  id='indirizzo_gps' value='"+indirizzo+"'>" +
                                 "<button type='submit'  id='confInv' >" +
                                 'CONFERMA INVENTARIO' + "</button>" + "</form>" +
                                 "<div class='textNessunaNota' id='nota_manuale'></div>" +
@@ -992,23 +972,7 @@ $(document).ready(function () {
 
 </script>
 
-<script>
-   $(document).ready(function () {
-    // Funzione per formattare la data
-    function formatEuropeanDate(dateString) {
-        if (!dateString || dateString.trim() === '-') return '-'; // Se vuota, ritorna '-'
-        const parts = dateString.split('-'); // Supponendo formato yyyy-mm-dd
-        return parts.length === 3 ? `${parts[2]}-${parts[1]}-${parts[0]}` : dateString;
-    }
 
-    // Cerca e formatta le date nel DOM
-    $('.dato-cell-stipula-contratto, .dato-cell-vendita').each(function () {
-        const originalDate = $(this).text().trim(); // Ottieni il testo della cella
-        const formattedDate = formatEuropeanDate(originalDate); // Formatta la data
-        $(this).text(formattedDate); // Aggiorna il contenuto
-    });
-});
-</script>
 
 
 
