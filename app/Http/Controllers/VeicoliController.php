@@ -345,6 +345,18 @@ public function store(Request $request)
      */
     public function destroy(Request $request)
     {
+
+            $request->validate([
+        'secret_password' => 'required',
+                        ]);
+                        
+
+        // Ottieni la password segreta dal file di configurazione
+        $secretPassword = config('svuota-db.secret_password');  
+
+        if ($request->input('secret_password') !== $secretPassword) {
+        return redirect()->back()->with(['status' => 'Password segreta errata.']);
+        }
         
          // Cancella i file associati di VeicoliImmagini
     $immagini = VeicoliImmagini::all();
@@ -361,6 +373,7 @@ public function store(Request $request)
     // Cancella i record dalle tabelle
     VeicoliManuali::truncate();
     VeicoliImmagini::truncate();
+    
 
         return back()->with('status', 'Veicoli Manuali svuotati');
 

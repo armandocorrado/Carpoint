@@ -117,6 +117,16 @@ class TrovataController extends Controller
     public function destroyAll(Request $request)
     {
 
+            $request->validate([
+            'secret_password' => 'required',
+                              ]);
+
+         // Ottieni la password segreta dal file di configurazione
+         $secretPassword = config('svuota-db.secret_password');  
+
+         if ($request->input('secret_password') !== $secretPassword) {
+        return redirect()->back()->with(['status' => 'Password segreta errata.']);
+    }
 
         $inventario = Trovata::all(); 
 

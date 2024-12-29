@@ -442,7 +442,7 @@
             loader.hide();
             $(document).ready(function() {
 
-                
+                //ANCHOR Cerca veicolo
                 $('#cerca').click(function(e) {
                  e.preventDefault();   
                  $('.qui').hide();
@@ -488,7 +488,7 @@
 
                    
         
-
+                function  go(){
                     $.ajax({
                         url: '{{ route('get-ajax') }}',
                         type: "GET",
@@ -503,46 +503,17 @@
                         success: function(response) { 
                             loader.hide();
 
-                             console.log(response);
                             const immagini = response.car.immagini; 
 
-        // Controlla che `immagini` esista e non sia vuoto
-        if (Array.isArray(immagini) && immagini.length > 0) {
-            // Trova il contenitore del carousel
-            const $carouselInner = $('#carouselExampleIndicators .carousel-inner');
-            const $carouselIndicators = $('#carouselExampleIndicators .carousel-indicators');
+                     
 
-            // Svuota il contenuto esistente del carousel
-            $carouselInner.empty();
-            $carouselIndicators.empty();
+                        var tel = response.car.telaio || response.car.vin;
+                        // Salva il valore nel local storage
+                        localStorage.setItem('telaio', tel);
 
-            // Cicla le immagini ricevute e crea gli elementi
-            $.each(immagini, function(index, immagine) {
-                // Crea l'elemento della slide
-                const slide = $('<div>').addClass('carousel-item');
-                if (index === 0) slide.addClass('active'); // La prima immagine deve essere attiva
+                        console.log('Telaio salvato nel local storage:', telaio);
 
-                const img = $('<img>')
-                    .addClass('d-block w-100')
-                    .attr('src', 'storage/' + immagine.path_immagine)
-                    .attr('alt', `Slide ${index + 1}`);
 
-                slide.append(img);
-                $carouselInner.append(slide);
-
-                // Crea l'indicatore
-                const indicator = $('<li>')
-                    .attr('data-target', '#carouselExampleIndicators')
-                    .attr('data-slide-to', index);
-                if (index === 0) indicator.addClass('active');
-
-                $carouselIndicators.append(indicator);
-            });
-
-        } else {
-            console.log('Nessuna immagine trovata.');
-
-        }
 
                             var status_n = response.car.status;
                             var status_nuovo;
@@ -773,10 +744,6 @@
 
                             }
 
-                          
-
-                             
-                       
 
                             $('#tableVeicoli').append(
                                 "<div class='cell'><span style='color:gray;margin-top:-4px;'>Targa:</span> <span class='d-block'><strong> " + response.car
@@ -805,38 +772,16 @@
                                 (response
                                     .car.data_fattura_v ?? '-') + "</span></strong>" +
                                 "</div>" +
-                                
-                                // "<div class='cellData cell'>Data chiusura contratto: <span><strong> " +
-                                // (response.car.data_uscita ?? '-') + "</span></strong>" +
-                                // "</div>" +
                                
 
-                                 
-                                  // Griglia Bootstrap con due row e tre colonne per row
-                                //   "<table class='table table-bordered table-dati-operatore'>" +
-                                //     "<thead class='table-light'>" +
-                                //         "<tr>" +
-                                //             "<th>Operatore</th>" +
-                                //             "<th>Ubicazione</th>" +
-                                //             "<th>Data</th>" +
-                                //         "</tr>" +
-                                //     "</thead>" +
-                                //     "<tbody>" +
-                                //         "<tr>" +
-                                //             "<td>'"+operatore + "'</td>" +
-                                //             "<td>'"+luogo + "'</td>" +
-                                //             "<td>'"+data + "'</td>" +
-                                //         "</tr>" +
-                                //     "</tbody>" +
-                                // "</table>" +
-                               "<p class='inventariato'>Inventariato dall'operatore: '"+operatore + "' in data: '"+data + "' presso: '"+luogo + "'</p>"+
 
+                               "<p id='no_invent'></p>"+
                                 "</div>" +
                                
                                 "<form method='post' style='width:100%' action='{{ route('store-trovata') }}'>" +
                                 '@csrf' +
                                 "<input name='id_operatore' hidden id='id_operatore' value='{{ Auth::user()->id }}'>" +
-                                "<input name='user_operatore'  id='user_operatore' value='{{ Auth::user()->name }}'>" +
+                                "<input name='user_operatore' hidden  id='user_operatore' value='{{ Auth::user()->name }}'>" +
                                 "<input name='idveicolo' hidden id='idveicolo' value='" +
                                 response.car.id_veicolo + "'>" +
                                 "<input name='nuovo_usato' hidden id='nuovo_usato' value='" + (
@@ -844,7 +789,7 @@
                                 "<input name='ubicazione' hidden id='ubicazione' value='{{ Auth::user()->ubicazione }}'>" +
                                 "<input name='latitudine' hidden  id='' value='"+latitudine+"'>" +
                                 "<input name='longitudine' hidden id='' value='"+longitudine+"'>" +
-                                "<input readonly name='indirizzo_gps'  id='indirizzo_gps' value='"+indirizzo+"'>" +
+                                "<input readonly name='indirizzo_gps' hidden id='indirizzo_gps' value='"+indirizzo+"'>" +
                                 "<button type='submit'  id='confInv' >" +
                                 'CONFERMA INVENTARIO' + "</button>" + "</form>" +
                                 "<div class='textNessunaNota' id='nota_manuale'></div>" +
@@ -856,7 +801,7 @@
 
                             if (response.test.invent == "No") {
                                 $('#confInv').show();
-                                $('#no_invent').text('Ancora non inventariato');
+                                $('#no_invent').text('');
                                 $('#btnModInv').hide();
                                 $('#addNota').removeClass('positionBtnAddNoteInvSi');
                                 $('#addNota').addClass('positionBtnAddNoteInvNo');
@@ -865,9 +810,9 @@
 
                             if (response.test.invent == "Si") {
                                 $('#confInv').hide();
-                                $('#no_invent').text('Inventariato dall\'operatore, ' + response
-                                    .trovata.user_operatore + ' in data ' + response.trovata
-                                    .dataOra + ' presso ' + response.trovata.luogo);
+                                $('#no_invent').text('Inventariato dall\'operatore: ' + response
+                                    .trovata.user_operatore + ' in data: ' + response.trovata
+                                    .dataOra + ' presso ' + response.trovata.luogo).css('color', 'black').css('font-size', '12px')
                                 //Aggiunta pulsante modifica stato inventariato
                                 $('#veicoloTrovataId').val(response.trovata.idveicolo);
                                 $('#btnModInv').show();
@@ -908,23 +853,7 @@
                                 
                                 
 
-                       // Controllo se è stato inventariato il veicolo (Si/No)
-
-                            if (response.test.invent == "No") {
-                                $('#confInv').show();
-                                $('#no_invent').text('Ancora non inventariato');
-
-
-                            }
-
-
-                            if (response.test.invent == "Si") {
-                                $('#confInv').hide();
-                                $('#no_invent').text('Inventariato dall\'operatore, ' + response
-                                    .trovata.user_operatore + ' in data ' + response.trovata
-                                    .dataOra + ' presso ' + response.trovata.luogo);
-
-                            }
+                          
 
                             // Controllo se il veicolo nuovo o usato  riporta delle note infinity
 
@@ -942,9 +871,15 @@
 
                         }
 
+
+                    
                         // In caso di no response 
 
-                    }).fail(function() {
+                    }) } 
+
+                go();
+                
+                .fail(function() {
                         var noResult = $('#noresult');
                         noResult.empty();
 
@@ -959,7 +894,7 @@
                         $('#noresult').append(
     "<h4 style='font-size:29px;text-align:center;margin-top:18px;'>" +
     'Nessun risultato' + "</h4>" +
-    "<a href='/aggiungi-veicolo'>" +
+    "<a href='{{route('new-veicolo')}}'>" +
     "<button class='cellData' id='myButton' style='width:86%; display:block; margin-left:auto; margin-right:auto;'>CREA UN NUOVO VEICOLO</button>" +
     "</a>"
 );
@@ -971,11 +906,19 @@
                        $('#contenitoreRicerca').addClass('cardRisultatiRicercaNotfound');
 
                     });
-                });
+
+             
+                }); 
             });
 
 
-           
+           $('#confInv').click(function(){
+
+            var telaio = localStorage.getItem('telaio');
+            alert(telaio);
+
+
+           });
 
 
     </script>
