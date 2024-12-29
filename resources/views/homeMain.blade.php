@@ -32,17 +32,78 @@
                                 <a href="{{ route('piazzali') }}" type="button" style="text-decoration:none; color:white; line-height: 39px;" class="btn btn-hover color-3 d-block mt-4 mb-2" id="cercaPiazzali">PIAZZALI</a>   
                                 <a href="{{ route('new-veicolo') }}" type="button" style="text-decoration:none; color:white; line-height: 39px;" class="btn btn-hover color-2 d-block mt-4 mb-2" >AGGIUNGI VEICOLO</a>
 								
+                           
                                 @role('Admin')
-                                <form action="{{ route('destroy-trovata.all')}}" method="POST">@csrf
-                                <button type="submit" style="text-decoration:none; color:white; line-height: 42px;" class="btn btn-hover color-5 d-block mt-4 mb-2 svuota-db" >SVUOTA INVENTARIO</button>
-                                </form>
+                                    <!-- Pulsante per aprire il modal -->
+                                    <button type="button" style="text-decoration:none; color:white; line-height: 42px;" 
+                                        class="btn btn-hover color-5 d-block mt-4 mb-2 svuota-db" 
+                                        data-bs-toggle="modal" data-bs-target="#passwordModal">
+                                        SVUOTA INVENTARIO
+                                    </button>
+
+                                    <!-- Modal Bootstrap -->
+                                    <div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="passwordModalLabel">Conferma Azione</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Per confermare, inserisci la password segreta:</p>
+                                                    <form id="confirmForm" action="{{ route('destroy-trovata.all') }}" method="POST">
+                                                        @csrf
+                                                        <div class="mb-3">
+                                                            <input type="password" name="secret_password" class="form-control" id="secretPassword" 
+                                                                placeholder="Password segreta" required>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                                                    <button type="submit" form="confirmForm" class="btn btn-danger">Conferma</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endrole
 
+
                                 @role('Admin')
-                                <form action="{{ route('destroy-veicolo')}}" method="POST">@csrf
-                                <button type="submit" style="text-decoration:none; color:white; line-height: 42px;" class="btn btn-hover color-5 d-block mt-4 mb-2 svuota-veicoli-manuali" >SVUOTA VEICOLI MANUALI</button>
-                                </form>
-                                @endrole
+                                <!-- Pulsante per aprire il modal -->
+                                <button type="button" style="text-decoration:none; color:white; line-height: 42px;" 
+                                    class="btn btn-hover color-5 d-block mt-4 mb-2 svuota-veicoli-manuali" 
+                                    data-bs-toggle="modal" data-bs-target="#passwordVeicoliModal">
+                                    SVUOTA VEICOLI MANUALI
+                                </button>
+                            
+                                <!-- Modal Bootstrap -->
+                                <div class="modal fade" id="passwordVeicoliModal" tabindex="-1" aria-labelledby="passwordVeicoliModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="passwordVeicoliModalLabel">Conferma Azione</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Per confermare, inserisci la password segreta:</p>
+                                                <form id="confirmVeicoliForm" action="{{ route('destroy-veicolo') }}" method="POST">
+                                                    @csrf
+                                                    <div class="mb-3">
+                                                        <input type="password" name="secret_password" class="form-control" id="secretPasswordVeicoli" 
+                                                            placeholder="Password segreta" required>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                                                <button type="submit" form="confirmVeicoliForm" class="btn btn-danger">Conferma</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endrole
+                            
 
                                 <p class="text-center textFooterCard">Sofware sviluppato da Softmind S.r.l.</p>
                            

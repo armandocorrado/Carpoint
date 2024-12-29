@@ -38,7 +38,7 @@
 </style>
 
 
-<div class="ricercaVeicoli">
+<div class="ricercaVeicoli mt-5">
 
 
     @if (Session::get('status'))
@@ -328,14 +328,13 @@ navigator.mediaDevices.getUserMedia({
                     <h3 class="mb-3 mt-4 text-center qui">Risultati ricerca</h3>
                     <p class="qui" style="text-align: center;font-size:13px;">Qui appariranno le informazioni del
                         veicolo ricercato</p>
-                        <div class="headModello" style="display: none">
-                            <div class="card-header text-header mt-3">
-                                <span id="modello">
-                                   <!--     contenuto append  titolo      -->
-                                </span>
-                                <div class="d-flex justify-content-between container mt-3 mb-0 " id="veicolo">
-                                  xx  <!--     contenuto append  intestazione      -->
-                                </div>
+                    <div class="headModello" style="display: none">
+                        <div class="card-header text-header text-center mt-3">
+                            <span id="modello">
+                                <!--     contenuto append  titolo      -->
+                            </span>
+                            <div class="d-flex justify-content-between container mt-3 mb-0 " id="veicolo">
+                                <!--     contenuto append  intestazione      -->
                             </div>
                         </div>
                     <div id="noresult">
@@ -461,7 +460,7 @@ navigator.mediaDevices.getUserMedia({
             loader.hide();
             $(document).ready(function() {
 
-                
+                //ANCHOR Cerca veicolo
                 $('#cerca').click(function(e) {
                  e.preventDefault();   
                  $('.qui').hide();
@@ -522,8 +521,18 @@ navigator.mediaDevices.getUserMedia({
                         success: function(response) { 
                             loader.hide();
 
-                            console.log(response);
-                        
+                            const immagini = response.car.immagini; 
+
+                     
+
+                        var tel = response.car.telaio || response.car.vin;
+                        // Salva il valore nel local storage
+                        localStorage.setItem('telaio', tel);
+
+                        console.log('Telaio salvato nel local storage:', telaio);
+
+
+
                             var status_n = response.car.status;
                             var status_nuovo;
 
@@ -616,15 +625,15 @@ navigator.mediaDevices.getUserMedia({
 
 
 
-                             //Inserisco il titolo descrittivo del veicolo su nuovo/usato oppure in alternativa quello manuale con i campi marca e modello
-                             $('#modello').append(
-                            "<h5 class='text-left limit-text'>" + 
+                            //Inserisco il titolo descrittivo del veicolo su nuovo/usato oppure in alternativa quello manuale con i campi marca e modello
+                            $('#modello').append(
+                            "<h5 class='d-inline text-left'>" + 
                             (nomeVeicolo ?? response.car.marca + ' ' + response.car.modello) + 
-                            "</h5>"
-                            // "<button type='button' style='padding:1px 5px;position:relative;' class='btn btn-foto ms-2 b' data-bs-toggle='modal' data-bs-target='#showGallery' data-bs-toggle='tooltip' title='Apri la galleria' id='b'>" +
-                            // "<i class='fa-regular fa-images'></i>" +
-                            // "</button>"
-                            );
+                            "</h5>" +
+                            "<button type='button' style='padding:1px 5px;position:relative;' class='btn btn-foto ms-2 b' data-bs-toggle='modal' data-bs-target='#showGallery' data-bs-toggle='tooltip' title='Apri la galleria' id='b'>" +
+                            "<i class='fa-regular fa-images'></i>" +
+                            "</button>"
+);
 
 
                             $('#modello h5').addClass('classeModello');
@@ -802,11 +811,6 @@ $('#veicolo').append(
 
                             }
 
-                          
-
-                             
-                       
-                           var formattedDate = data.split(' ')[0].split('-').reverse().join('-');
                             $('#tableVeicoli').append(
                                 "<div class='cell cell-targa'><span class='span-cell-targa' style='color:gray;margin-top:-4px;'>Targa:</span> <span class='d-block dato-cell-targa'><strong> " + response.car.targa + ' ' +
                                 "</span></strong>" + "</div>" +
@@ -818,25 +822,21 @@ $('#veicolo').append(
                                 "</span></strong>" + "</div>" +
                                 "<div class='cell cell-colore'><span class='span-cell-colore'>Colore:</span> <span class='d-block dato-cell-colore'><strong> " + response.car.colore +
                                 "</span></strong>" + "</div>" +
-                                "<div class='cellData cell-stipula-contratto'><span class='span-cell-stipula-contratto'>Data stipula contratto:</span> <span class='d-block dato-cell-stipula-contratto'><strong> " +
-                                (response.car.data_contratto ?? '-') + "</span></strong>" + "</div>" +
-                                "<div class='cell cell-ubicazione'><span class='span-cell-ubicazione'>Ubicazione:</span> <span class='d-block dato-cell-ubicazione'><strong> " + luogo +
-                                "</span></strong>" + "</div>" +
-                                "<div class='cellData cell-data-vendita'><span class='span-cell-data-vendita'>Data fattura vendita:</span> <span class='d-block dato-cell-vendita'><strong> " +
-                                (response.car.data_fattura_v ?? '-') + "</span></strong>" + "</div>" +
-
-                                                                
-                                                                                                             "<p class='inventariato'><span class='info-inventario'>Inventariato</span> Operatore: <span class='info-operatore'>" + operatore +  "</span> in data: <span class='info-data'>" + formattedDate + "</span> presso: <span class='info-luogo'>" + luogo + "</span></p>" +
+                                
+                                "<div class='cellData cell-data-vendita'><span style='color:gray'>Data fattura vendita:</span> <span class='d-block'><strong> " +
+                                (response
+                                    .car.data_fattura_v ?? '-') + "</span></strong>" +
+                                "</div>" +
+                               
 
 
-
-
+                               "<p id='no_invent'></p>"+
                                 "</div>" +
                                
                                 "<form method='post' style='width:100%' action='{{ route('store-trovata') }}'>" +
                                 '@csrf' +
                                 "<input name='id_operatore' hidden id='id_operatore' value='{{ Auth::user()->id }}'>" +
-                                "<input style='border:none' hidden name='user_operatore'  id='user_operatore' value='{{ Auth::user()->name }}'>" +
+                                "<input name='user_operatore' hidden  id='user_operatore' value='{{ Auth::user()->name }}'>" +
                                 "<input name='idveicolo' hidden id='idveicolo' value='" +
                                 response.car.id_veicolo + "'>" +
                                 "<input name='nuovo_usato' hidden id='nuovo_usato' value='" + (
@@ -844,7 +844,7 @@ $('#veicolo').append(
                                 "<input name='ubicazione' hidden id='ubicazione' value='{{ Auth::user()->ubicazione }}'>" +
                                 "<input name='latitudine' hidden  id='' value='"+latitudine+"'>" +
                                 "<input name='longitudine' hidden id='' value='"+longitudine+"'>" +
-                                "<input readonly hidden name='indirizzo_gps'  id='indirizzo_gps' value='"+indirizzo+"'>" +
+                                "<input readonly name='indirizzo_gps' hidden id='indirizzo_gps' value='"+indirizzo+"'>" +
                                 "<button type='submit'  id='confInv' >" +
                                 'CONFERMA INVENTARIO' + "</button>" + "</form>" +
                                 "<div class='textNessunaNota' id='nota_manuale'></div>" +
@@ -856,7 +856,7 @@ $('#veicolo').append(
 
                             if (response.test.invent == "No") {
                                 $('#confInv').show();
-                                $('#no_invent').text('Ancora non inventariato');
+                                $('#no_invent').text('');
                                 $('#btnModInv').hide();
                                 $('#addNota').removeClass('positionBtnAddNoteInvSi');
                                 $('#addNota').addClass('positionBtnAddNoteInvNo');
@@ -865,9 +865,9 @@ $('#veicolo').append(
 
                             if (response.test.invent == "Si") {
                                 $('#confInv').hide();
-                                $('#no_invent').text('Inventariato dall\'operatore, ' + response
-                                    .trovata.user_operatore + ' in data ' + response.trovata
-                                    .dataOra + ' presso ' + response.trovata.luogo);
+                                $('#no_invent').text('Inventariato dall\'operatore: ' + response
+                                    .trovata.user_operatore + ' in data: ' + response.trovata
+                                    .dataOra + ' presso ' + response.trovata.luogo).css('color', 'black').css('font-size', '12px')
                                 //Aggiunta pulsante modifica stato inventariato
                                 $('#veicoloTrovataId').val(response.trovata.idveicolo);
                                 $('#btnModInv').show();
@@ -908,23 +908,7 @@ $('#veicolo').append(
                                 
                                 
 
-                       // Controllo se è stato inventariato il veicolo (Si/No)
-
-                            if (response.test.invent == "No") {
-                                $('#confInv').show();
-                                $('#no_invent').text('Ancora non inventariato');
-
-
-                            }
-
-
-                            if (response.test.invent == "Si") {
-                                $('#confInv').hide();
-                                $('#no_invent').text('Inventariato dall\'operatore, ' + response
-                                    .trovata.user_operatore + ' in data ' + response.trovata
-                                    .dataOra + ' presso ' + response.trovata.luogo);
-
-                            }
+                          
 
                             // Controllo se il veicolo nuovo o usato  riporta delle note infinity
 
@@ -942,6 +926,8 @@ $('#veicolo').append(
 
                         }
 
+
+                    
                         // In caso di no response 
 
                     }).fail(function() {
@@ -959,7 +945,7 @@ $('#veicolo').append(
                         $('#noresult').append(
     "<h4 style='font-size:29px;text-align:center;margin-top:18px;'>" +
     'Nessun risultato' + "</h4>" +
-    "<a href='/aggiungi-veicolo'>" +
+    "<a href='{{route('new-veicolo')}}'>" +
     "<button class='cellData' id='myButton' style='width:86%; display:block; margin-left:auto; margin-right:auto;'>CREA UN NUOVO VEICOLO</button>" +
     "</a>"
 );
@@ -971,11 +957,19 @@ $('#veicolo').append(
                        $('#contenitoreRicerca').addClass('cardRisultatiRicercaNotfound');
 
                     });
-                });
+
+             
+                }); 
             });
 
 
-           
+           $('#confInv').click(function(){
+
+            var telaio = localStorage.getItem('telaio');
+            alert(telaio);
+
+
+           });
 
 
     </script>
@@ -992,23 +986,10 @@ $(document).ready(function () {
 
 </script>
 
-<script>
-   $(document).ready(function () {
-    // Funzione per formattare la data
-    function formatEuropeanDate(dateString) {
-        if (!dateString || dateString.trim() === '-') return '-'; // Se vuota, ritorna '-'
-        const parts = dateString.split('-'); // Supponendo formato yyyy-mm-dd
-        return parts.length === 3 ? `${parts[2]}-${parts[1]}-${parts[0]}` : dateString;
-    }
 
-    // Cerca e formatta le date nel DOM
-    $('.dato-cell-stipula-contratto, .dato-cell-vendita').each(function () {
-        const originalDate = $(this).text().trim(); // Ottieni il testo della cella
-        const formattedDate = formatEuropeanDate(originalDate); // Formatta la data
-        $(this).text(formattedDate); // Aggiorna il contenuto
-    });
-});
-</script>
+
+
+
 
 
 
