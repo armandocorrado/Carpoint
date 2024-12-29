@@ -46,7 +46,7 @@ h5 {
 }
 
 input {
-  border: 2px solid #d9d9d9;
+  border: 1px solid #d9d9d9;
   border-radius: 5px;
   width: 100%;
   outline: 0;
@@ -222,8 +222,12 @@ input:focus {
 }
 
 .classeModello {
-  position: relative;
-  top: -3rem;
+  display: inline-block; /* Necessario per il limite di larghezza */
+  max-width: 30ch; /* Limita a 30 caratteri (approssimativamente) */
+  word-wrap: break-word; /* Consente di andare a capo quando necessario */
+  word-break: break-word; /* Per sicurezza, aggiunge supporto per altre situazioni */
+  white-space: normal; /* Permette il ritorno a capo */
+  text-align: left; /* Allineamento del testo */
 }
 
 .cell {
@@ -259,7 +263,7 @@ input:focus {
 }
 .login .form-check .form-check-input {
   float: left;
-  margin-left: -4.8em;
+  margin-left: -4.2em;
 }
 .login .btn-link {
   color: gray;
@@ -549,7 +553,6 @@ input:focus {
 }
 
 .clickAddNote {
-  height: 37em;
   background-color: rgb(255, 255, 255);
 }
 
@@ -679,6 +682,25 @@ input:checked + .slider:before {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombra per un effetto migliore */
 }
 
+.dati-header {
+  width: 108px;
+  font-size: 12px;
+  text-align: end;
+  position: absolute;
+  top: 76px;
+  left: 346px;
+  margin-top: -62px;
+}
+
+.limit-text {
+  display: inline-block; /* Necessario per impostare un limite di larghezza */
+  max-width: 24ch; /* Limita il testo a circa 30 caratteri per riga */
+  word-wrap: break-word; /* Spezza le parole lunghe */
+  word-break: break-word; /* Supporto aggiuntivo per spezzare le parole */
+  white-space: normal; /* Permette il ritorno a capo */
+  text-align: left; /* Mantiene l'allineamento a sinistra */
+}
+
 @media (max-width: 576px) {
   .ricercaVeicoli .positionBtnAddNoteInvNo {
     position: relative;
@@ -722,7 +744,7 @@ input:checked + .slider:before {
     display: none;
   }
   .ricercaVeicoli .card {
-    max-height: 510px;
+    height: auto;
     overflow-y: auto;
   }
   .ricercaVeicoli .subTitleVeicolo {
@@ -837,31 +859,11 @@ input:checked + .slider:before {
     color: gray;
   }
   .card {
-    max-height: 510px;
     overflow-y: auto;
-  }
-  .subTitleVeicolo {
-    position: relative;
-    top: -59px;
-    left: 298px;
-    font-size: 13px;
-  }
-  .subTitleStatus {
-    position: relative;
-    top: -45px;
-    left: 170px;
-    font-size: 13px;
-  }
-  .subTitleInventariato {
-    position: relative;
-    top: -30px;
-    left: 22px;
-    font-size: 13px;
   }
   .classeModello {
     position: relative;
-    top: -14px;
-    left: -53px;
+    top: -63px;
   }
   .cell-ritiro {
     position: relative;
@@ -942,34 +944,11 @@ input:checked + .slider:before {
     color: gray;
   }
   .ricercaVeicoli .card {
-    max-height: 510px;
+    height: auto;
     overflow-y: auto;
   }
   .card-deck {
     z-index: 600;
-  }
-  .subTitleVeicolo {
-    position: relative;
-    top: -49px;
-    left: 290px;
-    font-size: 13px;
-  }
-  .subTitleStatus {
-    position: relative;
-    top: -35px;
-    left: 167px;
-    font-size: 13px;
-  }
-  .subTitleInventariato {
-    position: relative;
-    top: -21px;
-    left: 24px;
-    font-size: 13px;
-  }
-  .classeModello {
-    position: relative;
-    top: -8px;
-    left: -3.2rem;
   }
   .cell-ritiro {
     position: relative;
