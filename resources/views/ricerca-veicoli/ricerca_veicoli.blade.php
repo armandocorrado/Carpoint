@@ -38,7 +38,7 @@
 </style>
 
 
-<div class="ricercaVeicoli">
+<div class="ricercaVeicoli mt-5">
 
 
     @if (Session::get('status'))
@@ -87,26 +87,15 @@
                     <div style="display: flex; align-items: center; justify-content: center; text-align: center; font-weight: bold;">
                         <i class="material-icons" style="margin-right: 8px; font-size: 18px;color: #b9b7b7;">
                             <span class="material-symbols-outlined" style="
-                                position: relative;
-                                top: -4px;
-                                left: 11px;
-                                font-weight: bold;
-                                font-size: 14px;
-                            ">location_on</span>
-                        </i>
-                        <input id="indirizzo" readonly style="
-                            font-size: 9px;
-                            color: #bfbfbf;
-                            margin-top: -3px;
-                            border: none;
-                            font-weight: bold;
-                            max-width: 50ch; /* Imposta la larghezza massima a 50 caratteri */
-                            word-wrap: break-word; /* Consente di andare a capo se il testo è troppo lungo */
                             position: relative;
-                            left: -12px;
-                        ">
+                            top: -4px;
+                            left: 11px;
+                            font-weight: bold;
+                            font-size: 14px;
+                        ">location_on</span>
+                        </i>
+                        <input id="indirizzo" readonly style="font-size: 9px;color: #bfbfbf;margin-top: -3px;border: none; font-weight: bold;">
                     </div>
-                    
                     
                     
 
@@ -273,15 +262,14 @@
 
                                 <input name="targa" id="targa" value="{{ Session::get('targa') }}" type=""
                                     class="form-control" aria-label="Recipient's username"
-                                    aria-describedby="basic-addon2" style="max-height:35px;">
+                                    aria-describedby="basic-addon2">
                                 <div class="input-group-append">
-                                    <button class="btn btn-success" id="ocrButton" type="button" style="max-height: 35px;"><i
+                                    <button class="btn btn-success" id="ocrButton" type="button"><i
                                             class="material-icons" style="
                                         font-size: 16px;
                                         position: relative;
                                         top: 3px;
                                         left: 0px;
-                                        max-height:35px;
                                     ">camera_alt</i>
 
 
@@ -322,12 +310,12 @@
                     <p class="qui" style="text-align: center;font-size:13px;">Qui appariranno le informazioni del
                         veicolo ricercato</p>
                     <div class="headModello" style="display: none">
-                        <div class="card-header text-header mt-3">
+                        <div class="card-header text-header text-center mt-3">
                             <span id="modello">
-                               <!--     contenuto append  titolo      -->
+                                <!--     contenuto append  titolo      -->
                             </span>
                             <div class="d-flex justify-content-between container mt-3 mb-0 " id="veicolo">
-                              xx  <!--     contenuto append  intestazione      -->
+                                <!--     contenuto append  intestazione      -->
                             </div>
                         </div>
                     </div>
@@ -500,7 +488,7 @@
 
                    
         
-                function  go(){
+
                     $.ajax({
                         url: '{{ route('get-ajax') }}',
                         type: "GET",
@@ -621,13 +609,13 @@
 
                             //Inserisco il titolo descrittivo del veicolo su nuovo/usato oppure in alternativa quello manuale con i campi marca e modello
                             $('#modello').append(
-                            "<h5 class='text-left limit-text'>" + 
+                            "<h5 class='d-inline text-left'>" + 
                             (nomeVeicolo ?? response.car.marca + ' ' + response.car.modello) + 
-                            "</h5>"
-                            // "<button type='button' style='padding:1px 5px;position:relative;' class='btn btn-foto ms-2 b' data-bs-toggle='modal' data-bs-target='#showGallery' data-bs-toggle='tooltip' title='Apri la galleria' id='b'>" +
-                            // "<i class='fa-regular fa-images'></i>" +
-                            // "</button>"
-                            );
+                            "</h5>" +
+                            "<button type='button' style='padding:1px 5px;position:relative;' class='btn btn-foto ms-2 b' data-bs-toggle='modal' data-bs-target='#showGallery' data-bs-toggle='tooltip' title='Apri la galleria' id='b'>" +
+                            "<i class='fa-regular fa-images'></i>" +
+                            "</button>"
+);
 
 
                             $('#modello h5').addClass('classeModello');
@@ -674,20 +662,16 @@
                             noResult.empty();
 
 
+
                             $('#veicolo').append(
-                            "<div class='dati-header'>" +
-                                "<div class='subTitleVeicolo' style='display:block;font-weight:700'>Veicolo: " +
+                                "<div class='subTitleVeicolo' style='display:block;font-weight:700'>" + "Veicolo: " +
                                 "<span class='info-veicolo'> <strong>" + nuovo_usato + "</strong> </span>" +
                                 "</div>" +
-                                "<div class='subTitleStatus' style='display:block;font-weight:700'>Status: " +
-                                "<span class='info-stato'>" + status + "</span>" +
-                                "</div>" +
-                                "<div class='subTitleInventariato' style='display:block;font-weight:700'>Inventariato: " +
-                                "<span class='info-inventariato' id='inventario'>" + response.test.invent + "</span>" +
-                                "</div>" +
-                            "</div>"
-                        );
-
+                                "<div class='subTitleStatus' style='display:block;font-weight:700'>Status: <span class='info-stato'>" + status +
+                                "</span>" + "</div>" +
+                                "<div class='subTitleInventariato' style='display:;font-weight:700'>Inventariato: <span class='info-inventariato' id='inventario'>" +
+                                response.test.invent + "</span>" + "</div>"
+                            );
 
                             //-------------------------------------------------------------------------
 
@@ -891,11 +875,7 @@
                     
                         // In caso di no response 
 
-                    }) } 
-
-                go();
-                
-                .fail(function() {
+                    }).fail(function() {
                         var noResult = $('#noresult');
                         noResult.empty();
 
@@ -952,42 +932,9 @@ $(document).ready(function () {
 </script>
 
 
-<script>
-    $(document).ready(function() {
-        var maxLength = 50;  // Numero massimo di caratteri
-        var inputElement = $('#indirizzo');
-        var text = inputElement.val();
-        
-        if (text.length > maxLength) {
-            inputElement.val(text.substring(0, maxLength));  // Limita il testo a 50 caratteri
-            inputElement.css('white-space', 'normal');  // Imposta la possibilità di andare a capo
-        }
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-    $('#ocrButton').on('click', function (e) {
-        if (!confirm("Sei sicuro/a di voler scattare foto?")) {
-            e.preventDefault(); // Blocca l'azione se l'utente annulla
-        }
-    });
-
-    $('#confInv').on('click', function (e) {
-        if (!confirm("Sei sicuro/a di voler confermare l'inventario?")) {
-            e.preventDefault(); // Blocca l'azione se l'utente annulla
-        }
-    });
 
 
-    $('#deleteInv').on('click', function (e) {
-        if (!confirm("Sei sicuro/a di voler escludere questo elemento dall'inventario?")) {
-            e.preventDefault(); // Blocca l'azione se l'utente annulla
-        }
-    });
-});
 
-</script>
 
 
     @endsection
