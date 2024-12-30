@@ -12,6 +12,17 @@
 </div>
 @endif
 
+@if (Session::get('error'))
+<div class="justify-content-center mt-5">
+    <div class="alert alert-danger alert-dismissible text-blue mx-auto" role="alert" >
+        <span class="text-sm">{{ Session::get('error') }} </span>
+        <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+@endif
+
 <div class="d-flex justify-content-center">
 
 
