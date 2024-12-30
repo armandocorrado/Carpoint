@@ -836,10 +836,8 @@ navigator.mediaDevices.getUserMedia({
                                 '@csrf' +
                                 "<input name='id_operatore' hidden id='id_operatore' value='{{ Auth::user()->id }}'>" +
                                 "<input style='border:none' hidden name='user_operatore'  id='user_operatore' value='{{ Auth::user()->name }}'>" +
-                                "<input name='idveicolo' hidden id='idveicolo' value='" +
-                                response.car.id_veicolo + "'>" +
-                                "<input name='nuovo_usato' hidden id='nuovo_usato' value='" + (
-                                    response.car.telaio ? 'n' : 'u') + "'>" +
+                                "<input name='idveicolo' hidden id='idveicolo' value='" + response.car.id_veicolo + "'>" +
+                                "<input name='nuovo_usato' hidden id='nuovo_usato' value='" + (response.car.telaio ? 'n' : 'u') + "'>" +
                                 "<input name='ubicazione' hidden id='ubicazione' value='{{ Auth::user()->ubicazione }}'>" +
                                 "<input name='latitudine' hidden  id='' value='"+latitudine+"'>" +
                                 "<input name='longitudine' hidden id='' value='"+longitudine+"'>" +
@@ -872,7 +870,7 @@ navigator.mediaDevices.getUserMedia({
 if (response.test.invent == "Si") {
     $('#confInv').hide();
     $('#inventariato') // Mostra il messaggio solo in questo caso
-        .text('Inventariato dall\'operatore: ' + response.trovata.user_operatore + 
+        .text('Inventariato da: ' + response.trovata.user_operatore + 
               ' in data: ' + response.trovata.dataOra + 
               ' presso ' + response.trovata.luogo)
         .css('color', 'black')
@@ -991,23 +989,7 @@ $(document).ready(function () {
 
 </script>
 
-<script>
-   $(document).ready(function () {
-    // Funzione per formattare la data
-    function formatEuropeanDate(dateString) {
-        if (!dateString || dateString.trim() === '-') return '-'; // Se vuota, ritorna '-'
-        const parts = dateString.split('-'); // Supponendo formato yyyy-mm-dd
-        return parts.length === 3 ? `${parts[2]}-${parts[1]}-${parts[0]}` : dateString;
-    }
 
-    // Cerca e formatta le date nel DOM
-    $('.dato-cell-stipula-contratto, .dato-cell-vendita').each(function () {
-        const originalDate = $(this).text().trim(); // Ottieni il testo della cella
-        const formattedDate = formatEuropeanDate(originalDate); // Formatta la data
-        $(this).text(formattedDate); // Aggiorna il contenuto
-    });
-});
-</script>
 
 
 
