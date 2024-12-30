@@ -916,17 +916,12 @@ if (response.test.invent == "Si") {
 
                             if (response.test.invent == "No") {
                                 $('#confInv').show();
-                                $('#no_invent').text('Ancora non inventariato');
-
 
                             }
 
 
                             if (response.test.invent == "Si") {
                                 $('#confInv').hide();
-                                $('#no_invent').text('Inventariato dall\'operatore, ' + response
-                                    .trovata.user_operatore + ' in data ' + response.trovata
-                                    .dataOra + ' presso ' + response.trovata.luogo);
 
                             }
 
