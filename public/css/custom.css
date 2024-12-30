@@ -426,6 +426,7 @@ input:focus {
 .ricercaPiazzali table {
   border-collapse: collapse;
   width: 100%;
+  font-size: 13px;
 }
 .ricercaPiazzali th, .ricercaPiazzali td {
   text-align: left;

@@ -84,7 +84,7 @@
                                 <!-- append contenuto   -->
                                 <p id="testoVeicoloN" style='display:none;font-size:20px;'>Veicoli <strong style="color:rgb(12, 12, 164)"> NUOVI
                                     </strong>da inventariare</p>
-                                    <p class=" chiudiN" style='display:none;color:black;margin-left: 29%;margin-top: 3%;font-weight: bolder;font-size: 13px;cursor: pointer;'>Chiudi</p>
+                                    <p class=" chiudiN" style='display:none;background-color:rgb(174, 174, 174);margin-left: 29%;margin-top: 3%;font-weight: bolder;font-size: 13px;cursor: pointer;padding: 4px;color: black;border-radius: 5px;'>Chiudi</p>
                                 <table id="tablePiazzaliRisult" style='display:none'>
                                     <thead>
                                         <tr>
@@ -292,7 +292,6 @@ $.each(response.veicoliNuoviDaInv, function (index, elemento) {
         "<td>" + elemento.targa + "</td>" +
         "<td>" + elemento.telaio + "</td>" +
         "<td>" + elemento.descrizione_marca + "</td>" +
-        "<td>" + elemento.descrizione_modello + "</td>" +
         "<td>" + elemento.descrizione_modello + "</td>" +
        "<td>" + "<i class='fa fa-info-circle' style='font-size: 16px; color: gray; position: relative; left: 6px;'></i>" + "</td>" + 
         "</tr>";
