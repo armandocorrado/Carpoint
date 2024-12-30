@@ -888,9 +888,9 @@ navigator.mediaDevices.getUserMedia({
                                 $('#btnModInv').show();
 
                                 $('#inventariato') // Mostra il messaggio solo in questo caso
-                                .text('Inventariato dall\'operatore: ' + response.trovata.user_operatore + 
-                                    ' in data: ' + response.trovata.dataOra + 
-                                    ' presso ' + response.trovata.luogo)
+                                .html('Inventariato da: <span style="color:red;">' + response.trovata.user_operatore + 
+                                '</span> in data: <span style="color:red;">' + response.trovata.dataOra + 
+                                '</span> presso <span style="color:red;">' + response.trovata.luogo + '</span>')
                                 .css('color', 'black')
                                 .css('font-size', '12px')
                                 .show(); 
