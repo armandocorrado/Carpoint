@@ -986,10 +986,23 @@ $(document).ready(function () {
 
 </script>
 
+<script>
+   $(document).ready(function () {
+    // Funzione per formattare la data
+    function formatEuropeanDate(dateString) {
+        if (!dateString || dateString.trim() === '-') return '-'; // Se vuota, ritorna '-'
+        const parts = dateString.split('-'); // Supponendo formato yyyy-mm-dd
+        return parts.length === 3 ? `${parts[2]}-${parts[1]}-${parts[0]}` : dateString;
+    }
 
-
-
-
+    // Cerca e formatta le date nel DOM
+    $('.dato-cell-stipula-contratto, .dato-cell-vendita').each(function () {
+        const originalDate = $(this).text().trim(); // Ottieni il testo della cella
+        const formattedDate = formatEuropeanDate(originalDate); // Formatta la data
+        $(this).text(formattedDate); // Aggiorna il contenuto
+    });
+});
+</script>
 
 
 

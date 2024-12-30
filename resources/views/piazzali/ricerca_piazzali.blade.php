@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('content')
+<style>
+    .open-modal {
+        cursor: pointer;
+    }
+</style>
+
     <div class="ricercaPiazzali mt-2">
         <div class="d-flex justify-content-center">
             <div class="text-center" id="messaggio-attesa">
@@ -259,6 +265,9 @@ $.each(response.veicoliNuoviDaInv, function (index, elemento) {
     var marca = elemento.descrizione_marca || elemento.marca || 'N/A';
     var modello = elemento.descrizione_modello || elemento.modello || 'N/A';
     var dataImma = elemento.data_immatricolazione ||  'N/A';
+	var status = elemento.status ||  'N/A';
+	var linea = elemento.linea ||  'N/A';
+	var note = '';
 
 
 
@@ -273,6 +282,9 @@ $.each(response.veicoliNuoviDaInv, function (index, elemento) {
         "data-kw='" + kw + "'" +
         "data-kmpercorsi='" + kmpercorsi + "'" +
         "data-immatricolazione='" + dataImma + "'" +
+		"data-status='" + status + "'" +
+		"data-linea='" + linea + "'" +
+		"data-note='" + note + "'" +
         "data-ubicazione='" + ubicazione + "'>"+
     
         "<td>" + elemento.targa + "</td>" +
@@ -297,6 +309,9 @@ $.each(response.veicoliUsatiDaInv, function (index, elemento) {
     var marca = elemento.descrizione_marca || elemento.marca || 'N/A';
     var modello = elemento.descrizione_modello || elemento.modello || 'N/A';
     var dataImma = elemento.data_immatricolazione ||  'N/A';
+	var status = elemento.status_veicolo ||  'N/A';
+	var linea = elemento.linea ||  'N/A';
+	var note = '';
 
 
     var riga = "<tr class='open-modal' " +
@@ -310,6 +325,9 @@ $.each(response.veicoliUsatiDaInv, function (index, elemento) {
         "data-kw='" + kw + "'" +
         "data-kmpercorsi='" + kmpercorsi + "'" +
         "data-immatricolazione='" + dataImma + "'" +
+		"data-status='" + status + "'" +
+		"data-linea='" + linea + "'" +
+		"data-note='" + note + "'" +
         "data-ubicazione='" + ubicazione + "'>"+
         "<td>" + elemento.targa + "</td>" +
         "<td>" + telaio + "</td>" +
@@ -381,6 +399,9 @@ $(document).on('click', '.open-modal', function () {
     var kmpercorsi = $(this).data('kmpercorsi');
     var ubicazione = $(this).data('ubicazione');
     var dataImmatric = $(this).data('immatricolazione');
+	var status = $(this).data('status');
+	var linea = $(this).data('linea');
+	var note = $(this).data('note');
 
 
     // Aggiungi i dati al modal
@@ -390,72 +411,72 @@ $('#dynamicModal .modal-body').html(
     '<div class="container">' +
         '<div class="row">' +
             '<div class="col-md-6">' +
-                '<p><span style="color: gray; display: block;">Targa:</span>' +
-                '<span style="display: block;"><strong>' + targa + '</strong></span></p>' +
+                '<p><strong style="display: block;">Targa:</strong>' +
+                '<span style="display: block;">' + targa + '</span></p>' +
             '</div>' +
             '<div class="col-md-6">' +
-                '<p><span style="color: gray; display: block;">Telaio:</span>' +
-                '<span style="display: block;"><strong>' + telaio + '</strong></span></p>' +
-            '</div>' +
-        '</div>' +
-        '<div class="row">' +
-            '<div class="col-md-6">' +
-                '<p><span style="color: gray; display: block;">Marca:</span>' +
-                '<span style="display: block;"><strong>' + marca + '</strong></span></p>' +
-            '</div>' +
-            '<div class="col-md-6">' +
-                '<p><span style="color: gray; display: block;">Modello:</span>' +
-                '<span style="display: block;"><strong>' + modello + '</strong></span></p>' +
+                '<p><strong style="display: block;">Telaio:</strong>' +
+                '<span style="display: block;">' + telaio + '</span></p>' +
             '</div>' +
         '</div>' +
         '<div class="row">' +
             '<div class="col-md-6">' +
-                '<p><span style="color: gray; display: block;">Colore:</span>' +
-                '<span style="display: block;"><strong>' + colore + '</strong></span></p>' +
+                '<p><strong style="display: block;">Marca:</strong>' +
+                '<span style="display: block;">' + marca + '</span></p>' +
             '</div>' +
             '<div class="col-md-6">' +
-                '<p><span style="color: gray; display: block;">Interni:</span>' +
-                '<span style="display: block;"><strong>' + interni + '</strong></span></p>' +
-            '</div>' +
-        '</div>' +
-        '<div class="row">' +
-            '<div class="col-md-6">' +
-                '<p><span style="color: gray; display: block;">Alimentazione:</span>' +
-                '<span style="display: block;"><strong>' + alimentazione + '</strong></span></p>' +
-            '</div>' +
-            '<div class="col-md-6">' +
-                '<p><span style="color: gray; display: block;">Kw:</span>' +
-                '<span style="display: block;"><strong>' + kw + '</strong></span></p>' +
+                '<p><strong style="display: block;">Modello:</strong>' +
+                '<span style="display: block;">' + modello + '</span></p>' +
             '</div>' +
         '</div>' +
         '<div class="row">' +
             '<div class="col-md-6">' +
-                '<p><span style="color: gray; display: block;">Ubicazione:</span>' +
-                '<span style="display: block;"><strong>' + ubicazione + '</strong></span></p>' +
+                '<p><strong style="display: block;">Colore:</strong>' +
+                '<span style="display: block;">' + colore + '</span></p>' +
             '</div>' +
             '<div class="col-md-6">' +
-                '<p><span style="color: gray; display: block;">Km percorsi:</span>' +
-                '<span style="display: block;"><strong>' + kmpercorsi + '</strong></span></p>' +
-            '</div>' +
-        '</div>' +
-        '<div class="row">' +
-            '<div class="col-md-6">' +
-                '<p><span style="color: gray; display: block;">Data Immatricolazione:</span>' +
-                '<span style="display: block;"><strong>' + dataImmatric + '</strong></span></p>' +
-            '</div>' +
-            '<div class="col-md-6">' +
-                '<p><span style="color: gray; display: block;">Status:</span>' +
-                '<span style="display: block;"><strong>' + status + '</strong></span></p>' +
+                '<p><strong style="display: block;">Data arrivo:</strong>' +
+                '<span style="display: block;">' + "Data arrivo" + '</span></p>' +
             '</div>' +
         '</div>' +
         '<div class="row">' +
             '<div class="col-md-6">' +
-                '<p><span style="color: gray; display: block;">Linea:</span>' +
-                '<span style="display: block;"><strong>' + linea + '</strong></span></p>' +
+                '<p><strong style="display: block;">Data vendita:</strong>' +
+                '<span style="display: block;">' + "Data vendita" + '</span></p>' +
             '</div>' +
             '<div class="col-md-6">' +
-                '<p><span style="color: gray; display: block;">Descrizione:</span>' +
-                '<span style="display: block;"><strong>' + descrizione + '</strong></span></p>' +
+                '<p><strong style="display: block;">Data contratto:</strong>' +
+                '<span style="display: block;">' + "Data contratto" + '</span></p>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Ubicazione:</strong>' +
+                '<span style="display: block;">' + ubicazione + '</span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Fornitore:</strong>' +
+                '<span style="display: block;">' + "fornitore" + '</span></p>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Data Immatricolazione:</strong>' +
+                '<span style="display: block;">' + dataImmatric + '</span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Status:</strong>' +
+                '<span style="display: block;">' + status + '</span></p>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Linea:</strong>' +
+                '<span style="display: block;">' + linea + '</span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Note veicolo:</strong>' +
+                '<span style="display: block;">' + note + '</span></p>' +
             '</div>' +
         '</div>' +
     '</div>'
@@ -463,13 +484,11 @@ $('#dynamicModal .modal-body').html(
 
 
 
-
     jQuery('#dynamicModal').modal('show');
 });
 
 
-//WF0FXXWPMHRL62060
+
 
       </script>
-     
 @endsection
