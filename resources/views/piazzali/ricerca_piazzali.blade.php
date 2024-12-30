@@ -257,10 +257,6 @@ $.each(response.veicoliNuoviDaInv, function (index, elemento) {
 
     var colore = elemento.colore || elemento.descr_colore || 'N/A';
     var telaio = elemento.telaio || elemento.vin || 'N/A';
-    var interni = elemento.descr_int || elemento.colint || 'N/A';
-    var alimentazione = elemento.alimentazione || 'N/A';  
-    var kw = elemento.potenzakw || elemento.kw || 'N/A';
-    var kmpercorsi = elemento.km_percorsi ||  'N/A';
     var ubicazione = elemento.descrizione_ubicazioni || elemento.desc_ubicazione || ubicazione || 'N/A';
     var marca = elemento.descrizione_marca || elemento.marca || 'N/A';
     var modello = elemento.descrizione_modello || elemento.modello || 'N/A';
@@ -268,6 +264,10 @@ $.each(response.veicoliNuoviDaInv, function (index, elemento) {
 	var status = elemento.status ||  'N/A';
 	var linea = elemento.linea ||  'N/A';
 	var note = '';
+    var data_fattura_v = elemento.data_fattura_v ||  'N/A';
+    var data_contratto = elemento.data_contratto ||  'N/A';
+    var data_arrivo = elemento.data_arrivo ||  'N/A';
+ 
 
 
 
@@ -277,16 +277,14 @@ $.each(response.veicoliNuoviDaInv, function (index, elemento) {
         "data-marca='" + marca + "' " +
         "data-modello='" + modello + "'" +
         "data-colore='" + colore + "' " +
-        "data-interni='" + interni + "'" +
-        "data-alimentazione='" + alimentazione + "'" +
-        "data-kw='" + kw + "'" +
-        "data-kmpercorsi='" + kmpercorsi + "'" +
         "data-immatricolazione='" + dataImma + "'" +
 		"data-status='" + status + "'" +
 		"data-linea='" + linea + "'" +
 		"data-note='" + note + "'" +
+        "data-fattura_v='" + data_fattura_v + "'" +
+        "data-contratto='" + data_contratto + "'" +
+        "data-arrivo='" + data_arrivo + "'" +
         "data-ubicazione='" + ubicazione + "'>"+
-    
         "<td>" + elemento.targa + "</td>" +
         "<td>" + elemento.telaio + "</td>" +
         "<td>" + elemento.descrizione_marca + "</td>" +
@@ -301,10 +299,6 @@ $.each(response.veicoliUsatiDaInv, function (index, elemento) {
 
     var colore = elemento.colore || elemento.descr_colore || 'N/A';
     var telaio = elemento.telaio || elemento.vin || 'N/A';
-    var interni = elemento.descr_int || elemento.colint || 'N/A';
-    var alimentazione = elemento.alimentazione || 'N/A';  
-    var kw = elemento.potenzakw || elemento.kw || 'N/A';
-    var kmpercorsi = elemento.km_percorsi ||  'N/A';
     var ubicazione = elemento.descrizione_ubicazioni || elemento.desc_ubicazione || ubicazione || 'N/A';
     var marca = elemento.descrizione_marca || elemento.marca || 'N/A';
     var modello = elemento.descrizione_modello || elemento.modello || 'N/A';
@@ -312,6 +306,9 @@ $.each(response.veicoliUsatiDaInv, function (index, elemento) {
 	var status = elemento.status_veicolo ||  'N/A';
 	var linea = elemento.linea ||  'N/A';
 	var note = '';
+    var data_fattura_v = elemento.data_fattura_v ||  'N/A';
+    var data_contratto = elemento.data_contratto ||  'N/A';
+    var data_arrivo = elemento.data_arrivo ||  'N/A';
 
 
     var riga = "<tr class='open-modal' " +
@@ -320,14 +317,13 @@ $.each(response.veicoliUsatiDaInv, function (index, elemento) {
         "data-marca='" + marca + "' " +
         "data-modello='" + modello + "'" +
         "data-colore='" + colore + "'" +
-        "data-interni='" + interni + "'" +
-        "data-alimentazione='" + alimentazione + "'" +
-        "data-kw='" + kw + "'" +
-        "data-kmpercorsi='" + kmpercorsi + "'" +
         "data-immatricolazione='" + dataImma + "'" +
 		"data-status='" + status + "'" +
 		"data-linea='" + linea + "'" +
 		"data-note='" + note + "'" +
+        "data-fattura_v='" + data_fattura_v + "'" +
+        "data-contratto='" + data_contratto + "'" +
+        "data-arrivo='" + data_arrivo + "'" +
         "data-ubicazione='" + ubicazione + "'>"+
         "<td>" + elemento.targa + "</td>" +
         "<td>" + telaio + "</td>" +
@@ -393,18 +389,87 @@ $(document).on('click', '.open-modal', function () {
     var marca = $(this).data('marca');
     var modello = $(this).data('modello');
     var colore = $(this).data('colore');
-    var interni = $(this).data('interni');
-    var alimentazione = $(this).data('alimentazione');
-    var kw = $(this).data('kw');
-    var kmpercorsi = $(this).data('kmpercorsi');
     var ubicazione = $(this).data('ubicazione');
     var dataImmatric = $(this).data('immatricolazione');
-	var status = $(this).data('status');
+	var status = $(this).data('status'); 
 	var linea = $(this).data('linea');
 	var note = $(this).data('note');
+    var data_fattura_v = $(this).data('fattura_v');
+    var data_contratto = $(this).data('contratto');
+    var data_arrivo = $(this).data('arrivo');
 
 
-    // Aggiungi i dati al modal
+    switch (linea) {
+                                case '00':
+                                    linea = "Normale";
+                                    break;
+                                case '01':
+                                    linea = "Km0";
+                                    break;
+                                case '02':
+                                    linea = "Demo Visibility";
+                                    break;
+                                case '03':
+                                    linea = "Demo cortesia";
+                                    break;
+                                case '04':
+                                    linea = "FLEET";
+                                    break;
+                                case '05':
+                                    linea = "FBP";
+                                    break;
+                                case '06':
+                                    linea = "Trapasso";
+                                    break;
+                                case '07':
+                                    linea = "Km0 altre marche";
+                                    break;
+                                case 'CE':
+                                    linea = "Cespite";
+                                    break;
+                                case 'D3':
+                                    linea = "DOC03";
+                                    break;
+                                case 'NV':
+                                    linea = "Non vendibile";
+                                    break;
+                                default:
+                                    linea = "Nessun valore";
+                            }
+
+
+                            //verifica la lettera status e passa la stringa corrispondente
+
+                            switch (status) {
+
+                            case 'A':
+                                status = 'Stock'; 
+                                break;
+                            case 'C':
+                                status = 'Virtuale';
+                                break;
+                            case 'R':
+                                status = 'Richiesto'; 
+                                break;
+                            case 'T':
+                                status = "Assegnato"; 
+                                break;
+                            case 'U':
+                                status = "Uscito"; 
+                                break;
+                            case 'V':
+                                status = "Venduto";
+                                break;
+                            case 'M':
+                                status = "Manuale"; 
+                                break;
+                                
+                                default:
+                                status = "Stato sconosciuto";
+                            }
+
+
+
 
 // Aggiungi i dati al modal
 $('#dynamicModal .modal-body').html(
@@ -436,17 +501,17 @@ $('#dynamicModal .modal-body').html(
             '</div>' +
             '<div class="col-md-6">' +
                 '<p><strong style="display: block;">Data arrivo:</strong>' +
-                '<span style="display: block;">' + "Data arrivo" + '</span></p>' +
+                '<span style="display: block;">' + data_arrivo + '</span></p>' +
             '</div>' +
         '</div>' +
         '<div class="row">' +
             '<div class="col-md-6">' +
                 '<p><strong style="display: block;">Data vendita:</strong>' +
-                '<span style="display: block;">' + "Data vendita" + '</span></p>' +
+                '<span style="display: block;">' + data_fattura_v + '</span></p>' +
             '</div>' +
             '<div class="col-md-6">' +
                 '<p><strong style="display: block;">Data contratto:</strong>' +
-                '<span style="display: block;">' + "Data contratto" + '</span></p>' +
+                '<span style="display: block;">' + data_contratto + '</span></p>' +
             '</div>' +
         '</div>' +
         '<div class="row">' +
