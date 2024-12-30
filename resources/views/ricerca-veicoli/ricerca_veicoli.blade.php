@@ -881,7 +881,9 @@ navigator.mediaDevices.getUserMedia({
                             data: formData,
                             success: function (response) {
 
-                                console.log('response: ' + response);
+                                const americanDateTime = response.trovata.dataOra; // Formato originale: YYYY-MM-DD HH:mm:ss
+                                const europeanDateTime = moment(americanDateTime, "YYYY-MM-DD HH:mm:ss").format("DD/MM/YYYY HH:mm");
+                               
                                 
                                 $('#inventario').text('SI').css('background-color', 'green');
                                 $('#confInv').hide();
@@ -889,7 +891,7 @@ navigator.mediaDevices.getUserMedia({
 
                                 $('#inventariato') // Mostra il messaggio solo in questo caso
                                 .text('Inventariato da: ' + response.trovata.user_operatore + 
-                                    ' in data: ' + response.trovata.dataOra + 
+                                    ' in data: ' + europeanDateTime + 
                                     ' presso ' + response.trovata.luogo)
                                 .css('color', 'black')
                                 .css('font-size', '12px')

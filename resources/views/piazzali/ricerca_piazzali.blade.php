@@ -402,6 +402,28 @@ $(document).on('click', '.open-modal', function () {
     var data_contratto = $(this).data('contratto');
     var data_arrivo = $(this).data('arrivo');
 
+    if(data_arrivo != 'N/A'){
+    var data_arrivo_america = data_arrivo; // Formato originale: YYYY-MM-DD 
+    var data_arrivo_europe = moment(data_arrivo_america, "YYYY-MM-DD").format("DD/MM/YYYY") || 'NC';
+    }else{
+    
+        var data_arrivo_europe = 'N/A';
+    }
+
+    if(data_contratto != 'N/A'){
+    var data_contratto_america = data_contratto; // Formato originale: YYYY-MM-DD 
+    var data_contratto_europe = moment(data_contratto_america, "YYYY-MM-DD").format("DD/MM/YYYY") ?? 'NC';
+    }else{
+        var data_contratto_europe = 'N/A';
+    }
+
+    if(data_fattura_v != 'N/A'){
+    var data_fattura_america = data_fattura_v; // Formato originale: YYYY-MM-DD 
+    var data_fattura_europe = moment(data_fattura_america, "YYYY-MM-DD").format("DD/MM/YYYY") ?? 'NC';
+    }else{
+        var data_fattura_europe = 'N/A';
+    }
+
 
     switch (linea) {
                                 case '00':
@@ -505,17 +527,17 @@ $('#dynamicModal .modal-body').html(
             '</div>' +
             '<div class="col-md-6">' +
                 '<p><strong style="display: block;">Data arrivo:</strong>' +
-                '<span style="display: block;">' + data_arrivo + '</span></p>' +
+                '<span style="display: block;">' + data_arrivo_europe + '</span></p>' +
             '</div>' +
         '</div>' +
         '<div class="row">' +
             '<div class="col-md-6">' +
                 '<p><strong style="display: block;">Data vendita:</strong>' +
-                '<span style="display: block;">' + data_fattura_v + '</span></p>' +
+                '<span style="display: block;">' + data_fattura_europe + '</span></p>' +
             '</div>' +
             '<div class="col-md-6">' +
                 '<p><strong style="display: block;">Data contratto:</strong>' +
-                '<span style="display: block;">' + data_contratto + '</span></p>' +
+                '<span style="display: block;">' + data_contratto_europe + '</span></p>' +
             '</div>' +
         '</div>' +
         '<div class="row">' +
