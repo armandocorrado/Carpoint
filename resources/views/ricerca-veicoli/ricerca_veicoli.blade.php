@@ -546,9 +546,6 @@ navigator.mediaDevices.getUserMedia({
                     // Recupera i dati e aggiorna l'interfaccia
                     loader.show();
 
-                   
-        
-
                     $.ajax({
                         url: '{{ route('get-ajax') }}',
                         type: "GET",
@@ -861,11 +858,57 @@ navigator.mediaDevices.getUserMedia({
 
                         // Aggiungi il listener per la conferma inventario
                         $('#confInv').click(function(event) {
-                            // event.preventDefault();
+                            event.preventDefault();
                             if (confirm("Sei sicuro di voler confermare l'inventario per questo veicolo?")) {
                                 console.log("Inventario confermato.");
-                             
                             }
+
+                            // Raccogli i dati del modulo
+                        let formData = {
+                            id_operatore: $('#id_operatore').val(),
+                            user_operatore: $('#user_operatore').val(),
+                            idveicolo: $('#idveicolo').val(),
+                            nuovo_usato: $('#nuovo_usato').val(),
+                            ubicazione: $('#ubicazione').val(),
+                            latitudine: $('#latitudine').val(),
+                            longitudine: $('#longitudine').val(),
+                            indirizzo_gps: $('#indirizzo_gps').val(),
+                            _token: $('input[name="_token"]').val() // Include il CSRF token
+                        };
+
+                           // Invia la richiesta AJAX
+                        $.ajax({
+                            url: "{{ route('store-trovata') }}", // La route per il controller
+                            type: "POST",
+                            data: formData,
+                            success: function (response) {
+
+                                console.log('response: ' + response);
+                                
+                                $('#inventario').text('SI').css('background-color', 'green');
+                                $('#confInv').hide();
+                                $('#btnModInv').show();
+
+                                $('#inventariato') // Mostra il messaggio solo in questo caso
+                                .text('Inventariato dall\'operatore: ' + response.trovata.user_operatore + 
+                                    ' in data: ' + response.trovata.dataOra + 
+                                    ' presso ' + response.trovata.luogo)
+                                .css('color', 'black')
+                                .css('font-size', '12px')
+                                .show(); 
+
+                                $('#veicoloTrovataId').val(response.trovata.idveicolo);
+                               
+                                alert('Dati salvati con successo!');
+                            },
+                            error: function (xhr, status, error) {
+                                // Gestisci eventuali errori
+                                console.error(xhr.responseText);
+                                alert('Errore durante il salvataggio dei dati.');
+                            }
+                        });
+
+
                         });
                     }
 

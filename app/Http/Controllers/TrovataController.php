@@ -39,7 +39,7 @@ class TrovataController extends Controller
 
       $dateNow = Carbon::now()->format('Y-m-d H:i:s');
         
-      Trovata::create([
+     $trovata = Trovata::create([
  
         'nuovo_usato'=> $request->input('nuovo_usato'),
         'idveicolo'=> $request->input('idveicolo'),
@@ -55,7 +55,9 @@ class TrovataController extends Controller
       ]);
 
         
-        return back()->with('status', 'il veicolo è stato inventariato');
+        // return back()->with('status', 'il veicolo è stato inventariato');
+
+        return response()->json(['trovata' => $trovata]);
     }
 
     /**
