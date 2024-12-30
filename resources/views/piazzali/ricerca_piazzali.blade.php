@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('content')
+<style>
+    .open-modal {
+        cursor: pointer;
+    }
+</style>
+
     <div class="ricercaPiazzali mt-2">
         <div class="d-flex justify-content-center">
             <div class="text-center" id="messaggio-attesa">
@@ -8,8 +14,8 @@
                 </div>
             </div>
             <div class="card-deck d-md-flex justify-content-center">
-                <div class="col-md-6 col-sm-12 mx-auto">
-                    <div class="card mx-auto mb-3 cardGeneral cardRicerca">
+                <div class="col-md-4 col-sm-12 mx-auto">
+                    <div class="card mx-auto mb-3 cardGeneral cardRicerca" style=" max-width: 245px;">
                         <div class="card-header text-header text-center mt-3">
                             <h5 class="d-inline mt-5">Ricerca piazzali</h5>
                             <img src="{{ asset('img/logoCarPoint.png') }}" alt="Logo" width="50%" class="mt-3 mx-auto">
@@ -53,8 +59,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12 mx-auto">
-                    <div class="card mx-auto mb-3 cardGeneral cardRisultatiRicerca" id="contenitoreRicerca" >
+                <div class="col-md-8 col-sm-12 mx-auto">
+                    <div class="card mx-auto mb-3 cardGeneral cardRisultatiRicerca" id="contenitoreRicerca" style="width:553px;" >
                         <h3 class="mb-3 mt-4 text-center qui">Risultati ricerca</h3>
                         <p class="text-center qui">Qui appariranno i risultati della tua ricerca</p>
                         {{-- <div class="card-header text-header text-center mt-4 mb-3">
@@ -73,7 +79,7 @@
                                 <!-- append contenuto   -->
 
                             </div>
-                            <div class="d-flex flex-wrap justify-content-center container mt-2 mb-0 scrollable  "
+                            <div class="d-flex flex-wrap container mt-2 mb-0 scrollable  "
                                 style="background:white;padding:10px;" id="resultNU">
                                 <!-- append contenuto   -->
                                 <p id="testoVeicoloN" style='display:none;font-size:20px;'>Veicoli <strong style="color:rgb(12, 12, 164)"> NUOVI
@@ -93,8 +99,8 @@
                                 </table>
                                 <p id="testoVeicoloU" style='display:none;font-size:20px;'>Veicoli<strong style="color:rgb(169, 180, 9)"; > USATO </strong>da
                                     inventariare</p>
-                                    <p class="chiudiU" style='display:none;color:black;margin-left: 29%;margin-top: 3%;font-weight: bolder;font-size: 13px;cursor: pointer;'>Chiudi</p>
-                                <table id="tablePiazzaliRisultU" style='display:none'>
+                                    <p class="chiudiU" style='display:none;background-color:rgb(174, 174, 174);margin-left: 29%;margin-top: 3%;font-weight: bolder;font-size: 13px;cursor: pointer;padding: 4px;color: black;border-radius: 5px;'>Chiudi</p>
+                                <table id="tablePiazzaliRisultU" style='display:none;font-size:13px;'>
                                     <thead>
                                         <tr>
                                             <th>Targa</th>
@@ -119,18 +125,18 @@
 
     <div class="modal fade" id="dynamicModal" tabindex="-1" role="dialog" aria-labelledby="dynamicModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="width: 85%;">
                 <div class="modal-header" style="max-height: 58px;background:rgb(225, 225, 225)">
                     <h5 class="modal-title" id="dynamicModalLabel" style="font-size: 18px;position: relative;top: -54px;">Dettagli veicolo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="font-size: 13px;">
                     Ciao
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px;">Chiudi</button>
                 </div>
             </div>
         </div>
@@ -259,6 +265,9 @@ $.each(response.veicoliNuoviDaInv, function (index, elemento) {
     var marca = elemento.descrizione_marca || elemento.marca || 'N/A';
     var modello = elemento.descrizione_modello || elemento.modello || 'N/A';
     var dataImma = elemento.data_immatricolazione ||  'N/A';
+	var status = elemento.status ||  'N/A';
+	var linea = elemento.linea ||  'N/A';
+	var note = '';
 
 
 
@@ -273,6 +282,9 @@ $.each(response.veicoliNuoviDaInv, function (index, elemento) {
         "data-kw='" + kw + "'" +
         "data-kmpercorsi='" + kmpercorsi + "'" +
         "data-immatricolazione='" + dataImma + "'" +
+		"data-status='" + status + "'" +
+		"data-linea='" + linea + "'" +
+		"data-note='" + note + "'" +
         "data-ubicazione='" + ubicazione + "'>"+
     
         "<td>" + elemento.targa + "</td>" +
@@ -297,6 +309,9 @@ $.each(response.veicoliUsatiDaInv, function (index, elemento) {
     var marca = elemento.descrizione_marca || elemento.marca || 'N/A';
     var modello = elemento.descrizione_modello || elemento.modello || 'N/A';
     var dataImma = elemento.data_immatricolazione ||  'N/A';
+	var status = elemento.status_veicolo ||  'N/A';
+	var linea = elemento.linea ||  'N/A';
+	var note = '';
 
 
     var riga = "<tr class='open-modal' " +
@@ -310,6 +325,9 @@ $.each(response.veicoliUsatiDaInv, function (index, elemento) {
         "data-kw='" + kw + "'" +
         "data-kmpercorsi='" + kmpercorsi + "'" +
         "data-immatricolazione='" + dataImma + "'" +
+		"data-status='" + status + "'" +
+		"data-linea='" + linea + "'" +
+		"data-note='" + note + "'" +
         "data-ubicazione='" + ubicazione + "'>"+
         "<td>" + elemento.targa + "</td>" +
         "<td>" + telaio + "</td>" +
@@ -381,26 +399,91 @@ $(document).on('click', '.open-modal', function () {
     var kmpercorsi = $(this).data('kmpercorsi');
     var ubicazione = $(this).data('ubicazione');
     var dataImmatric = $(this).data('immatricolazione');
+	var status = $(this).data('status');
+	var linea = $(this).data('linea');
+	var note = $(this).data('note');
 
 
     // Aggiungi i dati al modal
-    $('#dynamicModal .modal-body').html(
-        '<p><strong>Targa:</strong> ' + targa + '</p>' +
-        '<p><strong>Telaio:</strong> ' + telaio + '</p>' +
-        '<p><strong>Marca:</strong> ' + marca + '</p>' +
-        '<p><strong>Modello:</strong> ' + modello + '</p>'+
-        '<p><strong>Colore:</strong> ' + colore + '</p>'+
-        '<p><strong>Interni:</strong> ' + interni + '</p>'+
-        '<p><strong>Alimentazione:</strong> ' + alimentazione + '</p>'+
-        '<p><strong>Kw:</strong> ' + kw + '</p>'+
-        '<p><strong>Ubicazione:</strong> ' + ubicazione + '</p>'+
-        '<p><strong>Km percorsi:</strong> ' + kmpercorsi + '</p>'+
-        '<p><strong>Data Immatricolazione</strong> ' + dataImmatric + '</p>'
+
+// Aggiungi i dati al modal
+$('#dynamicModal .modal-body').html(
+    '<div class="container">' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Targa:</strong>' +
+                '<span style="display: block;">' + targa + '</span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Telaio:</strong>' +
+                '<span style="display: block;">' + telaio + '</span></p>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Marca:</strong>' +
+                '<span style="display: block;">' + marca + '</span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Modello:</strong>' +
+                '<span style="display: block;">' + modello + '</span></p>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Colore:</strong>' +
+                '<span style="display: block;">' + colore + '</span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Data arrivo:</strong>' +
+                '<span style="display: block;">' + "Data arrivo" + '</span></p>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Data vendita:</strong>' +
+                '<span style="display: block;">' + "Data vendita" + '</span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Data contratto:</strong>' +
+                '<span style="display: block;">' + "Data contratto" + '</span></p>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Ubicazione:</strong>' +
+                '<span style="display: block;">' + ubicazione + '</span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Fornitore:</strong>' +
+                '<span style="display: block;">' + "fornitore" + '</span></p>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Data Immatricolazione:</strong>' +
+                '<span style="display: block;">' + dataImmatric + '</span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Status:</strong>' +
+                '<span style="display: block;">' + status + '</span></p>' +
+            '</div>' +
+        '</div>' +
+        '<div class="row">' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Linea:</strong>' +
+                '<span style="display: block;">' + linea + '</span></p>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<p><strong style="display: block;">Note veicolo:</strong>' +
+                '<span style="display: block;">' + note + '</span></p>' +
+            '</div>' +
+        '</div>' +
+    '</div>'
+);
 
 
 
-
-    );
     jQuery('#dynamicModal').modal('show');
 });
 

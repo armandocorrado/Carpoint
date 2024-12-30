@@ -337,6 +337,7 @@ navigator.mediaDevices.getUserMedia({
                                 <!--     contenuto append  intestazione      -->
                             </div>
                         </div>
+                    </div>
                     <div id="noresult">
                         <!-- append -->
                     </div>
@@ -348,8 +349,8 @@ navigator.mediaDevices.getUserMedia({
                         <div style="display: none;padding:3px;" id=btnModInv>
                             <form method='post' style='width:100%' action='{{ route('destroy-trovata') }}'> @csrf
                                 <input type="number" hidden name="trovata" id="veicoloTrovataId">
-                                           <button type='submit' class="btn btn-hover color-4 btnSearch" id='deleteInv' style="font-size: 11px;font-weight:100;max-height: 55px;margin-top:10px;margin-left:1.1rem;margin-left: 0.1rem;font-weight: bolder;width: 100%;position: relative;top: -4px;"> ESCLUDI DA INVENTARIO </button>
-
+                                <button type='submit' class="btn btn-hover color-4 btnSearch" id='deleteInv' style="font-size: 11px;font-weight:100;max-height: 55px;margin-top:10px;margin-left:1.1rem"> ESCLUDI DA
+                                    INVENTARIO </button>
                             </form>
 
 
@@ -460,33 +461,7 @@ navigator.mediaDevices.getUserMedia({
             loader.hide();
             $(document).ready(function() {
 
-                function getStatusDescription(status, type) {
-    const statusMap = {
-        nuovo: {
-            A: "Stock",
-            C: "Virtuale",
-            R: "Richiesto",
-            T: "Assegnato",
-            U: "Uscito",
-            V: "Venduto",
-            M: "Manuale",
-        },
-        usato: {
-            A: "Stock",
-            S: "Venduto",
-            R: "Rottamazione",
-            U: "Uscito",
-            V: "Vendita",
-            M: "Manuale",
-        }
-    };
-    return statusMap[type]?.[status] || "Nessuno status";
-}
-
-
-
-
-                //ANCHOR Cerca veicolo
+                
                 $('#cerca').click(function(e) {
                  e.preventDefault();   
                  $('.qui').hide();
@@ -547,20 +522,10 @@ navigator.mediaDevices.getUserMedia({
                         success: function(response) { 
                             loader.hide();
 
-                            const immagini = response.car.immagini; 
-
-                     
-
-                        var tel = response.car.telaio || response.car.vin;
-                        // Salva il valore nel local storage
-                        localStorage.setItem('telaio', tel);
-
-                        console.log('Telaio salvato nel local storage:', telaio);
-
-
-
-                        var status_n = response.car.status;
-                        var status_nuovo;
+                            console.log(response);
+                        
+                            var status_n = response.car.status;
+                            var status_nuovo;
 
 
                           var latitudine = $('#latitude').val(); 
@@ -569,7 +534,34 @@ navigator.mediaDevices.getUserMedia({
 
                             if (status_n) {
 
-                                var status_nuovo = getStatusDescription(response.car.status, 'nuovo');
+                                switch (status_n) {
+                                    case 'A':
+                                        status_nuovo = "Stock";
+                                        break;
+                                    case 'C':
+                                        status_nuovo = "Virtuale";
+                                        break;
+                                    case 'R':
+                                        status_nuovo = "Richiesto";
+                                        break;
+                                    case 'T':
+                                        status_nuovo = "Assegnato";
+                                        break;
+                                    case 'U':
+                                        status_nuovo = "Uscito";
+                                        break;
+                                    case 'V':
+                                        status_nuovo = "Venduto";
+                                        break;
+                                    case 'M':
+                                        status_nuovo = "Manuale";
+                                        break;
+
+                                    default:
+                                        status_nuovo = "Nessuno status";
+                                }
+
+
                             }
 
 
@@ -580,7 +572,30 @@ navigator.mediaDevices.getUserMedia({
 
                             if (status_u) {
 
-                                var status_usato = getStatusDescription(response.car.status, 'usato');
+                                switch (status_u) {
+                                    case 'A':
+                                        status_usato = "Stock";
+                                        break;
+                                    case 'S':
+                                        status_usato = "Venduto";
+                                        break;
+                                    case 'R':
+                                        status_usato = "Rottamazione";
+                                        break;
+                                    case 'U':
+                                        status_usato = "Uscito";
+                                        break;
+                                    case 'V':
+                                        status_usato = "Vendita";
+                                        break;
+                                    case 'M':
+                                        status_usato = "Manuale";
+                                        break;
+
+                                    default:
+                                        status_usato = "Nessuno status";
+                                }
+
 
                             }
 
@@ -656,65 +671,16 @@ navigator.mediaDevices.getUserMedia({
                             noResult.empty();
 
 
-                            var inventarioStatus = response.test.invent; // Memorizza il valore di inventario
-console.log('Inventario Status:', inventarioStatus);
 
-var backgroundColor = "";
-var fontSize = "15px"; // Imposta la dimensione del font a 15px
-var borderRadius = "30px"; // Imposta il border-radius a 30px
-var padding = "5px 9px"; // Imposta il padding a 5px 9px
-var color = "white"; // Imposta il colore del testo a bianco
-var width = "32px"; // Imposta la larghezza a 32px
-var height = "32px"; // Imposta l'altezza a 32px
-var display = "inline-block"; // Imposta il display inline-block
-
-// Normalizza il valore di inventario per evitare problemi di case-sensitivity
-if (inventarioStatus) {
-    inventarioStatus = inventarioStatus.toLowerCase();
-}
-
-// Controlla il valore di inventario e imposta il colore di sfondo
-if (inventarioStatus === "si") {
-    backgroundColor = "green";
-} else if (inventarioStatus === "no") {
-    backgroundColor = "red";
-} else {
-    console.warn('Valore inventario non riconosciuto:', inventarioStatus);
-}
-
-$('#veicolo').append(
-    "<div class='dati-header'>" +
-        "<div class='subTitleVeicolo' style='display:block;font-weight:700'>Veicolo: " +
-        "<span class='info-veicolo'> <strong>" + nuovo_usato + "</strong> </span>" +
-        "</div>" +
-        "<div class='subTitleStatus' style='display:block;font-weight:700'>Status: " +
-        "<span class='info-stato'>" + status + "</span>" +
-        "</div>" +
-        "<div class='subTitleInventariato' style='display:block;font-weight:700'>Inventariato: " +
-        "<span class='info-inventariato' id='inventario'>" + inventarioStatus + "</span>" +
-        "</div>" +
-    "</div>"
-).promise().done(function() {
-    // Assicurati che l'elemento esista prima di applicare gli stili
-    if ($('#inventario').length) {
-        $('#inventario').css({
-            'background-color': backgroundColor,
-            'font-size': fontSize,
-            'border-radius': borderRadius,
-            'padding': padding,
-            'color': color,
-            'width': width,
-            'height': height,
-            'display': display
-        });
-    } else {
-        console.error('Elemento #inventario non trovato nel DOM.');
-    }
-});
-
-
-
-
+                            $('#veicolo').append(
+                                "<div class='subTitleVeicolo' style='display:block;font-weight:700'>" + "Veicolo: " +
+                                "<span class='info-veicolo'> <strong>" + nuovo_usato + "</strong> </span>" +
+                                "</div>" +
+                                "<div class='subTitleStatus' style='display:block;font-weight:700'>Status: <span class='info-stato'>" + status +
+                                "</span>" + "</div>" +
+                                "<div class='subTitleInventariato' style='display:;font-weight:700'>Inventariato: <span class='info-inventariato' id='inventario'>" +
+                                response.test.invent + "</span>" + "</div>"
+                            );
 
                             //-------------------------------------------------------------------------
 
@@ -766,14 +732,10 @@ $('#veicolo').append(
                                     linea = "Nessun valore";
                             }
 
-                            
+
                             // controllo l'ubicazione
-                            var luogo = 
-                                    response?.car?.descrizione_ubicazioni || 
-                                    response?.car?.desc_ubicazione || 
-                                    response?.car?.ubicazione || 
-                                    response?.trovata?.luogo || 
-                                    'NC';
+                            var luogo = response.car.descrizione_ubicazioni || response.car.desc_ubicazione || response.car.ubicazione || response.trovata.luogo || 'NC';
+                           
 
                             var operatore;
                             var data;
@@ -791,32 +753,70 @@ $('#veicolo').append(
 
                             }
 
+                          
+
+                             
+                       
+
                             $('#tableVeicoli').append(
-                                "<div class='cell cell-targa'><span class='span-cell-targa' style='color:gray;margin-top:-4px;'>Targa:</span> <span class='d-block dato-cell-targa'><strong> " + response.car.targa + ' ' +
+                                "<div class='cell'><span style='color:gray;margin-top:-4px;'>Targa:</span> <span class='d-block'><strong> " + response.car
+                                .targa + ' ' +
                                 "</span></strong>" + "</div>" +
-                                "<div class='cell cell-ritiro'><span class='span-cell-ritiro'>Tipo di ritiro:</span> <span class='d-block dato-cell-ritiro'><strong> " + (linea) +
+                                "<div class='cell cell-ritiro'><span style='color:gray'>Tipo di ritiro:</span> <span class='d-block'><strong> " + (linea) +
                                 "</span></strong>" + "</div>" +
-                                "<div class='cell cell-telaio'><span class='span-cell-telaio'>Telaio:</span> <span class='d-block dato-cell-telaio'><strong> " + (response.car.telaio ? response.car.telaio : response.car.vin) +
-                                "</span> </strong>" + "</div>" +
-                                "<div class='cell cell-ncontratto'><span class='span-cell-ncontratto'>N° contratto:</span> <span class='d-block dato-cell-ncontratto'><strong> " + (response.car.numero_contratto ?? '-') +
+                                "<div class='cell'><span style='color:gray'>Telaio:</span> <span class='d-block'><strong> " + (response.car
+                                    .telaio ?
+                                    response.car.telaio : response.car.vin) +
+                                "</span> </strong>" +
+                                "</div>" +
+                                "<div class='cell cell-ncontratto'><span style='color:gray'>N° contratto:</span> <span class='d-block'><strong> " + (response
+                                    .car
+                                    .numero_contratto ?? '-') + "</span></strong>" + "</div>" +
+                                "<div class='cell'><span style='color:gray'>Colore:</span> <span class='d-block'><strong> " + response.car
+                                .colore +
                                 "</span></strong>" + "</div>" +
-                                "<div class='cell cell-colore'><span class='span-cell-colore'>Colore:</span> <span class='d-block dato-cell-colore'><strong> " + response.car.colore +
+                                "<div class='cellData cell-stipula-contratto'><span style='color:gray'>Data stipula contratto:</span> <span class='d-block'><strong> " +
+                                (response.car.data_contratto ?? '-') + "</span></strong>" +
+                                "</div>" +
+                                "<div class='cell'><span style='color:gray'>Ubicazione:</span> <span class='d-block'><strong> " + luogo +
                                 "</span></strong>" + "</div>" +
                                 
                                 "<div class='cellData cell-data-vendita'><span style='color:gray'>Data fattura vendita:</span> <span class='d-block'><strong> " +
                                 (response
                                     .car.data_fattura_v ?? '-') + "</span></strong>" +
                                 "</div>" +
+                                
+                                // "<div class='cellData cell'>Data chiusura contratto: <span><strong> " +
+                                // (response.car.data_uscita ?? '-') + "</span></strong>" +
+                                // "</div>" +
                                
 
+                                 
+                                  // Griglia Bootstrap con due row e tre colonne per row
+                                //   "<table class='table table-bordered table-dati-operatore'>" +
+                                //     "<thead class='table-light'>" +
+                                //         "<tr>" +
+                                //             "<th>Operatore</th>" +
+                                //             "<th>Ubicazione</th>" +
+                                //             "<th>Data</th>" +
+                                //         "</tr>" +
+                                //     "</thead>" +
+                                //     "<tbody>" +
+                                //         "<tr>" +
+                                //             "<td>'"+operatore + "'</td>" +
+                                //             "<td>'"+luogo + "'</td>" +
+                                //             "<td>'"+data + "'</td>" +
+                                //         "</tr>" +
+                                //     "</tbody>" +
+                                // "</table>" +
+                               "<p class='inventariato'>Inventariato dall'operatore: '"+operatore + "' in data: '"+data + "' presso: '"+luogo + "'</p>"+
 
-                               "<p id='no_invent'></p>"+
                                 "</div>" +
                                
                                 "<form method='post' style='width:100%' action='{{ route('store-trovata') }}'>" +
                                 '@csrf' +
                                 "<input name='id_operatore' hidden id='id_operatore' value='{{ Auth::user()->id }}'>" +
-                                "<input name='user_operatore' hidden  id='user_operatore' value='{{ Auth::user()->name }}'>" +
+                                "<input name='user_operatore'  id='user_operatore' value='{{ Auth::user()->name }}'>" +
                                 "<input name='idveicolo' hidden id='idveicolo' value='" +
                                 response.car.id_veicolo + "'>" +
                                 "<input name='nuovo_usato' hidden id='nuovo_usato' value='" + (
@@ -824,7 +824,7 @@ $('#veicolo').append(
                                 "<input name='ubicazione' hidden id='ubicazione' value='{{ Auth::user()->ubicazione }}'>" +
                                 "<input name='latitudine' hidden  id='' value='"+latitudine+"'>" +
                                 "<input name='longitudine' hidden id='' value='"+longitudine+"'>" +
-                                "<input readonly name='indirizzo_gps' hidden id='indirizzo_gps' value='"+indirizzo+"'>" +
+                                "<input readonly name='indirizzo_gps'  id='indirizzo_gps' value='"+indirizzo+"'>" +
                                 "<button type='submit'  id='confInv' >" +
                                 'CONFERMA INVENTARIO' + "</button>" + "</form>" +
                                 "<div class='textNessunaNota' id='nota_manuale'></div>" +
@@ -836,7 +836,7 @@ $('#veicolo').append(
 
                             if (response.test.invent == "No") {
                                 $('#confInv').show();
-                                $('#no_invent').text('');
+                                $('#no_invent').text('Ancora non inventariato');
                                 $('#btnModInv').hide();
                                 $('#addNota').removeClass('positionBtnAddNoteInvSi');
                                 $('#addNota').addClass('positionBtnAddNoteInvNo');
@@ -845,9 +845,9 @@ $('#veicolo').append(
 
                             if (response.test.invent == "Si") {
                                 $('#confInv').hide();
-                                $('#no_invent').text('Inventariato dall\'operatore: ' + response
-                                    .trovata.user_operatore + ' in data: ' + response.trovata
-                                    .dataOra + ' presso ' + response.trovata.luogo).css('color', 'black').css('font-size', '12px')
+                                $('#no_invent').text('Inventariato dall\'operatore, ' + response
+                                    .trovata.user_operatore + ' in data ' + response.trovata
+                                    .dataOra + ' presso ' + response.trovata.luogo);
                                 //Aggiunta pulsante modifica stato inventariato
                                 $('#veicoloTrovataId').val(response.trovata.idveicolo);
                                 $('#btnModInv').show();
@@ -888,7 +888,23 @@ $('#veicolo').append(
                                 
                                 
 
-                          
+                       // Controllo se è stato inventariato il veicolo (Si/No)
+
+                            if (response.test.invent == "No") {
+                                $('#confInv').show();
+                                $('#no_invent').text('Ancora non inventariato');
+
+
+                            }
+
+
+                            if (response.test.invent == "Si") {
+                                $('#confInv').hide();
+                                $('#no_invent').text('Inventariato dall\'operatore, ' + response
+                                    .trovata.user_operatore + ' in data ' + response.trovata
+                                    .dataOra + ' presso ' + response.trovata.luogo);
+
+                            }
 
                             // Controllo se il veicolo nuovo o usato  riporta delle note infinity
 
@@ -906,8 +922,6 @@ $('#veicolo').append(
 
                         }
 
-
-                    
                         // In caso di no response 
 
                     }).fail(function() {
@@ -925,7 +939,7 @@ $('#veicolo').append(
                         $('#noresult').append(
     "<h4 style='font-size:29px;text-align:center;margin-top:18px;'>" +
     'Nessun risultato' + "</h4>" +
-    "<a href='{{route('new-veicolo')}}'>" +
+    "<a href='/aggiungi-veicolo'>" +
     "<button class='cellData' id='myButton' style='width:86%; display:block; margin-left:auto; margin-right:auto;'>CREA UN NUOVO VEICOLO</button>" +
     "</a>"
 );
@@ -937,19 +951,11 @@ $('#veicolo').append(
                        $('#contenitoreRicerca').addClass('cardRisultatiRicercaNotfound');
 
                     });
-
-             
-                }); 
+                });
             });
 
 
-           $('#confInv').click(function(){
-
-            var telaio = localStorage.getItem('telaio');
-            alert(telaio);
-
-
-           });
+           
 
 
     </script>
@@ -966,23 +972,7 @@ $(document).ready(function () {
 
 </script>
 
-<script>
-   $(document).ready(function () {
-    // Funzione per formattare la data
-    function formatEuropeanDate(dateString) {
-        if (!dateString || dateString.trim() === '-') return '-'; // Se vuota, ritorna '-'
-        const parts = dateString.split('-'); // Supponendo formato yyyy-mm-dd
-        return parts.length === 3 ? `${parts[2]}-${parts[1]}-${parts[0]}` : dateString;
-    }
 
-    // Cerca e formatta le date nel DOM
-    $('.dato-cell-stipula-contratto, .dato-cell-vendita').each(function () {
-        const originalDate = $(this).text().trim(); // Ottieni il testo della cella
-        const formattedDate = formatEuropeanDate(originalDate); // Formatta la data
-        $(this).text(formattedDate); // Aggiorna il contenuto
-    });
-});
-</script>
 
 
 

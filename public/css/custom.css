@@ -53,7 +53,6 @@ input {
   font-size: 12px;
   padding: 6px 5px 5px;
 }
-
 input:focus {
   border-color: #3BA9D8;
 }
@@ -71,7 +70,8 @@ input:focus {
   font-size: 17px;
 }
 .ricercaVeicoli .card-deck .cardRisultatiRicerca .card-body {
-  margin-top: -35px;
+  margin-top: -48px;
+  padding: 22px;
 }
 .ricercaVeicoli .card-deck .cardRisultatiRicerca .headModello .card-header {
   border: none;
@@ -138,32 +138,26 @@ input:focus {
   border-radius: 50px;
   transition: all 0.4s ease-in-out;
 }
-
 .btn-hover:hover {
   color: #fff;
   background-position: 100% 0;
   transition: all 0.4s ease-in-out;
 }
-
 .btn-hover:focus {
   outline: none;
 }
-
 .btn-hover.color-1 {
   background-image: linear-gradient(to right, #19a8f5, #0f74aa, #4ca3d6, #95d4f7);
   border-radius: 30px;
 }
-
 .btn-hover.color-2 {
   background-image: linear-gradient(to right, #0b7a10, #0f74aa, #4ca3d6, #e71515);
   border-radius: 30px;
 }
-
 .btn-hover.color-3 {
   background-image: linear-gradient(to right, #694e00, #cca900, #886e00, #ffa500);
   border-radius: 30px;
 }
-
 .btn-hover.color-4 {
   background-image: -mozlinear-gradient(to right, #080808, #2e2e2e, #302b2b, #453801);
   background-image: linear-gradient(to right, #080808, #2e2e2e, #302b2b, #453801);
@@ -171,7 +165,6 @@ input:focus {
   height: 58px;
   border-radius: 30px;
 }
-
 .btn-hover.color-5 {
   background-image: -mozlinear-gradient(to right, #080808, #2e2e2e, #302b2b, #453801);
   background-image: linear-gradient(to right, #ee2a2a, #2e2e2e, #302b2b, #453801);
@@ -179,25 +172,20 @@ input:focus {
   height: 53px;
   border-radius: 30px;
 }
-
 .btn-hover.color-6 {
   background-image: linear-gradient(to right, #277104, #b89b0e, #886e00, #ffa500);
   border-radius: 30px;
 }
-
 .btn-hover.color-7 {
   background-image: linear-gradient(to right, #ff0e0e, #99bd11, #886e00, #d10808);
   border-radius: 30px;
 }
-
 .btn-hover.color-8 {
   background: -webkit-linear-gradient(right, #ff0000, #cc0000, #880000, #690000);
 }
-
 .btn-hover.color-9 {
   background: -webkit-linear-gradient(right, #006939, #00884a, #00cc6e, #0e9b5a);
 }
-
 .btn-hover.color-10 {
   background: -webkit-linear-gradient(right, #006939, #00884a, #00cc6e, #00ff89);
 }
@@ -216,18 +204,23 @@ input:focus {
   border-radius: 30px;
   font-size: 13px;
 }
-
 #confInv:hover {
   background-image: linear-gradient(to right, #080808, #5e5e5e, #302b2b, #727272);
 }
 
 .classeModello {
-  display: inline-block; /* Necessario per il limite di larghezza */
-  max-width: 30ch; /* Limita a 30 caratteri (approssimativamente) */
-  word-wrap: break-word; /* Consente di andare a capo quando necessario */
-  word-break: break-word; /* Per sicurezza, aggiunge supporto per altre situazioni */
-  white-space: normal; /* Permette il ritorno a capo */
-  text-align: left; /* Allineamento del testo */
+  display: inline-block;
+  /* Necessario per il limite di larghezza */
+  max-width: 30ch;
+  /* Limita a 30 caratteri (approssimativamente) */
+  word-wrap: break-word;
+  /* Consente di andare a capo quando necessario */
+  word-break: break-word;
+  /* Per sicurezza, aggiunge supporto per altre situazioni */
+  white-space: normal;
+  /* Permette il ritorno a capo */
+  text-align: left;
+  /* Allineamento del testo */
 }
 
 .cell {
@@ -317,7 +310,6 @@ input:focus {
   border-radius: 23px;
   width: 97%;
 }
-
 #myButton:hover {
   background-image: linear-gradient(to right, #95d4f7, #4ca3d6, #0f74aa, #19a8f5);
 }
@@ -325,7 +317,7 @@ input:focus {
 .textNessunaNotaInfinity {
   display: block;
   color: gray;
-  margin: -32px auto;
+  margin: -27px auto;
 }
 
 .textAncoraNoInventory {
@@ -353,7 +345,6 @@ input:focus {
   font-size: 13px;
   margin: auto;
 }
-
 #addNota:hover {
   background-image: linear-gradient(to right, #95d4f7, #4ca3d6, #0f74aa, #19a8f5);
 }
@@ -419,7 +410,7 @@ input:focus {
 
 .esportaDocumenti .btn-hover {
   width: 100%;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   color: #fff;
   cursor: pointer;
@@ -436,8 +427,7 @@ input:focus {
   border-collapse: collapse;
   width: 100%;
 }
-.ricercaPiazzali th,
-.ricercaPiazzali td {
+.ricercaPiazzali th, .ricercaPiazzali td {
   text-align: left;
   padding: 8px;
   color: black;
@@ -465,8 +455,7 @@ input:focus {
   cursor: pointer;
   text-decoration: underline;
 }
-.ricercaPiazzali #testoVeicoloU,
-.ricercaPiazzali #testoVeicoloN {
+.ricercaPiazzali #testoVeicoloU, .ricercaPiazzali #testoVeicoloN {
   color: #000000;
   margin-top: 10px;
 }
@@ -481,33 +470,27 @@ input:focus {
 .preloader {
   margin: 20% auto 0;
   transform: translateZ(0);
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  animation: animation 1.2s infinite ease-in-out;
+  animation-delay: -0.16s;
 }
-
-.preloader:before,
-.preloader:after {
+.preloader:before, .preloader:after {
   content: "";
   position: absolute;
   top: 0;
 }
-
-.preloader:before,
-.preloader:after,
-.preloader {
+.preloader:before, .preloader:after {
   border-radius: 50%;
   width: 2em;
   height: 2em;
   animation: animation 1.2s infinite ease-in-out;
 }
-
-.preloader {
-  animation-delay: -0.16s;
-}
-
 .preloader:before {
   left: -3.5em;
   animation-delay: -0.32s;
 }
-
 .preloader:after {
   left: 3.5em;
 }
@@ -603,7 +586,6 @@ img {
   width: 34px;
   height: 20px;
 }
-
 .switch input {
   display: none;
 }
@@ -619,7 +601,6 @@ img {
   transition: 0.4s;
   border-radius: 20px;
 }
-
 .slider:before {
   position: absolute;
   content: "";
@@ -635,7 +616,6 @@ img {
 input:checked + .slider {
   background-color: #2196F3;
 }
-
 input:checked + .slider:before {
   transform: translateX(14px);
 }
@@ -644,7 +624,7 @@ input:checked + .slider:before {
   width: 100px;
   height: 100px;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
@@ -673,152 +653,228 @@ input:checked + .slider:before {
 }
 
 .card-ricerca {
-  background-color: #000; /* Sfondo nero */
-  color: #fff; /* Testo bianco per visibilità */
-  max-height: 200px; /* Altezza massima */
-  overflow-y: auto; /* Barra di scorrimento verticale se necessario */
-  border-radius: 8px; /* Bordo arrotondato */
-  padding: 15px; /* Spaziatura interna */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombra per un effetto migliore */
+  background-color: #000;
+  /* Sfondo nero */
+  color: #fff;
+  /* Testo bianco per visibilità */
+  max-height: 200px;
+  /* Altezza massima */
+  overflow-y: auto;
+  /* Barra di scorrimento verticale se necessario */
+  border-radius: 8px;
+  /* Bordo arrotondato */
+  padding: 15px;
+  /* Spaziatura interna */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Ombra per un effetto migliore */
 }
 
 .dati-header {
-  width: 108px;
+  width: 136px;
   font-size: 12px;
   text-align: end;
   position: absolute;
-  top: 76px;
-  left: 346px;
+  top: 78px;
+  left: 316px;
   margin-top: -62px;
 }
 
 .limit-text {
-  display: inline-block; /* Necessario per impostare un limite di larghezza */
-  max-width: 24ch; /* Limita il testo a circa 30 caratteri per riga */
-  word-wrap: break-word; /* Spezza le parole lunghe */
-  word-break: break-word; /* Supporto aggiuntivo per spezzare le parole */
-  white-space: normal; /* Permette il ritorno a capo */
-  text-align: left; /* Mantiene l'allineamento a sinistra */
+  display: inline-block;
+  /* Necessario per impostare un limite di larghezza */
+  max-width: 17ch;
+  /* Limita il testo a circa 30 caratteri per riga */
+  word-wrap: break-word;
+  /* Spezza le parole lunghe */
+  word-break: break-word;
+  /* Supporto aggiuntivo per spezzare le parole */
+  white-space: normal;
+  /* Permette il ritorno a capo */
+  text-align: left;
+  /* Mantiene l'allineamento a sinistra */
+}
+
+#indirizzo_gps {
+  width: 96%;
+  margin-left: 0.6rem;
+  position: relative;
+  top: -4rem;
+  border: none;
+}
+
+.cell-targa {
+  margin-top: -34px;
+  margin-left: 1px;
+}
+
+.span-cell-targa {
+  font-size: 12px;
+  left: -7px;
+  position: relative;
+}
+
+.cell-ritiro {
+  margin-top: -30px;
+  margin-right: -10px;
+  max-width: 110px;
+}
+
+.span-cell-ritiro {
+  font-size: 12px;
+  position: relative;
+  left: 24px;
+  color: gray;
+}
+
+.cell-telaio {
+  margin-top: -4px;
+  margin-left: -15px;
+}
+
+.span-cell-telaio {
+  font-size: 12px;
+  position: relative;
+  left: 9px;
+  color: gray;
+}
+
+.cell-ncontratto {
+  margin-right: -1px;
+  margin-top: 0px;
+  max-width: 88px;
+}
+
+.span-cell-ncontratto {
+  font-size: 12px;
+  position: relative;
+  left: 9px;
+  color: gray;
+}
+
+.cell-colore {
+  margin-top: -3px;
+  margin-left: -15px;
+}
+
+.span-cell-colore {
+  font-size: 12px;
+  position: relative;
+  left: 9px;
+  color: gray;
+}
+
+.cell-stipula-contratto {
+  margin-right: -2px;
+  margin-top: -2px;
+  max-width: 147px;
+}
+
+.span-cell-stipula-contratto {
+  font-size: 12px;
+  position: relative;
+  left: 9px;
+  color: gray;
+}
+
+.cell-ubicazione {
+  margin-top: -5px;
+  margin-left: -15px;
+}
+
+.span-cell-ubicazione {
+  font-size: 12px;
+  position: relative;
+  left: 9px;
+  color: gray;
+}
+
+.cell-data-vendita {
+  margin-right: -5px;
+  margin-top: 0px;
+  max-width: 139px;
+}
+
+.span-cell-data-vendita {
+  font-size: 12px;
+  position: relative;
+  left: 9px;
+  color: gray;
+}
+
+.dato-cell-targa {
+  font-size: 12px;
+  position: relative;
+  left: -8px;
+}
+
+.dato-cell-ritiro {
+  font-size: 12px;
+  position: relative;
+  left: -3px;
+  float: inline-end;
+}
+
+.dato-cell-telaio {
+  font-size: 12px;
+  position: relative;
+  left: 9px;
+}
+
+.dato-cell-ncontratto {
+  font-size: 12px;
+  position: relative;
+  left: 6px;
+  max-width: 36px;
+  float: inline-end;
+}
+
+.dato-cell-colore {
+  font-size: 12px;
+  position: relative;
+  left: 9px;
+}
+
+.dato-cell-stipula-contratto {
+  font-size: 12px;
+  position: relative;
+  left: 6px;
+  max-width: 70px;
+  float: inline-end;
+}
+
+.dato-cell-ubicazione {
+  font-size: 12px;
+  position: relative;
+  left: 9px;
+}
+
+.dato-cell-vendita {
+  font-size: 12px;
+  position: relative;
+  left: 4px;
+  max-width: 69px;
+  float: inline-end;
+}
+
+.dato-cell-data-vendita {
+  font-size: 12px;
+  position: relative;
+  left: 9px;
+}
+
+.info-operatore, .info-data {
+  font-size: 11px;
+  font-weight: 800;
+  color: gray;
+}
+
+.info-inventario, .info-luogo {
+  font-size: 11px;
+  font-weight: 800;
+  color: red;
 }
 
 @media (max-width: 576px) {
-  .ricercaVeicoli .positionBtnAddNoteInvNo {
-    position: relative;
-    top: -92px;
-    left: 191px;
-  }
-  .ricercaVeicoli .cell {
-    width: 45%;
-  }
-  .ricercaVeicoli #confInv {
-    font-size: 13px;
-    font-weight: 700;
-    position: relative;
-    top: -1rem;
-  }
-  .ricercaVeicoli #addNota {
-    font-size: 12px;
-    position: relative;
-    top: -1rem;
-    left: 1px;
-  }
-  .ricercaVeicoli #indirizzo_gps {
-    width: 96%;
-    margin-left: 0.6rem;
-    position: relative;
-    top: -1.8rem;
-    border: 1px solid #e0dfdf;
-  }
-  .ricercaVeicoli .inventariato {
-    position: relative;
-    top: 2.6rem;
-    font-size: 11px !important;
-    color: gray;
-    left: 1rem;
-  }
-  .ricercaVeicoli .btn-foto {
-    position: relative;
-    top: -27.5px;
-    left: -344px;
-    color: gray;
-    display: none;
-  }
-  .ricercaVeicoli .card {
-    height: auto;
-    overflow-y: auto;
-  }
-  .ricercaVeicoli .subTitleVeicolo {
-    position: relative;
-    top: -3.8rem;
-    left: 19.2rem;
-    font-size: 13px;
-  }
-  .ricercaVeicoli .subTitleStatus {
-    position: relative;
-    top: -2.7rem;
-    left: 10.9rem;
-    font-size: 13px;
-  }
-  .ricercaVeicoli .subTitleInventariato {
-    position: relative;
-    top: -1.6rem;
-    left: 1.5rem;
-    font-size: 13px;
-  }
-  .ricercaVeicoli .classeModello {
-    position: relative;
-    top: -1.3rem;
-    left: -4rem;
-    font-weight: bolder;
-  }
-  .ricercaVeicoli .cell-ritiro {
-    position: relative;
-    left: 7px;
-    max-width: 84px;
-    padding: 0px;
-  }
-  .ricercaVeicoli .cell-ncontratto {
-    position: relative;
-    left: 18px;
-    max-width: 85px;
-    padding: 0px;
-  }
-  .ricercaVeicoli .cell-stipula-contratto {
-    position: relative;
-    left: 17px;
-    max-width: 141px;
-    padding: 0px;
-  }
-  .ricercaVeicoli .cell-data-vendita {
-    position: relative;
-    left: 20px;
-    max-width: 134px;
-    padding: 0px;
-  }
-  .ricercaVeicoli h5 {
-    font-size: 18px;
-  }
-}
-.table-dati-operatore {
-  border: 1px solid #dee2e6;
-  font-size: 12px;
-  width: 95%;
-  margin: auto;
-  margin-top: 10px;
-}
-.table-dati-operatore th, .table-dati-operatore td {
-  padding: 0.1rem;
-}
-.table-dati-operatore #indirizzo_gps {
-  border: 2px solid #d9d9d9;
-  border-radius: 5px;
-  width: 97%;
-  outline: 0;
-  font-size: 12px;
-  padding: 6px 5px 5px;
-}
-
-@media (min-width: 576px) {
   .login .card-deck .card {
     min-width: 135%;
     margin: auto;
@@ -847,10 +903,85 @@ input:checked + .slider:before {
   }
   .inventariato {
     position: relative;
-    top: 2.6rem;
+    top: -0.3rem;
     font-size: 11px !important;
     color: gray;
-    left: 1rem;
+    left: 0.8rem;
+  }
+  .btn-foto {
+    position: relative;
+    top: -25px;
+    left: -345px;
+    color: gray;
+  }
+  .card {
+    overflow-y: auto;
+    min-width: -moz-fit-content;
+    min-width: fit-content;
+  }
+  .classeModello {
+    position: relative;
+    top: -63px;
+    left: -5px;
+  }
+  .cell-ritiro {
+    position: relative;
+    left: -16px;
+    max-width: 89px;
+    padding: 0px;
+  }
+  .cell-ncontratto {
+    position: relative;
+    left: 0px;
+    max-width: 85px;
+    padding: 0px;
+  }
+  .cell-stipula-contratto {
+    position: relative;
+    left: -2px;
+    max-width: 141px;
+    padding: 0px;
+  }
+  .cell-data-vendita {
+    position: relative;
+    left: -2px;
+    max-width: 134px;
+    padding: 0px;
+  }
+}
+@media (min-width: 576px) {
+  .login .card-deck .card {
+    min-width: 135%;
+    margin: auto;
+  }
+  .heightBodyCardRisultati {
+    height: auto;
+    width: 31rem;
+  }
+  #confInv {
+    font-size: 12px;
+    position: relative;
+    top: -1.2rem;
+  }
+  #addNota {
+    font-size: 12px;
+    position: relative;
+    top: -1rem;
+    left: 1px;
+  }
+  #indirizzo_gps {
+    width: 96%;
+    margin-left: 0.6rem;
+    position: relative;
+    top: -4rem;
+    border: none;
+  }
+  .inventariato {
+    position: relative;
+    top: -0.3rem;
+    font-size: 11px !important;
+    color: gray;
+    left: 0.8rem;
   }
   .btn-foto {
     position: relative;
@@ -864,30 +995,8 @@ input:checked + .slider:before {
   .classeModello {
     position: relative;
     top: -63px;
-  }
-  .cell-ritiro {
-    position: relative;
-    left: 7px;
-    max-width: 89px;
-    padding: 0px;
-  }
-  .cell-ncontratto {
-    position: relative;
-    left: 18px;
-    max-width: 85px;
-    padding: 0px;
-  }
-  .cell-stipula-contratto {
-    position: relative;
-    left: 17px;
-    max-width: 141px;
-    padding: 0px;
-  }
-  .cell-data-vendita {
-    position: relative;
-    left: 20px;
-    max-width: 134px;
-    padding: 0px;
+    font-size: 24px;
+    left: -11px;
   }
 }
 @media (min-width: 768px) {
@@ -915,7 +1024,7 @@ input:checked + .slider:before {
   .ricercaVeicoli #confInv {
     font-size: 12px;
     position: relative;
-    top: -1.2rem;
+    top: -1.6rem;
   }
   .ricercaVeicoli #addNota {
     font-size: 12px;
@@ -923,19 +1032,12 @@ input:checked + .slider:before {
     top: -1rem;
     left: 1px;
   }
-  .ricercaVeicoli #indirizzo_gps {
-    width: 96%;
-    margin-left: 0.6rem;
-    position: relative;
-    top: -1.8rem;
-    border: 1px solid #e0dfdf;
-  }
   .ricercaVeicoli .inventariato {
     position: relative;
-    top: 2.6rem;
+    top: -0.1rem;
     font-size: 11px !important;
     color: gray;
-    left: 1rem;
+    left: 0.4rem;
   }
   .ricercaVeicoli .btn-foto {
     position: relative;
@@ -949,30 +1051,6 @@ input:checked + .slider:before {
   }
   .card-deck {
     z-index: 600;
-  }
-  .cell-ritiro {
-    position: relative;
-    left: 7px;
-    max-width: 88px;
-    padding: 0px;
-  }
-  .cell-ncontratto {
-    position: relative;
-    left: 18px;
-    max-width: 85px;
-    padding: 0px;
-  }
-  .cell-stipula-contratto {
-    position: relative;
-    left: 17px;
-    max-width: 141px;
-    padding: 0px;
-  }
-  .cell-data-vendita {
-    position: relative;
-    left: 20px;
-    max-width: 134px;
-    padding: 0px;
   }
 }
 @media (min-width: 992px) {
@@ -1006,4 +1084,5 @@ input:checked + .slider:before {
     position: relative;
     left: -2rem;
   }
-}/*# sourceMappingURL=custom.css.map */
+}
+/*# sourceMappingURL=custom.css.map */

@@ -243,7 +243,7 @@ Crea ruolo
                         </div>
 
                         <button style="text-decoration:none; color:white; line-height: 39px;"
-                            class="btn btn-hover color-2 btnSearch d-block mt-5 mb-2" type="submit">AGGIORNA</button>
+                            class="btn btn-hover color-2 btnSearch btnSearchPass d-block mt-5 mb-2" type="submit">AGGIORNA</button>
 
                     </form>
                 </div>
@@ -279,7 +279,7 @@ Crea ruolo
                     </div>
                       
                     <button style="text-decoration:none; color:white; line-height: 39px;"
-                        class="btn btn-hover color-2 btnSearch d-block mt-5 mb-2" type="submit">AGGIORNA</button>
+                        class="btn btn-hover color-2 btnSearch btnSearchPass d-block mt-5 mb-2" type="submit">AGGIORNA</button>
 
                 </form>
             </div>
@@ -321,7 +321,7 @@ Crea ruolo
 
 
                         <button type="submit" style="text-decoration:none; color:white; line-height: 39px;"
-                            class="btn btn-hover color-2 btnSearch d-block mt-3 mb-2">SALVA</button>
+                            class="btn btn-hover color-2 btnSearch  d-block mt-3 mb-2">SALVA</button>
 
                     </form>
                 </div>
