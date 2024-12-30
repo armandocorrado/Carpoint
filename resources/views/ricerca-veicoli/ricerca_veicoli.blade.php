@@ -827,9 +827,7 @@ navigator.mediaDevices.getUserMedia({
                                 (response.car.data_fattura_v ?? '-') + "</span></strong>" + "</div>" +
 
                                                                 
-                                                                                                             "<p class='inventariato'><span class='info-inventario'>Inventariato</span> Operatore: <span class='info-operatore'>" + operatore +  "</span> in data: <span class='info-data'>" + formattedDate + "</span> presso: <span class='info-luogo'>" + luogo + "</span></p>" +
-
-
+                                 "<p id='inventariato'><span class='info-inventario'>Inventariato</span> Operatore: <span class='info-operatore'>" + operatore +  "</span> in data: <span class='info-data'>" + formattedDate + "</span> presso: <span class='info-luogo'>" + luogo + "</span></p>" +
 
 
                                 "</div>" +
@@ -850,27 +848,26 @@ navigator.mediaDevices.getUserMedia({
                                 'CONFERMA INVENTARIO' + "</button>" + "</form>" +
                                 "<div class='textNessunaNota' id='nota_manuale'></div>" +
                                 "<div class='textNessunaNotaInfinity' id='nota_infinity'></div>"  
-                                // '<button id="addNota" style="width: 48%;display:inline;position: relative;top: -76px;left: 268px;">AGGIUNGI NOTA</button>'
 
                             );
                       
 
-                                               if (response.test.invent == "No") {;
-    $('#confInv').show();
-    $('#inventariato').text('').hide(); // Nascondi il messaggio
-    $('#btnModInv').hide();
-    $('#addNota').removeClass('positionBtnAddNoteInvSi');
-    $('#addNota').addClass('positionBtnAddNoteInvNo');
+                    if (response.test.invent == "No") {
+                        $('#confInv').show();
+                        $('#inventariato').text('').hide(); // Nascondi il messaggio
+                        $('#btnModInv').hide();
+                        $('#addNota').removeClass('positionBtnAddNoteInvSi');
+                        $('#addNota').addClass('positionBtnAddNoteInvNo');
 
-    // Aggiungi il listener per la conferma inventario
-    $('#confInv').click(function(event) {
-        event.preventDefault();
-        if (confirm("Sei sicuro di voler confermare l'inventario per questo veicolo?")) {
-            console.log("Inventario confermato.");
-            // Aggiungi qui il codice per gestire la conferma inventario
-        }
-    });
-}
+                        // Aggiungi il listener per la conferma inventario
+                        $('#confInv').click(function(event) {
+                            // event.preventDefault();
+                            if (confirm("Sei sicuro di voler confermare l'inventario per questo veicolo?")) {
+                                console.log("Inventario confermato.");
+                             
+                            }
+                        });
+                    }
 
 if (response.test.invent == "Si") {
     $('#confInv').hide();
