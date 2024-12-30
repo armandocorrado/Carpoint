@@ -355,7 +355,7 @@ public function store(Request $request)
         $secretPassword = config('svuota-db.secret_password');  
 
         if ($request->input('secret_password') !== $secretPassword) {
-        return redirect()->back()->with(['status' => 'Password segreta errata.']);
+        return redirect()->back()->with(['error' => 'Password segreta errata.']);
         }
         
          // Cancella i file associati di VeicoliImmagini
