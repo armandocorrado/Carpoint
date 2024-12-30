@@ -442,6 +442,32 @@
             loader.hide();
             $(document).ready(function() {
 
+                function getStatusDescription(status, type) {
+    const statusMap = {
+        nuovo: {
+            A: "Stock",
+            C: "Virtuale",
+            R: "Richiesto",
+            T: "Assegnato",
+            U: "Uscito",
+            V: "Venduto",
+            M: "Manuale",
+        },
+        usato: {
+            A: "Stock",
+            S: "Venduto",
+            R: "Rottamazione",
+            U: "Uscito",
+            V: "Vendita",
+            M: "Manuale",
+        }
+    };
+    return statusMap[type]?.[status] || "Nessuno status";
+}
+
+
+
+
                 //ANCHOR Cerca veicolo
                 $('#cerca').click(function(e) {
                  e.preventDefault();   
@@ -515,8 +541,8 @@
 
 
 
-                            var status_n = response.car.status;
-                            var status_nuovo;
+                        var status_n = response.car.status;
+                        var status_nuovo;
 
 
                           var latitudine = $('#latitude').val(); 
@@ -525,34 +551,7 @@
 
                             if (status_n) {
 
-                                switch (status_n) {
-                                    case 'A':
-                                        status_nuovo = "Stock";
-                                        break;
-                                    case 'C':
-                                        status_nuovo = "Virtuale";
-                                        break;
-                                    case 'R':
-                                        status_nuovo = "Richiesto";
-                                        break;
-                                    case 'T':
-                                        status_nuovo = "Assegnato";
-                                        break;
-                                    case 'U':
-                                        status_nuovo = "Uscito";
-                                        break;
-                                    case 'V':
-                                        status_nuovo = "Venduto";
-                                        break;
-                                    case 'M':
-                                        status_nuovo = "Manuale";
-                                        break;
-
-                                    default:
-                                        status_nuovo = "Nessuno status";
-                                }
-
-
+                                var status_nuovo = getStatusDescription(response.car.status, 'nuovo');
                             }
 
 
@@ -563,30 +562,7 @@
 
                             if (status_u) {
 
-                                switch (status_u) {
-                                    case 'A':
-                                        status_usato = "Stock";
-                                        break;
-                                    case 'S':
-                                        status_usato = "Venduto";
-                                        break;
-                                    case 'R':
-                                        status_usato = "Rottamazione";
-                                        break;
-                                    case 'U':
-                                        status_usato = "Uscito";
-                                        break;
-                                    case 'V':
-                                        status_usato = "Vendita";
-                                        break;
-                                    case 'M':
-                                        status_usato = "Manuale";
-                                        break;
-
-                                    default:
-                                        status_usato = "Nessuno status";
-                                }
-
+                                var status_usato = getStatusDescription(response.car.status, 'usato');
 
                             }
 
@@ -723,10 +699,14 @@
                                     linea = "Nessun valore";
                             }
 
-
+                            
                             // controllo l'ubicazione
-                            var luogo = response.car.descrizione_ubicazioni || response.car.desc_ubicazione || response.car.ubicazione || response.trovata.luogo || 'NC';
-                           
+                            var luogo = 
+                                    response?.car?.descrizione_ubicazioni || 
+                                    response?.car?.desc_ubicazione || 
+                                    response?.car?.ubicazione || 
+                                    response?.trovata?.luogo || 
+                                    'NC';
 
                             var operatore;
                             var data;
