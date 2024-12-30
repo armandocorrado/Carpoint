@@ -833,10 +833,8 @@ navigator.mediaDevices.getUserMedia({
                                 '@csrf' +
                                 "<input name='id_operatore' hidden id='id_operatore' value='{{ Auth::user()->id }}'>" +
                                 "<input style='border:none' hidden name='user_operatore'  id='user_operatore' value='{{ Auth::user()->name }}'>" +
-                                "<input name='idveicolo' hidden id='idveicolo' value='" +
-                                response.car.id_veicolo + "'>" +
-                                "<input name='nuovo_usato' hidden id='nuovo_usato' value='" + (
-                                    response.car.telaio ? 'n' : 'u') + "'>" +
+                                "<input name='idveicolo' hidden id='idveicolo' value='" + response.car.id_veicolo + "'>" +
+                                "<input name='nuovo_usato' hidden id='nuovo_usato' value='" + (response.car.telaio ? 'n' : 'u') + "'>" +
                                 "<input name='ubicazione' hidden id='ubicazione' value='{{ Auth::user()->ubicazione }}'>" +
                                 "<input name='latitudine' hidden  id='' value='"+latitudine+"'>" +
                                 "<input name='longitudine' hidden id='' value='"+longitudine+"'>" +
@@ -890,7 +888,7 @@ navigator.mediaDevices.getUserMedia({
                                 $('#btnModInv').show();
 
                                 $('#inventariato') // Mostra il messaggio solo in questo caso
-                                .text('Inventariato dall\'operatore: ' + response.trovata.user_operatore + 
+                                .text('Inventariato da: ' + response.trovata.user_operatore + 
                                     ' in data: ' + response.trovata.dataOra + 
                                     ' presso ' + response.trovata.luogo)
                                 .css('color', 'black')
@@ -915,12 +913,30 @@ navigator.mediaDevices.getUserMedia({
 if (response.test.invent == "Si") {
     $('#confInv').hide();
     $('#inventariato') // Mostra il messaggio solo in questo caso
-        .text('Inventariato dall\'operatore: ' + response.trovata.user_operatore + 
-              ' in data: ' + response.trovata.dataOra + 
-              ' presso ' + response.trovata.luogo)
-        .css('color', 'black')
-        .css('font-size', '12px')
-        .show(); // Assicurati che sia visibile
+    .html(
+        'Inventariato da: <span class="operatore" style="color: red; font-weight: 700;">' + response.trovata.user_operatore + 
+        '</span> in data: <span class="data-ora" style="color: red; font-weight: 700;">' + formatDataEU(response.trovata.dataOra) + 
+        '</span> presso <span class="luogo" style="color: red; font-weight: 700;">' + response.trovata.luogo + '</span>'
+    )
+    .css({
+        'color': 'black',
+        'font-size': '12px'
+    })
+    .show(); // Assicurati che sia visibile
+
+// Funzione per formattare la data
+function formatDataEU(dataOra) {
+    // Supponendo che `dataOra` sia nel formato ISO, ad esempio "2024-12-30T15:45:00"
+    const data = new Date(dataOra); 
+    const giorno = data.getDate().toString().padStart(2, '0'); // gg
+    const mese = (data.getMonth() + 1).toString().padStart(2, '0'); // mm
+    const anno = data.getFullYear(); // aaaa
+    return `${giorno}/${mese}/${anno}`; // Formato europeo
+}
+
+
+
+
 
     // Aggiunta pulsante modifica stato inventariato
     $('#veicoloTrovataId').val(response.trovata.idveicolo);
@@ -1034,23 +1050,7 @@ $(document).ready(function () {
 
 </script>
 
-<script>
-   $(document).ready(function () {
-    // Funzione per formattare la data
-    function formatEuropeanDate(dateString) {
-        if (!dateString || dateString.trim() === '-') return '-'; // Se vuota, ritorna '-'
-        const parts = dateString.split('-'); // Supponendo formato yyyy-mm-dd
-        return parts.length === 3 ? `${parts[2]}-${parts[1]}-${parts[0]}` : dateString;
-    }
 
-    // Cerca e formatta le date nel DOM
-    $('.dato-cell-stipula-contratto, .dato-cell-vendita').each(function () {
-        const originalDate = $(this).text().trim(); // Ottieni il testo della cella
-        const formattedDate = formatEuropeanDate(originalDate); // Formatta la data
-        $(this).text(formattedDate); // Aggiorna il contenuto
-    });
-});
-</script>
 
 
 

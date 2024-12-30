@@ -92,6 +92,7 @@
                                             <th>Telaio</th>
                                             <th>Marca</th>
                                             <th>Modello</th>
+                                            <th>Info</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -107,6 +108,7 @@
                                             <th>Telaio</th>
                                             <th>Marca</th>
                                             <th>Modello</th>
+                                            <th>Info</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -289,6 +291,8 @@ $.each(response.veicoliNuoviDaInv, function (index, elemento) {
         "<td>" + elemento.telaio + "</td>" +
         "<td>" + elemento.descrizione_marca + "</td>" +
         "<td>" + elemento.descrizione_modello + "</td>" +
+        "<td>" + elemento.descrizione_modello + "</td>" +
+       "<td>" + "<i class='fa fa-info-circle' style='font-size: 16px; color: gray; position: relative; left: 6px;'></i>" + "</td>" + 
         "</tr>";
     $('#tablePiazzaliRisult tbody').append(riga);
 });
@@ -329,6 +333,7 @@ $.each(response.veicoliUsatiDaInv, function (index, elemento) {
         "<td>" + telaio + "</td>" +
         "<td>" + marca + "</td>" +
         "<td>" + modello + "</td>" +
+        "<td>" + "<i class='fa fa-info-circle' style='font-size: 16px; color: gray; position: relative; left: 6px;'></i>" + "</td>" +
         "</tr>";
     $('#tablePiazzaliRisultU tbody').append(riga);
 });
